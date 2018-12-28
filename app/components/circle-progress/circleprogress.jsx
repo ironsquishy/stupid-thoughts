@@ -1,7 +1,10 @@
 import React from 'react';
+
+
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import purple from '@material-ui/core/colors/purple';
+
 
 const styles = theme => ({
     progress : {
@@ -9,11 +12,18 @@ const styles = theme => ({
     }
 });
 
-function CircleProgress(_props){
+let CircleProgress = (_props)=>{
     const { classes } = _props;
+    const gridProps = {
+        direction : 'row',
+        justify : 'center',
+        alignItems : 'center'
+    }
     return (
         <React.Fragment>
-            <CircularProgress className={classes.progress} style={{ color: purple[500] }} thickness={7} size={100}/>
+            <Grid container {...gridProps}>
+                <CircularProgress className={classes.progress} thickness={5} size={100}/>
+            </Grid>
         </React.Fragment>
     );
 }

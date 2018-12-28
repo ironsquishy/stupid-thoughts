@@ -1,4 +1,7 @@
 import FetchWebsocket from './fetch_websocket';
 import Fetch_Data from './fetch_data';
 
-export default {Fetch_Data, FetchWebsocket};
+import * as AlertActions from './alertActions';
+import * as UserActions from './userActions';
+
+export default { Fetch_Data, FetchWebsocket, AlertActions, UserActions};

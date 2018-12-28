@@ -1,19 +1,40 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = (theme) =>({
+    root : {}
+})
 
 const ChartLine = ({classes, data}) => {
     
     var chartData = translateData(data);
 
     return(
-        <LineChart width={600} height={500} data={chartData} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-            <XAxis dataKey="time"/>
-            <YAxis domain={[4000, 8000]} scale="log"/>
-            <CartesianGrid strokeDasharray="10 10"/>
-            <Line type="monotone" dataKey="price" stroke="#8884d8" />
-            <Line type="monotone" dataKey="sma" stroke="#82ca9d" /> 
-      </LineChart>
+        <ResponsiveContainer width="99%" height={400}>
+            <LineChart data={chartData}>
+                <XAxis dataKey="time"/>
+                <YAxis domain={[1000, 8000]} scale="log"/>
+                <CartesianGrid vertical={false} strokeDasharray="3 3"/>
+                <Legend />
+                <Tooltip />
+                <Line type="monotone" dataKey="price" stroke="#8884d8" />
+                <Line type="monotone" dataKey="sma" stroke="#82ca9d" /> 
+            </LineChart>
+        </ResponsiveContainer>
     );
+
+    // return(
+        
+    //     <LineChart width={1000} height={500} data={chartData} margin={{top: 10, right: 30, left: 0, bottom: 0}}>
+    //         <XAxis dataKey="time"/>
+    //         <YAxis domain={[4000, 8000]} scale="log"/>
+    //         <CartesianGrid strokeDasharray="10 10"/>
+    //         <Line type="monotone" dataKey="price" stroke="#8884d8" />
+    //         <Line type="monotone" dataKey="sma" stroke="#82ca9d" /> 
+    //     </LineChart>
+        
+    // );
 }
 
 function translateData(data){
@@ -41,4 +62,4 @@ function translateData(data){
     return outData;
 }
 
-export default ChartLine;
+export default withStyles(styles)(ChartLine);

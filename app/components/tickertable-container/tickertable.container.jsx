@@ -17,7 +17,8 @@ const styles = theme => ({
     root: {
         width: '100%',
         marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto'
+        overflowX: 'auto',
+        backgroundColor: '#888988'
       },
       table: {
         minWidth: 700
@@ -34,7 +35,7 @@ class TickerTable extends React.Component{
 
     }
     componentDidMount(){
-        this.props.FetchWebsock();
+        //this.props.FetchWebsock();
     }
 
     render(){
