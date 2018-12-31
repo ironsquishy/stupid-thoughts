@@ -1,4 +1,4 @@
-require('dotenv').config;
+require('dotenv').config();
 
 
 const path = require('path');
@@ -40,19 +40,9 @@ let config = {
                 test : /\.jsx$/,
                 exclude : /node_modules/,
                 use : {
-                    loader : 'babel-loader',
-                    // options : {
-                    //     presets : ["env", "react"]
-                    // }
+                    loader : 'babel-loader'
                 }
             },
-            // {
-            //     test : /\.scss$/,
-            //     use : ['css-hot-loader'].concat(ExtractTestWebpackPlugin.extract({
-            //         fallback : 'style-loader',
-            //         use : ['css-loader', 'sass-loader', 'postcss-loader']
-            //     }))
-            // },
             {
                 test : /\.css$/,
                 use : [{

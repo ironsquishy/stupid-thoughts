@@ -45,7 +45,8 @@ class Login extends React.Component{
 
         this.state = {
             username : '',
-            password : ''
+            password : '',
+            badRequest : false
         };
 
         this.gridProps = {
@@ -56,13 +57,14 @@ class Login extends React.Component{
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.closeAlert = this.closeAlert.bind(this);
     }
 
     handleSubmit(e){
         e.preventDefault();
-        console.log('User login:', new Date().toLocaleTimeString());
         
-    }
+        //this.setState({ badRequest : true});
+    }   
 
     handleChange(e){
         
@@ -77,21 +79,19 @@ class Login extends React.Component{
 
     componentDidMount(){
         this.setState({ username : '', password : ''});
-        this.badRequest = true;
     }
 
-    loginFailure(){
-        if(this.badRequest){
-            return <AlertBanner/>
-        }
+    closeAlert(e){
+        this.setState({ badRequest : false });
     }
+
 
     render(){
         const { classes } = this.props;
        return ( 
         <Grid container {...this.gridProps} className={classes.gridStyles}>
             <Paper className={classes.root} elevation={1}>
-                    {this.loginFailure()}
+                    <AlertBanner open={this.state.badRequest} onDismissAlert={this.closeAlert}/>
                     <form className={classes.container} autoComplete="off" onSubmit={this.handleSubmit}>
                         <Typography align="center" variant="headline" component="h1">
                             Login
@@ -128,6 +128,7 @@ class Login extends React.Component{
                             variant="outlined"
                             color="primary"
                             className={classes.button}
+                            onSubmit={this.handleSubmit}
                         >
                             Submit
                         </Button>
