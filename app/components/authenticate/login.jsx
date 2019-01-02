@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import AlertBanner from '../alert-banner/alertbanner';
 
+import { UserActions } from '../../actions';
 
 const styles = theme => ({
     root: {
@@ -63,7 +64,6 @@ class Login extends React.Component{
     handleSubmit(e){
         e.preventDefault();
         
-        //this.setState({ badRequest : true});
     }   
 
     handleChange(e){

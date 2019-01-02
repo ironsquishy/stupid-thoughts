@@ -1,6 +1,7 @@
-import UserService  from '../services';
+import { UserServices }  from '../services';
 
-import { AlertActions } from './';
+import * as AlertActions from './alertActions';
+
 import Utils from '../utils';
 
 export function login(username, password){

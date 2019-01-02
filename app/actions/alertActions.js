@@ -1,14 +1,14 @@
-import { ALERTACTIONS } from '../utils';
+import Utils from '../utils';
 
 export function success(message){
-    return { type : ALERTACTIONS.SUCCESS, message };
+    return { type : Utils.ALERTACTIONS.SUCCESS, message };
 }
 
 export function error(message){
-    return { type: ALERTACTIONS.ERROR, message };
+    return { type: Utils.ALERTACTIONS.ERROR, message };
 }
 
 export function clear(){
-    return { type : ALERTACTIONS.CLEAR };
+    return { type : Utils.ALERTACTIONS.CLEAR };
 }
 

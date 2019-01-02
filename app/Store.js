@@ -5,22 +5,17 @@ import RootReducers from './reducers';
 import promise from 'redux-promise';
 import thunk from 'redux-thunk';
 
-//Dev debugging
-import devTools from 'remote-redux-devtools';
+/*Develpoment*/
 import logger from 'redux-logger';
+//Browser Debugger
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middleware = applyMiddleware(thunk, promise, logger);
 
-// const Store = createStore(
-//     RootReducers, 
-//         compose(middleware, devTools({
-//             name: 'Web',
-//             hostname : 'localhost',
-//             port : 5678
-//         })
-//     )
-// );
+const Store = createStore(RootReducers, /* preloadedState, */ composeEnhancers(middleware));
 
-const Store = createStore(RootReducers, middleware);
+/*Production*/
+//const middleware = applyMiddleware(thunk, promise);
+//const Store = createStore(RootReducers, middleware);
 
 export default Store;
