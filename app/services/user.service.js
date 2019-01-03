@@ -1,4 +1,4 @@
-import API_URL from '../utils';
+import Utils from '../utils';
 
 export function login (username, password){
 
@@ -10,7 +10,7 @@ export function login (username, password){
         body : JSON.stringify({ username, password }) 
     };
 
-    return fetch(`${API_URL}/user/authenticate`, request)
+    return fetch(`${Utils.API_URL}/user/authenticate`, request)
         .then(handleResponse)
         .then(user => {
             
@@ -18,7 +18,7 @@ export function login (username, password){
                 localStorage.setItem(user, JSON.stringify(user));
             }
             return user;
-        });
+        }).catch(handleError);
 }
 
 export function logout(){
@@ -34,7 +34,7 @@ export function register(user){
         body : JSON.stringify(user)
     };
 
-    return fetch(`${API_URL}/user/register`, request).then(handleResponse);
+    return fetch(`${Utils.API_URL}/user/register`, request).then(handleResponse);
 }
 
 export function deleteUser(id){
@@ -43,12 +43,11 @@ export function deleteUser(id){
         headers : null
     }
 
-    return fetch(`${API_URL}/user/${id}`, request).then(handleResponse);
+    return fetch(`${Utils.API_URL}/user/${id}`, request).then(handleResponse);
 }
 
 
 function handleResponse(res){
-
     return res.text().then(text => {
         const data = text.JSON.parse(text);
         if(!res.ok){
@@ -64,4 +63,9 @@ function handleResponse(res){
         return data;
     })
 
+}
+
+function handleError(err){
+    
+    return Promise.reject('Unable to connect to server...');
 }

@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import AlertBanner from '../alert-banner/alertbanner';
 
-import { UserActions } from '../../actions';
+import {login} from '../../actions/userActions';
 
 const styles = theme => ({
     root: {
@@ -46,8 +46,7 @@ class Login extends React.Component{
 
         this.state = {
             username : '',
-            password : '',
-            badRequest : false
+            password : ''
         };
 
         this.gridProps = {
@@ -58,12 +57,12 @@ class Login extends React.Component{
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.closeAlert = this.closeAlert.bind(this);
     }
 
     handleSubmit(e){
         e.preventDefault();
-        
+        /*Login*/
+        this.props.login(this.state.username, this.state.password);
     }   
 
     handleChange(e){
@@ -81,17 +80,11 @@ class Login extends React.Component{
         this.setState({ username : '', password : ''});
     }
 
-    closeAlert(e){
-        this.setState({ badRequest : false });
-    }
-
-
     render(){
-        const { classes } = this.props;
+       const { classes, user } = this.props;
        return ( 
         <Grid container {...this.gridProps} className={classes.gridStyles}>
             <Paper className={classes.root} elevation={1}>
-                    <AlertBanner open={this.state.badRequest} onDismissAlert={this.closeAlert}/>
                     <form className={classes.container} autoComplete="off" onSubmit={this.handleSubmit}>
                         <Typography align="center" variant="headline" component="h1">
                             Login
@@ -143,4 +136,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 }
 
-export default connect(mapToState)(withStyles(styles)(Login));
+export default connect(mapToState, {login})(withStyles(styles)(Login));

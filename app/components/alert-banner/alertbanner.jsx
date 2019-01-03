@@ -113,7 +113,7 @@ class AlertBanner extends React.Component{
     }
 
     render(){
-        const {classes, open } = this.props;
+        const {classes, open, message } = this.props;
         return (
             <Snackbar
                 anchorOrigin={{
@@ -127,7 +127,7 @@ class AlertBanner extends React.Component{
                 <AlertContentWrapper
                     onClose={this.handleClose}
                     variant="error"
-                    message="Sorry unable to process request"
+                    message={message}
                 />
             </Snackbar>
           

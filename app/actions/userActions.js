@@ -7,15 +7,14 @@ import Utils from '../utils';
 export function login(username, password){
     return dispatch => {
         dispatch( { type : Utils.USERACTION.LOGIN_REQUEST, user : username } );
-        UserService.login(username, password)
+        UserServices.login(username, password)
         .then( user => {
             dispatch( { type : Utils.USERACTION.LOGIN_SUCCESS, user : username } );
-
             Utils.History.push('/');
         })
         .catch( err => {
             dispatch( { type : Utils.USERACTION.LOGIN_FAILURE, error : err.toString() });
-            dispatch( { type : AlertActions.error(err.toString())} );
+            dispatch( { type : Utils.ALERTACTIONS.ERROR, message: err.toString() });
         });
     };
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
@@ -18,11 +18,15 @@ import CircleProgress from './components/circle-progress/circleprogress';
 import TickerTableContainer from './components/tickertable-container/tickertable.container';
 import ChartContainer from './components/chart-container/chart.container';
 import Login from './components/authenticate/login';
+import AlertBanner from './components/alert-banner/alertbanner';
+import login from './components/authenticate/login';
 
-import Store from './Store';
+
+/*Actions*/
+import {clear} from './actions/alertActions';
 
 import './global.css';
-import login from './components/authenticate/login';
+
 
 
 // const Home = (_props) => {
@@ -40,59 +44,31 @@ import login from './components/authenticate/login';
 //     );
 // }
 
-export default class App extends React.Component{
+class App extends React.Component{
     constructor(props){
         super(props);
-        this.state = {};
-        this.state.isAppReady = false;
-        this.state.isAuthenticated = false;
         this.gridOptions = {
             direction : 'row',
             justify : 'center',
             alignItems : 'center'
         }
+
+        this.closeAlert = this.closeAlert.bind(this);
     }
-    readyApp(){
-        if(!this.state.isAppReady){
-            return (
-                <React.Fragment>
-                    <Grid container {...this.gridOptions}>
-                        <CircleProgress />
-                    </Grid>
-               </React.Fragment>    
-            )
-        }
+    
+    componentDidMount(){}
+
+    closeAlert(e){
+        this.props.clear();
+    }
+
+    render(){
+        const { wsData,  Alerts, User, Register} = this.props;
 
         return (
-            <React.Fragment>
-                <AppBar title="Crypto :)">
-                    <ul>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                    </ul>
-                </AppBar>
-                
-                <Route path="/" component={Home}/>
-                <Route path="/login" component={Login} />
-            </React.Fragment> 
-        );
-    }
-    componentDidMount(){
-        setTimeout(()=> {
-            this.setState({isAppReady : true});
-            this.setState({isAuthenticated : false});
-        }, 2000);
-    }
-    render(){   
-        return (
-            <Provider store={Store}>
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <div>
-                    <AppBar title="Crypto :)">
+                    <AppBar title="Crypto">
                         <ul>
                             <li>
                                 <Link to="/login">Login</Link>
@@ -102,12 +78,17 @@ export default class App extends React.Component{
                             </li>
                         </ul>
                     </AppBar>
-                        
+                    <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message}/>
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login} />
-                    </div>
-                </MuiThemeProvider>
-            </Provider>
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
+
+const mapToState = function( _state = {}){
+    return {..._state};
+}
+
+export default connect(mapToState, {clear})(App);
