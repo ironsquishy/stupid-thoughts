@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
+/*Components*/
+import { register } from '../../actions/userActions';
+
+
 const styles = theme => ({
     root: {
         //...theme.mixins.gutters(),
@@ -57,7 +61,8 @@ class Register extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        console.log('New user registered:', new Date().toLocaleTimeString());    
+        console.log('New user registered:', new Date().toLocaleTimeString());   
+        this.props.register(this.state.username, this.state.password); 
     }
 
     handleChange(e){
@@ -131,4 +136,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 }
 
-export default connect(mapToState)(withStyles(styles)(Register));
+export default connect(mapToState, {register})(withStyles(styles)(Register));

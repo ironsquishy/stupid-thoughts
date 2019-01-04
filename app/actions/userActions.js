@@ -25,12 +25,12 @@ export function logout (){
    return { type : Utils.USERACTION.LOGOUT };
 }
 
-export function register(user){
+export function register(user, password){
     return dispatch => {
 
         dispatch({ type : Utils.USERACTION.REGISER_REQUEST, user});
 
-        UserService.register(user)
+        UserServices.register(user, password)
         .then( user => {
             dispatch( { type : Utils.USERACTION.REGISTER_SUCCESS, user });
 
@@ -39,7 +39,7 @@ export function register(user){
         })
         .catch( err => {
             dispatch( { type : Utils.USERACTION.REGISTER_FAILURE, error : err.toString() } );
-            dispatch( AlertActions.error( err.toString() ));
+            dispatch( { type : Utils.ALERTACTIONS.ERROR, message : err.toString() });
         });
     };
 }

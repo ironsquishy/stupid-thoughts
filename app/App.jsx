@@ -20,6 +20,8 @@ import ChartContainer from './components/chart-container/chart.container';
 import Login from './components/authenticate/login';
 import AlertBanner from './components/alert-banner/alertbanner';
 import login from './components/authenticate/login';
+import HeaderBar from './components/header-bar/headerbar';
+import SignUp from './components/authenticate/register';
 
 
 /*Actions*/
@@ -27,22 +29,6 @@ import {clear} from './actions/alertActions';
 
 import './global.css';
 
-
-
-// const Home = (_props) => {
-
-//     var { auth } = _props;
-//     if(!auth){
-//         return(<Redirect to={{ pathname: '/login'}} />);
-//     }
-
-//     return (
-//         <React.Fragment>
-//             <ChartContainer />
-//             <TickerTableContainer />
-//         </React.Fragment>
-//     );
-// }
 
 class App extends React.Component{
     constructor(props){
@@ -63,26 +49,21 @@ class App extends React.Component{
     }
 
     render(){
-        const { wsData,  Alerts, User, Register} = this.props;
+        const { wsData,  Alerts, User} = this.props;
 
         return (
+            <Router>
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <div>
-                    <AppBar title="Crypto">
-                        <ul>
-                            <li>
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                        </ul>
-                    </AppBar>
                     <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message}/>
+                    <HeaderBar />
+
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login} />
+                    <Route path="/register" component={SignUp} />
                 </div>
             </MuiThemeProvider>
+            </Router>
         );
     }
 }

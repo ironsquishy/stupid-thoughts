@@ -25,13 +25,13 @@ export function logout(){
     localStorage.removeItem('user');
 }
 
-export function register(user){
+export function register(user, password){
     var request = {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json'
         },
-        body : JSON.stringify(user)
+        body : JSON.stringify({username : user, password : password})
     };
 
     return fetch(`${Utils.API_URL}/user/register`, request).then(handleResponse);

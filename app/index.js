@@ -8,11 +8,9 @@ import App from './App';
 import Store from './Store';
 
 ReactDOM.render(
-    <Router>
         <Provider store={Store}>
             <App />
-        </Provider>
-    </Router>,
+        </Provider>,
     document.getElementById('root')
 );
 
