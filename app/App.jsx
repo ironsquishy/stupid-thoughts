@@ -22,11 +22,13 @@ import AlertBanner from './components/alert-banner/alertbanner';
 import login from './components/authenticate/login';
 import HeaderBar from './components/header-bar/headerbar';
 import SignUp from './components/authenticate/register';
+import Logout from './components/authenticate/logout';
 
 
 /*Actions*/
 import {clear} from './actions/alertActions';
 
+/*App Theme CSS*/
 import './global.css';
 
 
@@ -42,7 +44,12 @@ class App extends React.Component{
         this.closeAlert = this.closeAlert.bind(this);
     }
     
-    componentDidMount(){}
+    componentDidMount(){
+        /*Check for local User*/
+        const { User } =  this.props;
+        console.log('User:', User);
+        
+    }
 
     closeAlert(e){
         this.props.clear();
@@ -61,6 +68,8 @@ class App extends React.Component{
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={SignUp} />
+                    <Route path="/home" component={Home}/>
+                    <Route path="/logout" component={Logout} />
                 </div>
             </MuiThemeProvider>
             </Router>

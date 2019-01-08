@@ -10,11 +10,11 @@ export function login(username, password){
         UserServices.login(username, password)
         .then( user => {
             dispatch( { type : Utils.USERACTION.LOGIN_SUCCESS, user : username } );
-            Utils.History.push('/');
+            //Utils.History.push('/home');
         })
         .catch( err => {
-            dispatch( { type : Utils.USERACTION.LOGIN_FAILURE, error : err.toString() });
-            dispatch( { type : Utils.ALERTACTIONS.ERROR, message: err.toString() });
+            dispatch( { type : Utils.USERACTION.LOGIN_FAILURE, error : err.message });
+            dispatch( { type : Utils.ALERTACTIONS.ERROR, message: err.message });
         });
     };
 }
@@ -34,12 +34,14 @@ export function register(user, password){
         .then( user => {
             dispatch( { type : Utils.USERACTION.REGISTER_SUCCESS, user });
 
-            Utils.History.push('/login');
-            dispatch( AlertActions.success('Registration Successful'));
+            
+            dispatch( {type: Utils.ALERTACTIONS.SUCCESS, message: user.message } );
+
+            Utils.History.push('/home');
         })
         .catch( err => {
-            dispatch( { type : Utils.USERACTION.REGISTER_FAILURE, error : err.toString() } );
-            dispatch( { type : Utils.ALERTACTIONS.ERROR, message : err.toString() });
+            dispatch( { type : Utils.USERACTION.REGISTER_FAILURE, error : err.message } );
+            dispatch( { type : Utils.ALERTACTIONS.ERROR, message : err.message });
         });
     };
 }

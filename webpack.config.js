@@ -93,7 +93,7 @@ let config = {
         inline : true,
         compress : true,
         proxy : {
-            'api' : 'localhost:3000'
+            '/user' : 'http://localhost:3000'
         }
     },
     devtool : 'eval-source-map'

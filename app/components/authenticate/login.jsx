@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -14,10 +15,10 @@ import {login} from '../../actions/userActions';
 
 const styles = theme => ({
     root: {
-        //...theme.mixins.gutters(),
+        // ...theme.mixins.gutters(),
         // paddingTop: theme.spacing.unit * 2,
         // paddingBottom: theme.spacing.unit * 2,
-        //padding:  theme.spacing.unit * 10
+        // padding:  theme.spacing.unit * 10
     },
     container: {
         padding:  theme.spacing.unit * 10,
@@ -62,7 +63,12 @@ class Login extends React.Component{
     handleSubmit(e){
         e.preventDefault();
         /*Login*/
-        this.props.login(this.state.username, this.state.password);
+        try {
+            this.props.login(this.state.username, this.state.password);
+        } catch (signInError){
+            console.warn('Error occured signing in...');
+        }
+        
     }   
 
     handleChange(e){
@@ -81,7 +87,10 @@ class Login extends React.Component{
     }
 
     render(){
-       const { classes, user } = this.props;
+       const { classes, User } = this.props;
+        if(User.loggedIn){
+            return (<Redirect to="/home" />)
+        }
        return ( 
         <Grid container {...this.gridProps} className={classes.gridStyles}>
             <Paper className={classes.root} elevation={1}>

@@ -1,6 +1,6 @@
 import Utils from '../utils';
 
-let user = JSON.parse(localStorage.getItem('user'));
+let user = JSON.parse(localStorage.getItem('user')) || sessionStorage.getItem('user');
 const initialState = user ? { loggedIn : true, user } : { loggedIn : false};
 
 export default function authenticationReducer(_state = initialState, _action){

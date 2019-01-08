@@ -1,4 +1,5 @@
 import Utils from '../utils';
+import { PlacesRoomService } from 'material-ui/svg-icons';
 
 export function login (username, password){
 
@@ -10,12 +11,21 @@ export function login (username, password){
         body : JSON.stringify({ username, password }) 
     };
 
-    return fetch(`${Utils.API_URL}/user/authenticate`, request)
+    // return fetch(`${Utils.API_URL}/user/authenticate`, request)
+    //     .then(handleResponse)
+    //     .then(user => {
+            
+    //         if(user.token){
+    //             localStorage.setItem(user, JSON.stringify(user));
+    //         }
+    //         return user;
+    //     }).catch(handleError);
+    return fetch(`/user/authenticate`, request)
         .then(handleResponse)
         .then(user => {
             
             if(user.token){
-                localStorage.setItem(user, JSON.stringify(user));
+                localStorage.setItem('user', JSON.stringify(user));
             }
             return user;
         }).catch(handleError);
@@ -34,7 +44,15 @@ export function register(user, password){
         body : JSON.stringify({username : user, password : password})
     };
 
-    return fetch(`${Utils.API_URL}/user/register`, request).then(handleResponse);
+    return fetch(`/user/register`, request)
+        .then(handleResponse)
+        .then(user => {
+            if(user.token){
+                localStorage.setItem('user', JSON.stringify(user));
+            }
+            return user;
+        })
+        .catch(handleError);
 }
 
 export function deleteUser(id){
@@ -48,24 +66,31 @@ export function deleteUser(id){
 
 
 function handleResponse(res){
-    return res.text().then(text => {
-        const data = text.JSON.parse(text);
-        if(!res.ok){
-            if(res.status == 401){
-                logout();
-                location.reload(true);
-            }
+    if(!res.ok){
+        var errorObj = {};
+        errorObj.status = res.status;
+        errorObj.message = res.statusText;
+        return Promise.reject(errorObj);
+    }
 
-            let error = (data && data.message) || res.statusText;
-            return Promise.reject(error);
-        }
+    return res.json();
+    // return res.text().then(text => {
+    //     const data = text.JSON.parse(text);
+    //     if(!res.ok){
+    //         if(res.status == 401){
+    //             logout();
+    //             location.reload(true);
+    //         }
 
-        return data;
-    })
+    //         let error = (data && data.message) || res.statusText;
+    //         return Promise.reject(error);
+    //     }
+
+    //     return data;
+    // })
 
 }
 
 function handleError(err){
-    
-    return Promise.reject('Unable to connect to server...');
+    return Promise.reject(err);
 }

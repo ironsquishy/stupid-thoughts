@@ -15,6 +15,9 @@ const HeaderBar = (props) => {
                 <li>
                     <Link to="/register">Sign up</Link>
                 </li>
+                <li>
+                    <Link to="/logout">Logout</Link>
+                </li>
             </ul>
         </AppBar>
     )

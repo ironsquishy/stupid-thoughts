@@ -14,9 +14,9 @@ class Home extends React.Component{
     }
 
     render(){
-        var { auth } = this.props;
+        var { User } = this.props;
         
-        if(!auth){
+        if(!User.loggedIn){
             return (<Redirect to={{ pathname: '/login'}} />);
         }
 
