@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { BrowserRouter as Router} from "react-router-dom";
 import {Provider} from 'react-redux';
 
-import App from './App';
 import Store from './Store';
+import App from './App';
 
-ReactDOM.render(
+const Index = (props) => {
+    return (
         <Provider store={Store}>
             <App />
-        </Provider>,
-    document.getElementById('root')
-);
+        </Provider>
+    )
+}
+ReactDOM.render( <Index />, document.getElementById('root') );
 

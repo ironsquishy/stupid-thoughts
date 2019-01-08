@@ -95,7 +95,7 @@ class Login extends React.Component{
         <Grid container {...this.gridProps} className={classes.gridStyles}>
             <Paper className={classes.root} elevation={1}>
                     <form className={classes.container} autoComplete="off" onSubmit={this.handleSubmit}>
-                        <Typography align="center" variant="headline" component="h1">
+                        <Typography align="center" variant="h4">
                             Login
                         </Typography>
 

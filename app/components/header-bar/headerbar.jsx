@@ -1,14 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AppBar from 'material-ui/AppBar';
+/*Material UI components*/
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const Styles = (theme) => ({
+    grow: {
+        flexGrow: 1,
+      }
+});
 
 const HeaderBar = (props) => {
-    const {auth} = props;
+    const {auth, classes } = props;
 
     return (
-        <AppBar title="Crypto">
-             <ul>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
+                    Crypto Fun!
+                </Typography>
+
+                <Button color="inherit">Login</Button>
+                <Button color="inherit">Sign UP</Button>
+                <Button color="inherit">Logout</Button>
+            </Toolbar>
+             {/* <ul>
                 <li>
                     <Link to="/login">Login</Link>
                 </li>
@@ -18,9 +39,9 @@ const HeaderBar = (props) => {
                 <li>
                     <Link to="/logout">Logout</Link>
                 </li>
-            </ul>
+            </ul> */}
         </AppBar>
     )
 };
 
-export default HeaderBar;
+export default withStyles(Styles, { withTheme : true })(HeaderBar);
