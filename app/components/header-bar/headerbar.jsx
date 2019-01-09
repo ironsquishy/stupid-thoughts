@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 /*Material UI components*/
@@ -15,33 +16,53 @@ const Styles = (theme) => ({
       }
 });
 
-const HeaderBar = (props) => {
-    const {auth, classes } = props;
+class HeaderBar extends React.Component{
+    constructor(props){
+        super(props);
 
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
-                    Crypto Fun!
-                </Typography>
+        this.handleLoginBtn = this.handleLoginBtn.bind(this);
+        this.handleLogoutBtn = this.handleLogoutBtn.bind(this);
+        this.handleSignUpBtn = this.handleSignUpBtn.bind(this);
+    }
 
-                <Button color="inherit">Login</Button>
-                <Button color="inherit">Sign UP</Button>
-                <Button color="inherit">Logout</Button>
-            </Toolbar>
-             {/* <ul>
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
-                <li>
-                    <Link to="/register">Sign up</Link>
-                </li>
-                <li>
-                    <Link to="/logout">Logout</Link>
-                </li>
-            </ul> */}
-        </AppBar>
-    )
-};
+    componentDidMount(){
 
-export default withStyles(Styles, { withTheme : true })(HeaderBar);
+    }
+
+    handleLoginBtn(e){
+        this.props.history.push('/login');
+    }
+
+    handleSignUpBtn(e){
+        this.props.history.push('/register');
+    }
+
+    handleLogoutBtn(e) {
+        this.props.history.push('/logout');
+    }
+
+    render(){
+        const {classes, User, Alerts } = this.props;
+        console.log('Header props', this.props);
+        return (
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
+                        Dont know yet
+                    </Typography>
+    
+                    <Button color="inherit" onClick={this.handleLoginBtn}>Login</Button>
+                    <Button color="inherit" onClick={this.handleSignUpBtn}>Sign UP</Button>
+                    <Button color="inherit" onClick={this.handleLogoutBtn}>Logout</Button>
+                </Toolbar>
+            </AppBar>
+        )
+    }
+
+}
+
+const mapToState = function( state = {} ){
+    return { ...state };
+}
+
+export default withStyles(Styles, { withTheme : true })(connect(mapToState)(HeaderBar));

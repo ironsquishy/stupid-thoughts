@@ -52,7 +52,6 @@ class App extends React.Component{
     componentDidMount(){
         /*Check for local User*/
         const { User } =  this.props;
-        console.log('User:', User);
         
     }
 
@@ -64,20 +63,20 @@ class App extends React.Component{
         const { wsData,  Alerts, User} = this.props;
 
         return (
-                <Router>
+                // <Router>
                     <MuiThemeProvider theme={AppTheme}>
                         <React.Fragment>
                             <CssBaseline/>
                             <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message}/>
                             <HeaderBar />
-                            <Route exact path="/" component={Home}/>
+                            {/* <Route exact path="/" component={Home}/>
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={SignUp} />
                             <Route path="/home" component={Home}/>
-                            <Route path="/logout" component={Logout} />
+                            <Route path="/logout" component={Logout} /> */}
                         </React.Fragment>
                     </MuiThemeProvider>
-                </Router>
+                // </Router>
         );
     }
 }
