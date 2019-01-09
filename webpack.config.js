@@ -60,29 +60,29 @@ let config = {
                     }
                 ]
             },
-            // {
-            //     test : /\.(jpe?g|png|gif|svg)$/i,
-            //     loaders : ['file-loader?context=app/assets/images/&name=images/[path][name].[ext]', {
-            //         loader : 'image-webpack-loader',
-            //         query : {
-            //             mozjpeg : {
-            //                 progressive : true
-            //             },
-            //             gifsicle : {
-            //                 interlaced : true
-            //             },
-            //             optipng : {
-            //                 optimizationLevel : 4
-            //             },
-            //             pngqaunt : {
-            //                 quality : '75-90',
-            //                 speed : 3
-            //             }
-            //         }
-            //     }],
-            //     exclude : /node_modules/,
-            //     include : __dirname
-            // }
+            {
+                test : /\.(jpe?g|png|gif|svg)$/i,
+                loaders : ['file-loader?context=app/assets/images/&name=images/[path][name].[ext]', {
+                    loader : 'image-webpack-loader',
+                    query : {
+                        mozjpeg : {
+                            progressive : true
+                        },
+                        gifsicle : {
+                            interlaced : true
+                        },
+                        optipng : {
+                            optimizationLevel : 4
+                        },
+                        pngqaunt : {
+                            quality : '75-90',
+                            speed : 3
+                        }
+                    }
+                }],
+                exclude : /node_modules/,
+                include : __dirname
+            }
         ]
     },
 

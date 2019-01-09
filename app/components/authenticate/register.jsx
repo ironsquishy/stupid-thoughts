@@ -88,7 +88,7 @@ class Register extends React.Component{
                 
                     <form className={classes.container} autoComplete="off" onSubmit={this.handleSubmit}>
                         <Typography align="center" variant="headline" component="h1">
-                            Register Account
+                            Create Stupid Account
                         </Typography>
 
                         <TextField 

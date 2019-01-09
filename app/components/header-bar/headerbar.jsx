@@ -19,7 +19,6 @@ const Styles = (theme) => ({
 class HeaderBar extends React.Component{
     constructor(props){
         super(props);
-
         this.handleLoginBtn = this.handleLoginBtn.bind(this);
         this.handleLogoutBtn = this.handleLogoutBtn.bind(this);
         this.handleSignUpBtn = this.handleSignUpBtn.bind(this);
@@ -43,17 +42,16 @@ class HeaderBar extends React.Component{
 
     render(){
         const {classes, User, Alerts } = this.props;
-        console.log('Header props', this.props);
         return (
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
-                        Dont know yet
+                        Stupid Thoughts
                     </Typography>
     
-                    <Button color="inherit" onClick={this.handleLoginBtn}>Login</Button>
-                    <Button color="inherit" onClick={this.handleSignUpBtn}>Sign UP</Button>
-                    <Button color="inherit" onClick={this.handleLogoutBtn}>Logout</Button>
+                    { !User.loggedIn && <Button color="inherit" onClick={this.handleLoginBtn}>Login</Button>}
+                    { !User.loggedIn && <Button color="inherit" onClick={this.handleSignUpBtn}>Sign UP</Button>}
+                    { User.loggedIn && <Button color="inherit" onClick={this.handleLogoutBtn}>Logout</Button>}
                 </Toolbar>
             </AppBar>
         )

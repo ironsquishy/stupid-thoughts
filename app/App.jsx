@@ -60,15 +60,15 @@ class App extends React.Component{
     }
 
     render(){
-        const { wsData,  Alerts, User} = this.props;
-
+        const { wsData,  Alerts, User, history } = this.props;
+    
         return (
                 // <Router>
                     <MuiThemeProvider theme={AppTheme}>
                         <React.Fragment>
                             <CssBaseline/>
-                            <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message}/>
-                            <HeaderBar />
+                            <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message} />
+                            <HeaderBar history={history}/>
                             {/* <Route exact path="/" component={Home}/>
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={SignUp} />

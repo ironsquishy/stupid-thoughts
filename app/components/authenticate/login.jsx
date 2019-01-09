@@ -96,7 +96,7 @@ class Login extends React.Component{
             <Paper className={classes.root} elevation={1}>
                     <form className={classes.container} autoComplete="off" onSubmit={this.handleSubmit}>
                         <Typography align="center" variant="h4">
-                            Login
+                            Stupid Login
                         </Typography>
 
                         <TextField 
