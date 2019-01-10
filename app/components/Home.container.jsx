@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
+/*Material UI*/
+import Typography from '@material-ui/core/Typography';
 
 /*Components*/
 import TickerTableContainer from './tickertable-container/tickertable.container';
@@ -22,8 +24,9 @@ class Home extends React.Component{
 
         return (
             <React.Fragment>
-                <ChartContainer />
-                <TickerTableContainer />
+                <Typography varient="h2" component="h2" align="center">"
+                    Hello Welcome to your new home.
+                </Typography>
             </React.Fragment>
         );
     }
