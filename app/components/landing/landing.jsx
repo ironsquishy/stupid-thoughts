@@ -35,6 +35,10 @@ class Landing extends React.Component{
         this.props.history.push('/login');
     }
 
+    componentDidMount(){
+        console.log('Landing page mounted...');
+    }
+
     render(){
         const { classes } = this.props;
         return(

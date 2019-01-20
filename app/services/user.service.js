@@ -1,5 +1,4 @@
 import Utils from '../utils';
-import { PlacesRoomService } from 'material-ui/svg-icons';
 
 export function login (username, password){
 

@@ -29,3 +29,15 @@ export const USERACTION = {
 
 }
 
+export const STPDPOSTACTION = {
+    /* Community action types */
+    COMMUNITYLATEST : 'STPDPOST_GET_LATEST',
+    COMMUNITYALL : 'STPDPOST_GET_ALL',
+    COMMUNITYBYHASH : 'STPDPOST_GET_HASH',
+
+    /*User actions types*/
+    CREATEPOST : 'STPDPOST_CREATE',
+    USERLATEST : 'STPDPOST_GET_USER_LATEST'
+
+};
+
