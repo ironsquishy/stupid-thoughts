@@ -6,6 +6,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
 
+const BuildENV = process.env.NODE_ENV || 'development';
+
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
     template : './app/index.html',
     filename : './index.html'
@@ -13,6 +15,7 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 
 
 let config = {
+    mode : BuildENV,
     stats : 'minimal',
     entry : './app/index.js',
     output : {

@@ -14,6 +14,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
+/* Components */
+import StupidPost from '../stupid-post/stupidpost';
 
 
 /*Custom Styles*/
@@ -67,8 +69,8 @@ class Landing extends React.Component{
                 
                 <div>
                     <Grid container spacing={40} className={classes.layout}>
-                        
-                        <Grid item xs={12} md={6}>
+                        <StupidPost date={new Date()} message="Hello world" owner="stupidGuy" />
+                        {/* <Grid item xs={12} md={6}>
                             <Card className={classes.card}>
                                 <div className={classes.cardDetails}>
                                     <CardContent>
@@ -89,7 +91,7 @@ class Landing extends React.Component{
                                     </CardContent>
                                 </div>
                             </Card>
-                        </Grid>
+                        </Grid> */}
 
                         <Grid item xs={12} md={6}>
                             <Card className={classes.card}>
