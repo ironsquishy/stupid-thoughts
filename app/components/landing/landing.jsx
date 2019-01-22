@@ -70,56 +70,7 @@ class Landing extends React.Component{
                 <div>
                     <Grid container spacing={40} className={classes.layout}>
                         <StupidPost date={new Date()} message="Hello world" owner="stupidGuy" />
-                        {/* <Grid item xs={12} md={6}>
-                            <Card className={classes.card}>
-                                <div className={classes.cardDetails}>
-                                    <CardContent>
-                                    <span className={classes.cardHead}>
-                                            <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
-                                                Ironsquishy
-                                            </Typography>
-                                            <Typography variant="subtitle1" color="textSecondary" align="right">
-                                                September 6th, 1979
-                                            </Typography>
-                                        </span>
-                                        <Typography component="h2" variant="h5">
-                                             Well you want to know what the F*#k is this?
-                                        </Typography>
-                                        <Typography variant="subtitle1" color="textSecondary">
-                                            yeah buddy!!
-                                        </Typography>
-                                    </CardContent>
-                                </div>
-                            </Card>
-                        </Grid> */}
-
-                        <Grid item xs={12} md={6}>
-                            <Card className={classes.card}>
-                                <div className={classes.cardDetails}>
-                                    <CardContent>
-                                        <span className={classes.cardHead}>
-                                            <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
-                                                Ironsquishy
-                                            </Typography>
-                                            <Typography variant="subtitle1" color="textSecondary" align="right">
-                                                September 6th, 1979
-                                            </Typography>
-                                        </span>
-                                        
-                                        <Typography component="h2" variant="h5">
-                                            It goes like this. You first need to create a Stupid account and that is it.
-                                            Then we have come up with a stupid though or idea to make a post.
-                                        </Typography>
-                                        <Typography variant="subtitle1" paragraph>
-                                            Response: But Steve wait I do not have any stupid thoughts or ideas!
-                                        </Typography>
-                                        <Typography variant="subtitle1" color="primary">
-                                            Continue reading...
-                                        </Typography>
-                                    </CardContent>
-                                </div>
-                            </Card>
-                        </Grid>
+                        <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/>
                     </Grid>
                 </div>
 

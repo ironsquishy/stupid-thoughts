@@ -4,10 +4,16 @@ import { connect } from 'react-redux';
 
 /*Material UI*/
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
 /*Components*/
 import TickerTableContainer from './tickertable-container/tickertable.container';
 import ChartContainer from './chart-container/chart.container';
+import StupidPost from './stupid-post/stupidpost';
+
+/*Styles*/
+import Styles from './homeStyles';
 
 
 class Home extends React.Component{
@@ -16,7 +22,7 @@ class Home extends React.Component{
     }
 
     render(){
-        var { User } = this.props;
+        var { classes, User } = this.props;
         
         if(!User.loggedIn){
             return (<Redirect to={{ pathname: '/login'}} />);
@@ -27,6 +33,10 @@ class Home extends React.Component{
                 <Typography varient="h2" component="h2" align="center">"
                     Hello Welcome to your new home.
                 </Typography>
+                <Grid container spacing={40} className={classes.layout}>
+                    <StupidPost date={new Date()} message="Welcome home dummy" owner="stupidGuy" />
+                    <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/>
+                </Grid>
             </React.Fragment>
         );
     }
@@ -36,4 +46,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 };
 
-export default connect(mapToState)(Home);
+export default connect(mapToState)(withStyles(Styles, { withTheme : true })(Home));

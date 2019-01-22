@@ -9,14 +9,18 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import { green } from '@material-ui/core/colors';
 
 const StupidPost = (_props) => {
-    const { classes, message, owner, responses, date, stpdHash } = _props;
+    const { classes, message, owner, responses, date, stpdHash, isVoting = true } = _props;
+
+    const statusDot = isVoting ? classes.greenDot : classes.redDot;
+
     return (
         <Grid item xs={12} md={6}>
             <Card className={classes.card}>
                 <div className={classes.cardDetails}>
-                    <CardContent>
+                    <CardContent className={classes.cardContentLayout}>
                         {/* Card header */}
                         <span className={classes.cardHead}>
                             <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
@@ -24,6 +28,8 @@ const StupidPost = (_props) => {
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary" align="right">
                                 {date.toLocaleDateString('en-US')}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
                             </Typography>
                         </span>
 
@@ -40,4 +46,4 @@ const StupidPost = (_props) => {
     );
 };
 
-export default withStyles(Styles)(StupidPost);
+export default withStyles(Styles, { withTheme : true })(StupidPost);

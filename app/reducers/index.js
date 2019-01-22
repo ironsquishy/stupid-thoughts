@@ -4,6 +4,7 @@ import WebSocketReducer from './websocket_reducer';
 import AuthenticationReducer from './authentication_reducer';
 import RegisterReducer from './registration_reducer';
 import AlertReducer from './alert_reducer';
+import StpdPostReducer from './stpdpost_reducer';
 
 
 const rootReducer = combineReducers({
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
     wsData : WebSocketReducer,
     User : AuthenticationReducer,
     Register : RegisterReducer,
-    Alerts : AlertReducer
+    Alerts : AlertReducer,
+    StpdPost : StpdPostReducer
 });
 
 export default rootReducer;
