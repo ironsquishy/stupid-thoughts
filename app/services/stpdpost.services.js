@@ -21,6 +21,21 @@ export function getCommunityPostsAll(_limit = 10){
     .catch(handleError);
 }
 
+export function createNewPost(newPost){
+    var request = {
+        method  : 'POST',
+        headers : {
+            'Content-Type' : 'application/json',
+            'Authorization': Utils.AuthHeader()
+        },
+        body : newPost
+    };
+
+    return fetch(`${Utils.API_URL}/stpdpost/create`, request)
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 function handleResponse(res){
     if(!res.ok){
         var errorObj = {};

@@ -5,12 +5,12 @@ export default function stpdPostActions(_state = {}, _action){
         
         case Utils.STPDPOSTACTION.COMMUNITYFETCH:
             return {
-                ..._state
+                ..._state,
             } 
         
         case Utils.STPDPOSTACTION.COMMUNITYLATEST:
             return {
-                ..._state
+                ...state, ..._action
             }
         
         case Utils.STPDPOSTACTION.COMMUNITYBYHASH:
@@ -21,6 +21,21 @@ export default function stpdPostActions(_state = {}, _action){
         case Utils.STPDPOSTACTION.COMMUNITY_FETCH_ERROR:
             return {
                 ..._state
+            }
+
+        case Utils.STPDPOSTACTION.CREATEPOST:
+            return {
+                ..._state
+            }
+        
+        case Utils.STPDPOSTACTION.CREATEPOST_SUCCESS : 
+            return {
+                ..._state, ..._action
+            }
+        
+        case Utils.STPDPOSTACTION.CREATEPOST_FAILURE :
+            return {
+                ..._state, ..._action
             }
         
         default :

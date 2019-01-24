@@ -14,3 +14,22 @@ export function GetCommunityLatestPosts(){
         })
     };
 }
+
+
+export function CreateNewPost(creaedPost){
+
+    return dispatch =>{
+        console.log('New Post created:', new Date().toLocaleTimeString());
+        dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST });
+
+        StpdPostServices.createNewPost(creaedPost)
+        .then( resPost => {
+
+            dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_SUCCESS, isError : false });
+        })
+        .catch( err => {
+
+            dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_FAILURE, isError : true, message : err.message});
+        })
+    }
+}

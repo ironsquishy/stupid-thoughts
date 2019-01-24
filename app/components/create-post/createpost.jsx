@@ -13,6 +13,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 /*Components*/
 
+/*Actions*/
+import { CreateNewPost } from '../../actions/stpdPostActions';
 
 /*Style*/
 import Styles from './createpoststyles';
@@ -26,6 +28,11 @@ class CreatePost extends React.Component{
     handlePostSubmit(e){
         e.preventDefault();
         console.log('Send stupid post');
+
+        this.props.CreateNewPost({
+            owner : 'test2',
+            message :'From frontend first test...'
+        })
     }
 
     componentDidMount(){
@@ -83,4 +90,4 @@ const mapToState = function ( _state = {}){
     return { ..._state };
 }
 
-export default connect(mapToState)(withStyles(Styles, { withTheme : true })(CreatePost));
+export default connect(mapToState, { CreateNewPost })(withStyles(Styles, { withTheme : true })(CreatePost));
