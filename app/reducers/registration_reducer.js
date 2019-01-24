@@ -7,7 +7,6 @@ const initialState = {
 }
 
 export default function registrationReducer( _state = initialState, _action){
-
     switch(_action.type){
         
         case Utils.USERACTION.REGISER_REQUEST :

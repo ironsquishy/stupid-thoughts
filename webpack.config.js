@@ -96,8 +96,10 @@ let config = {
         inline : true,
         compress : true,
         proxy : {
-            '/user' : 'http://stpdthghtapi.ironsquishy.com',
-            '/stpdpost' : 'http://stpdthghtapi.ironsquishy.com'
+            // '/user' : 'http://stpdthghtapi.ironsquishy.com',
+            // '/stpdpost' : 'http://stpdthghtapi.ironsquishy.com'
+            '/user' : 'http://localhost:3000',
+            '/stpdpost' : 'http://localhost:3000'
         }
     },
     devtool : 'eval-source-map'

@@ -8,30 +8,31 @@ export default function authenticationReducer(_state = initialState, _action){
         case Utils.USERACTION.LOGIN_REQUEST :
             return { 
                 loggedIn : false,
-                user : _action.user,
-                ..._state
+                user : _action.user
             }
         
         case Utils.USERACTION.LOGIN_SUCCESS :
             return {
                 loggedIn : true,
-                user : _action.user,
-                ..._state
+                user : _action.user
             }
+            
+        case Utils.USERACTION.REGISTER_SUCCESS: 
+             return {
+                 loggedIn : true,
+                 user : _action.user
+             }
         
         case Utils.USERACTION.LOGIN_FAILURE : 
             return { 
                 loggedIn : false,
                 user : _action.user,
-                error : _action.error,
-                ..._state
+                error : _action.error
             }
         
         case Utils.USERACTION.LOGOUT : 
             return {
-                loggedIn : false,
-                user : _action.user,
-                ..._state
+                loggedIn : false
             }
 
         default :

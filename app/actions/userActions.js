@@ -21,8 +21,11 @@ export function login(username, password){
 
 
 export function logout (){
-   UserService.logout();
-   return { type : Utils.USERACTION.LOGOUT };
+   
+   return dispatch => {
+        UserServices.logout();
+       dispatch( { type : Utils.USERACTION.LOGOUT });
+   };
 }
 
 export function register(user, password){
@@ -37,7 +40,7 @@ export function register(user, password){
             
             dispatch( {type: Utils.ALERTACTIONS.SUCCESS, message: user.message } );
 
-            Utils.History.push('/home');
+            /*Utils.History.push('/home');*/
         })
         .catch( err => {
             dispatch( { type : Utils.USERACTION.REGISTER_FAILURE, error : err.message } );

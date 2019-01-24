@@ -8,7 +8,38 @@ const CreatePostStyles = theme => ({
           marginLeft: 'auto',
           marginRight: 'auto',
         },
-      }
+      },
+    
+    card : {
+        display : 'flex'
+    },
+    cardContentLayout : {
+        width : '100%'
+    },
+    cardDetails : {
+        display : 'flex',
+        width :  '100%'
+    },
+
+    cardMedia : {
+        width : 160
+    },
+    cardHead : {
+        display : 'flex'
+    },
+
+    grow : {
+        flexGrow : 1
+    },
+    textField: {
+      width: '100%',
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit
+    },
+    button: {
+      float : 'right',
+      margin: theme.spacing.unit,
+  }
 });
 
 export default CreatePostStyles;

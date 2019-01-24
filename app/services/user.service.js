@@ -31,6 +31,7 @@ export function login (username, password){
 }
 
 export function logout(){
+    console.log('User successfully logged out');
     localStorage.removeItem('user');
 }
 

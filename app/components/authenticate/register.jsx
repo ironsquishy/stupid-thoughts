@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -61,7 +62,7 @@ class Register extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        console.log('New user registered:', new Date().toLocaleTimeString());   
+          
         this.props.register(this.state.username, this.state.password); 
     }
 
@@ -81,7 +82,12 @@ class Register extends React.Component{
     }
 
     render(){
-        const { classes } = this.props;
+        const { classes, User} = this.props;
+
+        if(User.loggedIn){
+            return (<Redirect to="/home" />)
+        }
+
        return ( 
         <Grid container {...this.gridProps} className={classes.gridStyles}>
             <Paper className={classes.root} elevation={1}>

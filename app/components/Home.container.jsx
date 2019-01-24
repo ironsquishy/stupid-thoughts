@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TickerTableContainer from './tickertable-container/tickertable.container';
 import ChartContainer from './chart-container/chart.container';
 import StupidPost from './stupid-post/stupidpost';
+import CreatePost from './create-post/createpost';
 
 /*Styles*/
 import Styles from './homeStyles';
@@ -30,10 +31,9 @@ class Home extends React.Component{
 
         return (
             <React.Fragment>
-                <Typography varient="h2" component="h2" align="center">"
-                    Hello Welcome to your new home.
-                </Typography>
+                
                 <Grid container spacing={40} className={classes.layout}>
+                    <CreatePost />
                     <StupidPost date={new Date()} message="Welcome home dummy" owner="stupidGuy" />
                     <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/>
                 </Grid>
