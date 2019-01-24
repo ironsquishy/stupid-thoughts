@@ -24,10 +24,7 @@ export function getCommunityPostsAll(_limit = 10){
 export function createNewPost(newPost){
     var request = {
         method  : 'POST',
-        headers : {
-            'Content-Type' : 'application/json',
-            'Authorization': Utils.AuthHeader()
-        },
+        headers : Utils.AuthHeader(),
         body : newPost
     };
 
