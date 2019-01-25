@@ -17,9 +17,12 @@ import CardHeader from '@material-ui/core/CardHeader';
 /* Components */
 import StupidPost from '../stupid-post/stupidpost';
 
+/*Services*/
+import { GetCommunityLatestPosts } from '../../actions/stpdPostActions';
 
 /*Custom Styles*/
 import LandingStyles from './landingStylesCss';
+
 
 class Landing extends React.Component{
     constructor (_props){
@@ -27,6 +30,7 @@ class Landing extends React.Component{
 
         this.handleLoginBtn = this.handleLoginBtn.bind(this);
         this.handleSignUpBtn = this.handleSignUpBtn.bind(this);
+        this.stpdPostList = this.stpdPostList.bind(this);
     }
 
     handleSignUpBtn(e){
@@ -38,11 +42,23 @@ class Landing extends React.Component{
     }
 
     componentDidMount(){
-        console.log('Landing page mounted...');
+        this.props.GetCommunityLatestPosts();
+    }
+
+    stpdPostList(){
+        return this.props.StpdPost.posts.map( (post, index) => {
+            return (
+                <StupidPost key={index}
+                    date={new Date(post.createDate)}
+                    message={post.message}
+                    owner={post.owner}
+                />
+            )
+        });
     }
 
     render(){
-        const { classes } = this.props;
+        const { classes, StpdPost } = this.props;
         return(
             <React.Fragment>
                 <div className={classes.heroContainer}>
@@ -69,8 +85,7 @@ class Landing extends React.Component{
                 
                 <div>
                     <Grid container spacing={40} className={classes.layout}>
-                        <StupidPost date={new Date()} message="Hello world" owner="stupidGuy" />
-                        <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/>
+                        {this.stpdPostList()}
                     </Grid>
                 </div>
 
@@ -101,4 +116,4 @@ const mapToState = (state = {}) => {
     return {...state};
 };
 
-export default withStyles(LandingStyles, { withTheme: true })(connect(mapToState)(Landing));
+export default withStyles(LandingStyles, { withTheme: true })(connect(mapToState, { GetCommunityLatestPosts })(Landing));

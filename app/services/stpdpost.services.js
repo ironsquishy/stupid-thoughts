@@ -2,7 +2,7 @@ import Utils from '../utils';
 
 
 export function getCommunityPostsLatest(){
-    return fetch(`${Utils.API_URL}/community/latest`)
+    return fetch(`/stpdpost/community/latest`)
     .then(handleResponse)
     .catch(handleError);
 }
@@ -16,7 +16,7 @@ export function getCommunityPostsAll(_limit = 10){
         body : JSON.stringify({ limit : _limit })
     };
 
-    return fetch(`${Utils.API_URL}/community/all`, request)
+    return fetch(`/stpdpost/community/all`, request)
     .then(handleResponse)
     .catch(handleError);
 }
@@ -25,10 +25,10 @@ export function createNewPost(newPost){
     var request = {
         method  : 'POST',
         headers : Utils.AuthHeader(),
-        body : newPost
+        body : JSON.stringify(newPost)
     };
 
-    return fetch(`${Utils.API_URL}/stpdpost/create`, request)
+    return fetch(`/stpdpost/create`, request)
     .then(handleResponse)
     .catch(handleError);
 }
@@ -40,7 +40,6 @@ function handleResponse(res){
         errorObj.message = res.statusText;
         return Promise.reject(errorObj);
     }
-
     return res.json();
 }
 

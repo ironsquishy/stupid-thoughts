@@ -1,6 +1,10 @@
 import Utils from '../utils';
 
-export default function stpdPostActions(_state = {}, _action){
+const InitialState = {
+    posts : []
+}
+
+export default function stpdPostActions(_state = InitialState, _action){
     switch(_action.type){
         
         case Utils.STPDPOSTACTION.COMMUNITYFETCH:
@@ -10,7 +14,7 @@ export default function stpdPostActions(_state = {}, _action){
         
         case Utils.STPDPOSTACTION.COMMUNITYLATEST:
             return {
-                ...state, ..._action
+                ..._state, ..._action
             }
         
         case Utils.STPDPOSTACTION.COMMUNITYBYHASH:

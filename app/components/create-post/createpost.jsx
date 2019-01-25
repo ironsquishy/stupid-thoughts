@@ -22,17 +22,30 @@ import Styles from './createpoststyles';
 class CreatePost extends React.Component{
     constructor(_props){
         super(_props);
+
+        this.state = {};
+        this.state.postMessage = '';
+
         this.handlePostSubmit = this.handlePostSubmit.bind(this);
+        this.handleMessageChange = this.handleMessageChange.bind(this);
     }
 
     handlePostSubmit(e){
         e.preventDefault();
-        console.log('Send stupid post');
+        
+        var sendPost = {
+            owner : this.props.User.user.username,
+            message : this.state.postMessage
+        };
+        console.log('Sending Post:', sendPost);
+        this.props.CreateNewPost(sendPost);
+        
+        this.setState({ postMessage : ''});
+        
+    }
 
-        this.props.CreateNewPost({
-            owner : 'test2',
-            message :'From frontend first test...'
-        })
+    handleMessageChange(e){
+        this.setState({ postMessage : e.target.value});
     }
 
     componentDidMount(){
@@ -67,6 +80,7 @@ class CreatePost extends React.Component{
                                     className={classes.textField}
                                     margin="normal"
                                     variant="outlined"
+                                    onChange={this.handleMessageChange}
                                 />
                                 <Button 
                                     type="submit" 
