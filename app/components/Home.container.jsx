@@ -12,6 +12,7 @@ import TickerTableContainer from './tickertable-container/tickertable.container'
 import ChartContainer from './chart-container/chart.container';
 import StupidPost from './stupid-post/stupidpost';
 import CreatePost from './create-post/createpost';
+import StupidList from './stupidpost-list/stupidpostlist';
 
 /*Styles*/
 import Styles from './homeStyles';
@@ -20,6 +21,10 @@ import Styles from './homeStyles';
 class Home extends React.Component{
     constructor(_props){
         super(_props);
+    }
+
+    componentDidMount(){
+
     }
 
     render(){
@@ -33,9 +38,10 @@ class Home extends React.Component{
             <React.Fragment>
                 
                 <Grid container spacing={40} className={classes.layout}>
-                    <CreatePost />
-                    <StupidPost date={new Date()} message="Welcome home dummy" owner="stupidGuy" />
-                    <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/>
+                    <CreatePost/>
+                    <StupidList />
+                    {/* <StupidPost date={new Date()} message="Welcome home dummy" owner="stupidGuy" />
+                    <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/> */}
                 </Grid>
             </React.Fragment>
         );

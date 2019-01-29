@@ -1,6 +1,7 @@
 const stupidPostStyles = theme => ({
     card : {
-        display : 'flex'
+        display : 'flex',
+        background: 'grey'
     },
     cardContentLayout : {
         width : '100%'

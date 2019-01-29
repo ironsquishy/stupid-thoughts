@@ -49,9 +49,7 @@ class HeaderBar extends React.Component{
                     <Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
                             <Link to="/"> Stupid Thoughts </Link>
                     </Typography>
-                   
-                    
-    
+
                     { !User.loggedIn && <Button color="inherit" onClick={this.handleLoginBtn}>Login</Button>}
                     { !User.loggedIn && <Button color="inherit" onClick={this.handleSignUpBtn}>Sign UP</Button>}
                     { User.loggedIn && <Button color="inherit" onClick={this.handleLogoutBtn}>Logout</Button>}

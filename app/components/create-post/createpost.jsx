@@ -53,16 +53,16 @@ class CreatePost extends React.Component{
     }
 
     render(){
-        const { classes } = this.props;
+        const { classes, User} = this.props;
         return (
             <Grid item xs={12} md={12}>
-                <Card>
+                <Card className={classes.card}>
                     <div className={classes.cardDetails}>
                         <CardContent className={classes.cardContentLayout}>
                             {/* Card header */}
                             <span className={classes.cardHead}>
                                 <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
-                                    "Me"
+                                    {User.user.username}
                                 </Typography>
                                 <Typography variant="subtitle1" color="textSecondary" align="right">
                                     {new Date().toLocaleDateString('en-US')}

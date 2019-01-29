@@ -12,7 +12,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import { green } from '@material-ui/core/colors';
 
 const StupidPost = (_props) => {
-    const { classes, message, owner, responses, date, stpdHash, isVoting = true } = _props;
+    const { classes, message, owner, responses, createDate, stpdHash, isVoting = true } = _props;
 
     const statusDot = isVoting ? classes.greenDot : classes.redDot;
 
@@ -27,7 +27,7 @@ const StupidPost = (_props) => {
                                 {owner}
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary" align="right">
-                                {date.toLocaleDateString('en-US')}
+                                {new Date(createDate).toLocaleDateString('en-US')}
                             </Typography>
                             <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
                             </Typography>

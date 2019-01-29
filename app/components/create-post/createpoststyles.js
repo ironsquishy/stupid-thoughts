@@ -1,4 +1,4 @@
-const CreatePostStyles = theme => ({
+const CreatePostStyles = theme => console.log(theme) || ({
     layout: {
         width: 'auto',
         marginLeft: theme.spacing.unit * 3,
@@ -11,7 +11,8 @@ const CreatePostStyles = theme => ({
       },
     
     card : {
-        display : 'flex'
+        display : 'flex',
+        background : theme.palette.grey[0]
     },
     cardContentLayout : {
         width : '100%'
