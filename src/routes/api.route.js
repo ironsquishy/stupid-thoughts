@@ -3,8 +3,6 @@ const BodParser = require('body-parser');
 
 const myRoute = Express.Router();
 
-const TestData = require('../testData');
-
 myRoute.use(BodParser.json());
 
 myRoute.get('/', (req, res) => {

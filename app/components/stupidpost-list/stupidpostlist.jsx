@@ -37,6 +37,9 @@ class StupidPostList extends React.Component{
         const { classes, User, StupidPost} = this.props;
         return(
             <React.Fragment>
+                <Typography component="h6" variant="h6" gutterBottom>
+                    Community Latest
+                </Typography>
                 <Grid container spacing={40} justify="flex-start">
                     {this.renderLatestPosts()}
                 </Grid>

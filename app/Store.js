@@ -7,15 +7,23 @@ import thunk from 'redux-thunk';
 
 /*Develpoment*/
 import logger from 'redux-logger';
-//Browser Debugger
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const middleware = applyMiddleware(thunk, promise, logger);
+let Store = null;
 
-const Store = createStore(RootReducers, /* preloadedState, */ composeEnhancers(middleware));
+if (process.env.NODE_ENV == 'production'){
+    /*Production*/
 
-/*Production*/
-//const middleware = applyMiddleware(thunk, promise);
-//const Store = createStore(RootReducers, middleware);
+    console.log('Production Application...');
+    Store = createStore(RootReducers, applyMiddleware(thunk, promise));
+} else {
+    /* Development */
+
+    //Browser Debugger
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+    const middleware = applyMiddleware(thunk, promise, logger);
+
+    Store = createStore(RootReducers, /* preloadedState, */ composeEnhancers(middleware));
+}
 
 export default Store;
