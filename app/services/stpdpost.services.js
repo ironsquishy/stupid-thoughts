@@ -2,7 +2,7 @@ import Utils from '../utils';
 
 
 export function getCommunityPostsLatest(){
-    return fetch(`/stpdpost/community/latest`)
+    return fetch(`${Utils.API_URL}/stpdpost/community/latest`)
     .then(handleResponse)
     .catch(handleError);
 }
@@ -16,7 +16,7 @@ export function getCommunityPostsAll(_limit = 10){
         body : JSON.stringify({ limit : _limit })
     };
 
-    return fetch(`/stpdpost/community/all`, request)
+    return fetch(`${Utils.API_URL}/stpdpost/community/all`, request)
     .then(handleResponse)
     .catch(handleError);
 }
@@ -28,7 +28,7 @@ export function createNewPost(newPost){
         body : JSON.stringify(newPost)
     };
 
-    return fetch(`/stpdpost/create`, request)
+    return fetch(`${Utils.API_URL}/stpdpost/create`, request)
     .then(handleResponse)
     .catch(handleError);
 }

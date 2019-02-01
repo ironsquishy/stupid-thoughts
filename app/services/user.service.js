@@ -19,7 +19,7 @@ export function login (username, password){
     //         }
     //         return user;
     //     }).catch(handleError);
-    return fetch(`/user/authenticate`, request)
+    return fetch(`${Utils.API_URL}/user/authenticate`, request)
         .then(handleResponse)
         .then(user => {
             
@@ -44,7 +44,7 @@ export function register(user, password){
         body : JSON.stringify({username : user, password : password})
     };
 
-    return fetch(`/user/register`, request)
+    return fetch(`${Utils.API_URL}/user/register`, request)
         .then(handleResponse)
         .then(user => {
             if(user.token){
