@@ -1,4 +1,4 @@
-const CreatePostStyles = theme => console.log(theme) || ({
+const CreatePostStyles = theme => ({
     layout: {
         width: 'auto',
         marginLeft: theme.spacing.unit * 3,

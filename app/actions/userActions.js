@@ -48,3 +48,9 @@ export function register(user, password){
         });
     };
 }
+
+export function GetCurrentUser(_userId){
+    return dispatch => {
+        
+    }
+}

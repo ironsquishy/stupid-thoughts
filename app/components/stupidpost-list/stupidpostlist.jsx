@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Grow from '@material-ui/core/Grow';
 
 /* Components */
 import StupidPost from '../stupid-post/stupidpost';
@@ -19,18 +20,33 @@ class StupidPostList extends React.Component{
     constructor(_props){
         super(_props);
 
+        this.state = {};
+        this.state.display = false;
         this.renderLatestPosts = this.renderLatestPosts.bind(this);
     }
 
     componentDidMount(){
         console.log('Stupid list mounted');
         this.props.GetCommunityLatestPosts();
+        this.intGetCommunityLatestId = setInterval(() => {
+            this.setState({ display : true });
+        }, 3000);
+        
     }
 
     renderLatestPosts(){
-        return this.props.StpdPost.posts.map((post, index) => {
-            return ( <StupidPost key={index} {...post}/>)
-        })
+        const { posts } = this.props.StpdPost;
+        const { display } = this.state;
+        if (!display) {
+            return;
+        }
+        // return this.props.StpdPost.posts.map((post, index) => {
+        //     return (
+        //         <Grow key={index} in={true} timeout={1000}>
+        //             <StupidPost  {...post}/>  
+        //         </Grow>
+        //     )
+        // })
     }
 
     render(){
