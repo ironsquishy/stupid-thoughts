@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import classNames from 'classnames';
 
@@ -58,7 +58,10 @@ class Landing extends React.Component{
     }
 
     render(){
-        const { classes, StpdPost } = this.props;
+        const { classes, StpdPost, Session, User } = this.props;
+        if(Session.loggedIn){
+            return (<Redirect to={{ pathname: '/home'}} />)
+        }
         return(
             <React.Fragment>
                 <div className={classes.heroContainer}>
@@ -85,7 +88,7 @@ class Landing extends React.Component{
                 
                 <div>
                     <Grid container spacing={40} className={classes.layout}>
-                        {this.stpdPostList()}
+                        {/* {this.stpdPostList()} */}
                     </Grid>
                 </div>
 

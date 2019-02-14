@@ -17,6 +17,9 @@ import StupidList from './stupidpost-list/stupidpostlist';
 /*Styles*/
 import Styles from './homeStyles';
 
+/* Services */
+import { GetCurrentUser } from '../actions/userActions';
+
 
 class Home extends React.Component{
     constructor(_props){
@@ -24,13 +27,12 @@ class Home extends React.Component{
     }
 
     componentDidMount(){
-
+        this.props.GetCurrentUser()
     }
 
     render(){
-        var { classes, User } = this.props;
-        
-        if(!User.loggedIn){
+        var { classes, Session, User, StpdPost } = this.props;
+        if(!Session.loggedIn){
             return (<Redirect to={{ pathname: '/login'}} />);
         }
 
@@ -39,7 +41,10 @@ class Home extends React.Component{
                 
                 <Grid container spacing={40} className={classes.layout}>
                     <CreatePost/>
-                    <StupidList />
+                    <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
+                        Community Latest
+                    </Typography>
+                    <StupidList list={StpdPost.ownedPosts}/>
                     {/* <StupidPost date={new Date()} message="Welcome home dummy" owner="stupidGuy" />
                     <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/> */}
                 </Grid>
@@ -52,4 +57,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 };
 
-export default connect(mapToState)(withStyles(Styles, { withTheme : true })(Home));
+export default connect(mapToState, { GetCurrentUser })(withStyles(Styles, { withTheme : true })(Home));

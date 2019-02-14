@@ -5,7 +5,6 @@ import { logout } from '../../actions/userActions';
 
 
 const Logout = (props) =>{
-    console.log('Logout component:', props);
     props.logout();
     return (<Redirect to="/login" />);
 };

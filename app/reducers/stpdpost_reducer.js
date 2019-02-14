@@ -1,7 +1,7 @@
 import Utils from '../utils';
 
 const InitialState = {
-    posts : []
+    ownedPosts : []
 }
 
 export default function stpdPostActions(_state = InitialState, _action){
@@ -40,6 +40,23 @@ export default function stpdPostActions(_state = InitialState, _action){
         case Utils.STPDPOSTACTION.CREATEPOST_FAILURE :
             return {
                 ..._state, ..._action
+            }
+
+        case Utils.STPDPOSTACTION.USER_OWNED_FETCH : 
+        return {
+            ..._state
+        }
+
+        case Utils.STPDPOSTACTION.USER_OWNED_SUCCESS : 
+            return {
+                ..._state,
+                ownedPosts : _action.ownedPosts 
+        }
+
+        case Utils.STPDPOSTACTION.USER_OWNED_FAILURE :
+            return {
+                ownedPosts : [],
+                ..._state
             }
         
         default :

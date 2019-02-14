@@ -109,7 +109,7 @@ class AlertBanner extends React.Component{
     }
 
     handleClose(e){
-        this.props.onDismissAlert(e.target.value);
+        this.props.onDismissAlert();
     }
 
     render(){

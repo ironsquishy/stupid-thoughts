@@ -82,9 +82,9 @@ class Register extends React.Component{
     }
 
     render(){
-        const { classes, User} = this.props;
+        const { classes, Session, User} = this.props;
 
-        if(User.loggedIn){
+        if(Session.loggedIn){
             return (<Redirect to="/home" />)
         }
 

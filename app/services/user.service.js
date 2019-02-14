@@ -1,5 +1,20 @@
 import Utils from '../utils';
 
+export function GetCurrentUser(){
+    const request = {
+        method : 'GET',
+        headers : Utils.AuthHeader()
+    };
+    
+    return fetch(`${Utils.API_URL}/user/current`, request)
+    .then(handleResponse)
+    // .then(user => {
+    //         return user
+    // })
+    .catch(handleError);
+    
+}
+
 export function login (username, password){
 
     var request = {
@@ -24,7 +39,7 @@ export function login (username, password){
         .then(user => {
             
             if(user.token){
-                localStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('stupidToken', JSON.stringify(user.token));
             }
             return user;
         }).catch(handleError);
@@ -32,7 +47,7 @@ export function login (username, password){
 
 export function logout(){
     console.log('User successfully logged out');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('stupidToken');
 }
 
 export function register(user, password){
@@ -48,7 +63,7 @@ export function register(user, password){
         .then(handleResponse)
         .then(user => {
             if(user.token){
-                localStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('stupidToken', JSON.stringify(user));
             }
             return user;
         })
@@ -74,23 +89,16 @@ function handleResponse(res){
     }
 
     return res.json();
-    // return res.text().then(text => {
-    //     const data = text.JSON.parse(text);
-    //     if(!res.ok){
-    //         if(res.status == 401){
-    //             logout();
-    //             location.reload(true);
-    //         }
-
-    //         let error = (data && data.message) || res.statusText;
-    //         return Promise.reject(error);
-    //     }
-
-    //     return data;
-    // })
-
 }
 
 function handleError(err){
+
+    if( err.status == 401){
+        return Promise.reject({ message : 'Unauthorized to access'});
+    }
+
+    if( err.status == 404 ){
+        return Promise.reject({ message : 'Service unavailable'});
+    }
     return Promise.reject(err);
 }

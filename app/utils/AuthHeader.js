@@ -1,10 +1,10 @@
-export default function authHeader(){
-    var user = JSON.parse(localStorage.getItem('user'));
+export default function AuthHeader(){
+    var token = JSON.parse(sessionStorage.getItem('stupidToken'));
 
-    if(user && user.token){
+    if(token){
         return {
             'Content-Type' : 'application/json', 
-            'Authorization' : 'Bearer ' + user.token
+            'Authorization' : 'Bearer ' + token
         };
     } else {
         return {

@@ -11,6 +11,9 @@ const homeStyles = theme => ({
           marginLeft: 'auto',
           marginRight: 'auto',
         },
+      },
+      textPrimary: {
+        color : '#ffcc80'
       }
 });
 

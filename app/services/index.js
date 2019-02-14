@@ -1,5 +1,5 @@
-import { login, logout, register } from './user.service';
+import { login, logout, register, GetCurrentUser } from './user.service';
 import * as stpdpostservices from './stpdpost.services';
 
-export const UserServices = { login, logout, register};
+export const UserServices = { login, logout, register, GetCurrentUser};
 export const StpdPostServices = { ...stpdpostservices };

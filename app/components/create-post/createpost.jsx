@@ -62,7 +62,7 @@ class CreatePost extends React.Component{
                             {/* Card header */}
                             <span className={classes.cardHead}>
                                 <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
-                                    {User.user.username}
+                                    {User.username}
                                 </Typography>
                                 <Typography variant="subtitle1" color="textSecondary" align="right">
                                     {new Date().toLocaleDateString('en-US')}

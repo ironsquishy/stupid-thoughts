@@ -87,8 +87,8 @@ class Login extends React.Component{
     }
 
     render(){
-       const { classes, User } = this.props;
-        if(User.loggedIn){
+       const { classes, Session, User } = this.props;
+        if(Session.loggedIn){
             return (<Redirect to="/home" />)
         }
        return ( 
