@@ -37,10 +37,6 @@ class HeaderBar extends React.Component{
         this.state.anchorElement = null;
     }
 
-    componentDidMount(){
-
-    }
-
     handleLoginBtn(e){
         this.props.history.push('/login');
     }
@@ -50,11 +46,11 @@ class HeaderBar extends React.Component{
     }
 
     handleLogoutBtn(e) {
+        this.setState({ menuOpen : false, anchorElement : null });
         this.props.history.push('/logout');
     }
 
     handleMenuBtn(e){
-        console.log('Menu button pressed...');
         this.setState({ menuOpen : true, anchorElement : e.currentTarget });
     }
 
@@ -69,6 +65,7 @@ class HeaderBar extends React.Component{
     renderMenu(){
         const { Session, User } = this.props;
         const { menuOpen, anchorElement } = this.state;
+
         if( !Session.loggedIn){
             return (
                 <React.Fragment>

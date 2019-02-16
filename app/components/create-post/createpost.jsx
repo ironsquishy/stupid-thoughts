@@ -34,7 +34,7 @@ class CreatePost extends React.Component{
         e.preventDefault();
         
         var sendPost = {
-            owner : this.props.User.user.username,
+            owner : this.props.User.username,
             message : this.state.postMessage
         };
         
@@ -50,10 +50,38 @@ class CreatePost extends React.Component{
 
     componentDidMount(){
         /*Check if can make a post*/
+        
     }
 
     render(){
         const { classes, User} = this.props;
+            
+        if(!User.allowedPost){
+            return(
+                <Grid item xs={12} md={12}>
+                    <Card className={classes.card}>
+                        <div className={classes.cardDetails}>
+                            <CardContent className={classes.cardContentLayout}>
+                                {/* Card header */}
+                                <span className={classes.cardHead}>
+                                    <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
+                                        {User.username}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="textSecondary" align="right">
+                                        {new Date().toLocaleDateString('en-US')}
+                                    </Typography>
+                                </span>
+                                {/* Card Body */}
+                                <Typography variant="h6" component="h6" color="textPrimary" align="center">
+                                    Sorry you unable to create a post at this time...
+                                </Typography>
+                            </CardContent>
+                        </div>
+                    </Card>
+                </Grid>
+            );
+        }
+
         return (
             <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
@@ -76,11 +104,11 @@ class CreatePost extends React.Component{
                                     label="Put Stupid thought here..."
                                     multiline
                                     rows="2"
-                                    defaultValue=""
                                     className={classes.textField}
                                     margin="normal"
                                     variant="outlined"
                                     onChange={this.handleMessageChange}
+                                    value={this.state.postMessage}
                                 />
                                 <Button 
                                     type="submit" 
