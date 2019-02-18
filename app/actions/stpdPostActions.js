@@ -7,7 +7,7 @@ export function GetCommunityLatestPosts(){
         dispatch({ type : Utils.STPDPOSTACTION.COMMUNITYFETCH });
         StpdPostServices.getCommunityPostsLatest()
         .then( resPost => {
-            dispatch({ type : Utils.STPDPOSTACTION.COMMUNITYLATEST, posts : resPost });
+            dispatch({ type : Utils.STPDPOSTACTION.COMMUNITYLATEST, communityPosts : resPost });
         })
         .catch(err => {
             dispatch({ type : Utils.STPDPOSTACTION.COMMUNITY_FETCH_ERROR, error : err });
@@ -25,6 +25,7 @@ export function CreateNewPost(createdPost){
         .then( resPost => {
 
             dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_SUCCESS, isError : false });
+            dispatch({ type : Utils.USERACTION.USER_MODIFY_STATE, override : { allowedPost : false }});
         })
         .catch( err => {
             dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_FAILURE, isError : true, message : err.message});

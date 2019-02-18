@@ -19,12 +19,70 @@ import { CreateNewPost } from '../../actions/stpdPostActions';
 /*Style*/
 import Styles from './createpoststyles';
 
+function initCountdown(endDate, component){
+    let days = 0, hours = 0,  minutes = 0, seconds = 0;
+    //endDate = new Date(endDate).getTime();
+    
+    if (isNaN(endDate) || !component){
+        console.warn('Countdown deprecated... parameters undefined');
+        return { 
+            clear : function(){},
+            update : function(){},
+            restart : function(){}
+        }
+    }
+
+    const coundIntervalId = setInterval(calculateCountdown, 1000);
+    function calculateCountdown(){
+        let startDate = new Date();
+        startDate = startDate.getTime();
+        let timeRemaining = parseInt( (endDate - startDate) / 1000);
+        if( timeRemaining < 0 ){
+            console.log('Time has run out...');
+            clearInterval(coundIntervalId);
+            return;
+        }
+
+        days = parseInt( timeRemaining / 86400);
+        timeRemaining = ( timeRemaining % 86400);
+
+        hours = parseInt( timeRemaining / 3600);
+        timeRemaining = ( timeRemaining % 3600);
+
+        minutes = parseInt( timeRemaining / 60);
+        timeRemaining = ( timeRemaining % 60);
+
+        seconds = parseInt( timeRemaining );
+     
+        component.setState({ days: days, hours: hours, minutes: minutes, seconds: seconds});
+    }
+
+    return {
+        days, 
+        hours,
+        minutes,
+        seconds,
+        clear : function(){
+            clearInterval(coundIntervalId);
+        },
+        update : function(){},
+        restart : function(){}
+    }
+
+
+}
+
 class CreatePost extends React.Component{
     constructor(_props){
         super(_props);
 
         this.state = {};
         this.state.postMessage = '';
+        this.countDown = null;
+        this.state.days = 0;
+        this.state.hours = 0;
+        this.state.minutes = 0;
+        this.state.seconds = 0;
 
         this.handlePostSubmit = this.handlePostSubmit.bind(this);
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -50,7 +108,13 @@ class CreatePost extends React.Component{
 
     componentDidMount(){
         /*Check if can make a post*/
+        const nowDate = new Date();
         
+        this.countDown = initCountdown(nowDate.getTime() + ( 24 * 3600  * 1000), this);
+    }
+
+    componentWillUnmount(){
+        this.countDown.clear();
     }
 
     render(){
@@ -72,9 +136,14 @@ class CreatePost extends React.Component{
                                     </Typography>
                                 </span>
                                 {/* Card Body */}
-                                <Typography variant="h6" component="h6" color="textPrimary" align="center">
-                                    Sorry you unable to create a post at this time...
-                                </Typography>
+                                <span className={classes.countDownContent}>
+                                    <Typography variant="h6" component="h6" color="textPrimary" align="left" className={classes.grow}>
+                                        Next available time to create a new post 
+                                    </Typography>
+                                    <Typography variant="h6" component="h6" color="textPrimary" align="center">
+                                        Time left: {this.state.hours}h {this.state.minutes}m {this.state.seconds}s
+                                    </Typography>
+                                </span>
                             </CardContent>
                         </div>
                     </Card>

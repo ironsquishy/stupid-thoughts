@@ -33,7 +33,11 @@ import {clear} from './actions/alertActions';
 /*App Theme CSS*/
 //import './global.css';
 import AppTheme from './AppTheme';
-const AppStyles = theme => ({});
+const AppStyles = theme => ({
+    appFont : {
+        fontFamily : 'Merriweather'
+    }
+});
 
 
 

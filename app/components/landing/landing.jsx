@@ -42,19 +42,19 @@ class Landing extends React.Component{
     }
 
     componentDidMount(){
-        this.props.GetCommunityLatestPosts();
+        //this.props.GetCommunityLatestPosts();
     }
 
     stpdPostList(){
-        return this.props.StpdPost.posts.map( (post, index) => {
-            return (
-                <StupidPost key={index}
-                    date={new Date(post.createDate)}
-                    message={post.message}
-                    owner={post.owner}
-                />
-            )
-        });
+        // return this.props.StpdPost.posts.map( (post, index) => {
+        //     return (
+        //         <StupidPost key={index}
+        //             date={new Date(post.createDate)}
+        //             message={post.message}
+        //             owner={post.owner}
+        //         />
+        //     )
+        // });
     }
 
     render(){

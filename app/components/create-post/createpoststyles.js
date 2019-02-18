@@ -40,7 +40,11 @@ const CreatePostStyles = theme => ({
     button: {
       float : 'right',
       margin: theme.spacing.unit,
+  },
+  countDownContent : {
+    display: 'flex'
   }
+  
 });
 
 export default CreatePostStyles;

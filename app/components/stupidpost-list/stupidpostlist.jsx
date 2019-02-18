@@ -26,23 +26,19 @@ class StupidPostList extends React.Component{
     }
 
     componentDidMount(){
-        console.log('Stupid list mounted');
-        this.props.GetCommunityLatestPosts();
-        this.intGetCommunityLatestId = setTimeout(() => {
-            this.setState({ display : true });
-        }, 5000);
         
     }
 
     componentWillUnmount(){
-        clearInterval(this.intGetCommunityLatestId);
+        
     }
 
     renderLatestPosts(){
-      
+        const { list } = this.props;
         const { display } = this.state;
-        if(this.props.list){
-            return this.props.list.map((post, index) => {
+
+        if(list){
+            return list.map((post, index) => {
                 return (
                     // <Grow key={index} in={false} timeout="auto">
                     //     <StupidPost  {...post}/>  

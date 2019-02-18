@@ -27,6 +27,11 @@ export default function userActions(_state = {}, _action){
             return {
                 ..._state
             }
+        
+        case Utils.USERACTION.USER_MODIFY_STATE : 
+            return {
+                ..._state, ..._action.override
+            }
 
         default :
             return _state

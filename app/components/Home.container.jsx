@@ -19,6 +19,7 @@ import Styles from './homeStyles';
 
 /* Services */
 import { GetCurrentUser } from '../actions/userActions';
+import { GetCommunityLatestPosts } from '../actions/stpdPostActions';
 
 
 class Home extends React.Component{
@@ -27,7 +28,8 @@ class Home extends React.Component{
     }
 
     componentDidMount(){
-        this.props.GetCurrentUser()
+        this.props.GetCurrentUser();
+        this.props.GetCommunityLatestPosts();
     }
 
     render(){
@@ -42,11 +44,14 @@ class Home extends React.Component{
                 <Grid container spacing={40} className={classes.layout}>
                     <CreatePost/>
                     <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
-                        Community Latest
+                        Your Stupid thoughts 
                     </Typography>
                     <StupidList list={StpdPost.ownedPosts}/>
-                    {/* <StupidPost date={new Date()} message="Welcome home dummy" owner="stupidGuy" />
-                    <StupidPost date={new Date()} message="Hello World AGIN!!!!" owner="ironsquishy"/> */}
+                    
+                    <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
+                        Communities stupid thoughts :(
+                    </Typography>
+                    <StupidList list={StpdPost.communityPosts} />
                 </Grid>
             </React.Fragment>
         );
@@ -57,4 +62,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 };
 
-export default connect(mapToState, { GetCurrentUser })(withStyles(Styles, { withTheme : true })(Home));
+export default connect(mapToState, { GetCurrentUser, GetCommunityLatestPosts })(withStyles(Styles, { withTheme : true })(Home));
