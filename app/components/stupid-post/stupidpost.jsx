@@ -34,7 +34,7 @@ const StupidPost = (_props) => {
                         </span>
 
                         {/* Main Body Message */}
-                        <Typography component="h2" variant="h5">
+                        <Typography component="h6" variant="h6">
                             {message}
                         </Typography>
 

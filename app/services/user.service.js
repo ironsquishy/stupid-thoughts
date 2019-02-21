@@ -1,5 +1,7 @@
 import Utils from '../utils';
 
+import queryString from 'query-string';
+
 export function GetCurrentUser(){
     const request = {
         method : 'GET',
@@ -25,15 +27,6 @@ export function login (username, password){
         body : JSON.stringify({ username, password }) 
     };
 
-    // return fetch(`${Utils.API_URL}/user/authenticate`, request)
-    //     .then(handleResponse)
-    //     .then(user => {
-            
-    //         if(user.token){
-    //             localStorage.setItem(user, JSON.stringify(user));
-    //         }
-    //         return user;
-    //     }).catch(handleError);
     return fetch(`${Utils.API_URL}/user/authenticate`, request)
         .then(handleResponse)
         .then(user => {
@@ -63,7 +56,7 @@ export function register(user, password){
         .then(handleResponse)
         .then(user => {
             if(user.token){
-                sessionStorage.setItem('stupidToken', JSON.stringify(user));
+                sessionStorage.setItem('stupidToken', JSON.stringify(user.token));
             }
             return user;
         })
@@ -77,6 +70,23 @@ export function deleteUser(id){
     }
 
     return fetch(`${Utils.API_URL}/user/${id}`, request).then(handleResponse);
+}
+
+export function checkNameAvailable(username){
+    var request = {
+        method : 'GET',
+        headers : Utils.AuthHeader()
+    }
+    return fetch(`${Utils.API_URL}/user/checkAvalibility?${queryString.stringify({username})}`, request).then(handleResponse).catch(handleError);
+}
+
+export function getAllowedToPost(){
+    var request = {
+        method : 'GET',
+        headers : Utils.AuthHeader()
+    }
+
+    return fetch(`${Utils.API_URL}/user/allowed`, request).then(handleResponse).catch(handleError);
 }
 
 

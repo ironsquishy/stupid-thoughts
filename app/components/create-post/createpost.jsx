@@ -21,9 +21,9 @@ import Styles from './createpoststyles';
 
 function initCountdown(endDate, component){
     let days = 0, hours = 0,  minutes = 0, seconds = 0;
-    //endDate = new Date(endDate).getTime();
+    endDate = new Date(endDate).getTime();
     
-    if (isNaN(endDate) || !component){
+    if (isNaN(endDate)){
         console.warn('Countdown deprecated... parameters undefined');
         return { 
             clear : function(){},
@@ -34,11 +34,12 @@ function initCountdown(endDate, component){
 
     const coundIntervalId = setInterval(calculateCountdown, 1000);
     function calculateCountdown(){
-        let startDate = new Date();
-        startDate = startDate.getTime();
+        let startDate = new Date().getTime();
+        
         let timeRemaining = parseInt( (endDate - startDate) / 1000);
+       
         if( timeRemaining < 0 ){
-            console.log('Time has run out...');
+            console.log('Countdown Time has run out...');
             clearInterval(coundIntervalId);
             return;
         }
@@ -53,7 +54,7 @@ function initCountdown(endDate, component){
         timeRemaining = ( timeRemaining % 60);
 
         seconds = parseInt( timeRemaining );
-     
+        
         component.setState({ days: days, hours: hours, minutes: minutes, seconds: seconds});
     }
 
@@ -108,19 +109,21 @@ class CreatePost extends React.Component{
 
     componentDidMount(){
         /*Check if can make a post*/
-        const nowDate = new Date();
         
-        this.countDown = initCountdown(nowDate.getTime() + ( 24 * 3600  * 1000), this);
     }
 
     componentWillUnmount(){
-        this.countDown.clear();
+        if(this.countDown){
+            this.countDown.clear();
+        }
     }
 
     render(){
         const { classes, User} = this.props;
-            
         if(!User.allowedPost){
+            if (!this.countDown){
+                this.countDown = initCountdown(User.nextPostDate, this);
+            }
             return(
                 <Grid item xs={12} md={12}>
                     <Card className={classes.card}>

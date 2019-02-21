@@ -3,7 +3,6 @@ import { UserServices }  from '../services';
 import * as AlertActions from './alertActions';
 
 import Utils from '../utils';
-import { Disposable } from 'rx';
 
 export function login(username, password){
     return dispatch => {
@@ -53,9 +52,9 @@ export function GetCurrentUser(){
         dispatch({ type : Utils.USERACTION.USER_FETCH});
         UserServices.GetCurrentUser()
         .then(user => {
-            let { username, allowedPost, createdDate, hash, _id, ownedPosts } = user;
+            let { ownedPosts, ...userWithoutOwnedPosts } = user;
 
-            dispatch({ type : Utils.USERACTION.USER_FETCH_SUCCESS, profile : {username, allowedPost, createdDate, hash, _id }});
+            dispatch({ type : Utils.USERACTION.USER_FETCH_SUCCESS, profile : {...userWithoutOwnedPosts}});
 
             dispatch({ type : Utils.STPDPOSTACTION.USER_OWNED_SUCCESS, ownedPosts});
         })
@@ -65,5 +64,22 @@ export function GetCurrentUser(){
             dispatch({ type : Utils.USERACTION.LOGOUT});
             logout();
         });
+    }
+}
+
+export function CheckAvailable(username){
+    return dispatch => {
+        return UserServices.checkNameAvailable(username)
+        .then(isAvailable => dispatch({ type : Utils.USERACTION.USER_NAME_AVAILABLE_SUCCESS, isAvailable }))
+        .catch(err => Promise.reject(dispatch({ type : Utils.USERACTION.USER_NAME_AVAILABLE_FAILURE } )));
+    }
+}
+
+export function GetAllowedPost(){
+    return dispatch => {
+        dispatch({ type : Utils.USERACTION.USER_NAME_AVAILABLE_FETCH });
+        return UserServices.getAllowedToPost()
+        .then(_allowedPost => dispatch({ type : Utils.USERACTION.USER_ALLOWED_POST_SUCCESS, allowedPosts : _allowedPost }))
+        .catch(error => dispactch({ type : Utils.USERACTION.USER_NAME_AVAILABLE_FAILURE, isError : true }))
     }
 }

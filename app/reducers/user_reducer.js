@@ -32,6 +32,35 @@ export default function userActions(_state = {}, _action){
             return {
                 ..._state, ..._action.override
             }
+        case Utils.USERACTION.USER_NAME_AVAILABLE_FETCH :
+            return {
+                ..._state
+            }
+        
+        case Utils.USERACTION.USER_NAME_AVAILABLE_SUCCESS : 
+            return {
+                ..._state, 
+                usernameAvailable : true
+             }
+        
+        case Utils.USERACTION.USER_NAME_AVAILABLE_FAILURE :
+             return {
+                 ..._state,
+                 usernameAvailable : false
+             }
+            
+        case Utils.USERACTION.USER_ALLOWED_POST_FETCH : 
+             return {
+                 ..._state
+             }
+        case Utils.USERACTION.USER_ALLOWED_POST_SUCCESS :
+             return {
+                 ..._state, allowedPost : _action.allowedPost
+             }
+        case Utils.USERACTION.USER_ALLOWED_POST_FAILURE :
+             return {
+                 ..._state
+             }
 
         default :
             return _state

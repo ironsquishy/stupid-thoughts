@@ -14,7 +14,7 @@
     "reduxdev-server": "pm2 start remotedev --name redux-devtool -- --hostname=localhost --port=5678",
     "attach-prod-server": "node index.js",
     "start": "webpack-dev-server --open",
-    "production-build" : "webpack --mode production --env.NODE_ENV=production"
+    "production-build": "webpack --mode production --env.NODE_ENV=production"
   },
   "author": "Allen Space",
   "license": "ISC",
@@ -33,6 +33,7 @@
     "material-ui": "^0.20.2",
     "path": "^0.12.7",
     "pm2": "^3.0.4",
+    "query-string": "^6.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-favicon": "^0.0.14",

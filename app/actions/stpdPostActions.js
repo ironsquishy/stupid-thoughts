@@ -23,9 +23,9 @@ export function CreateNewPost(createdPost){
 
         StpdPostServices.createNewPost(createdPost)
         .then( resPost => {
-
-            dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_SUCCESS, isError : false });
-            dispatch({ type : Utils.USERACTION.USER_MODIFY_STATE, override : { allowedPost : false }});
+            const { ownedPosts, ...restOfUser } = resPost;
+            dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_SUCCESS, ownedPosts });
+            dispatch({ type : Utils.USERACTION.USER_MODIFY_STATE, override : { ...restOfUser }});
         })
         .catch( err => {
             dispatch({ type : Utils.STPDPOSTACTION.CREATEPOST_FAILURE, isError : true, message : err.message});

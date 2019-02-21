@@ -8,10 +8,16 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Done from '@material-ui/icons/Done';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ErrorOutline from '@material-ui/icons/ErrorOutline';
+import CircularProgress from '@material-ui/core/CircularProgress';
 /*Components*/
-import { register } from '../../actions/userActions';
 
+
+/*Service*/
+import { register, CheckAvailable } from '../../actions/userActions';
 
 const styles = theme => ({
     root: {
@@ -37,9 +43,42 @@ const styles = theme => ({
     },
     gridStyles : {
         height : '100vh'
+    },
+    doneIcon : {
+        color : 'limegreen'
+    },
+    errorRed : {
+        color : 'red'
     }
 })
 
+/*
+    @keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #07d;
+  border-bottom-color: #07d;
+  animation: spinner .8s ease infinite;
+}
+*/ 
+
+function MockAvailableResponse(cb, self){
+    cb.bind(self)
+    return setTimeout(cb, 1000);
+}
 
 class Register extends React.Component{
     constructor(_props){
@@ -47,7 +86,9 @@ class Register extends React.Component{
 
         this.state = {
             username : '',
-            password : ''
+            password : '',
+            isAvailable : null,
+            isFetchingName : false
         };
 
         this.gridProps = {
@@ -56,20 +97,54 @@ class Register extends React.Component{
             alignItems : 'center'
         }
 
+        this.checkAvailableId = null;
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.checkAvailability = this.checkAvailability.bind(this);
+        this.renderUsernameAdorment = this.renderUsernameAdorment.bind(this);
+    }
+
+    checkAvailability(username, abortSignal){
+        
+        
+        this.props.CheckAvailable(username)
+        .then(res => {
+            this.setState({ isAvailable : res.isAvailable, isFetchingName : false });
+        })
+        .catch(err => console.log(err) );
+       
     }
 
     handleSubmit(e){
         e.preventDefault();
-          
-        this.props.register(this.state.username, this.state.password); 
+        const { isAvailable } = this.state;
+
+        if(isAvailable === true){
+            this.props.register(this.state.username, this.state.password);
+        } 
     }
 
     handleChange(e){
         
         if(e.target.name == 'username'){
+            e.target.value = e.target.value.trim();
+
+            if(e.target.value.length > 16){
+                return;
+            }
             this.setState({ username : e.target.value });
+            
+            clearTimeout(this.checkAvailableId);
+            
+            if(e.target.value){
+                this.setState({ isFetchingName : true });
+                this.checkAvailableId = setTimeout(this.checkAvailability, 1000, e.target.value);
+            }  
+            
+            if(!e.target.value){
+                this.setState({ isAvailable : null, isFetchingName : false });
+            }
         }
 
         if(e.target.name == 'password'){
@@ -81,8 +156,28 @@ class Register extends React.Component{
         this.setState({ username : '', password : ''});
     }
 
+    renderUsernameAdorment(){
+        const { classes } = this.props;
+        const { isAvailable, isFetchingName } = this.state;
+
+        if( isFetchingName ){
+            return <CircularProgress size={24}/>
+        }
+
+        if(isAvailable){
+            return <Done className={classes.doneIcon} />
+        }
+
+        if(isAvailable === false) {
+            return <ErrorOutline className={classes.errorRed} />
+        }
+
+        return <AccountCircle />
+    }
+
     render(){
         const { classes, Session, User} = this.props;
+        const { isAvailable } = this.state;
 
         if(Session.loggedIn){
             return (<Redirect to="/home" />)
@@ -107,6 +202,15 @@ class Register extends React.Component{
                             variant="outlined"
                             fullWidth
                             className={classes.textField}
+                            error={isAvailable === false}
+                            helperText={(isAvailable === false) ? 'Sorry already taken! :(' : ''}
+                            InputProps={{
+                                endAdornment : (
+                                    <InputAdornment position="end">
+                                        {this.renderUsernameAdorment()}
+                                    </InputAdornment> 
+                                )
+                            }}
                             
                         />
 
@@ -128,6 +232,7 @@ class Register extends React.Component{
                             variant="outlined"
                             color="primary"
                             className={classes.button}
+                            disabled={(!isAvailable)}
                         >
                             Submit
                         </Button>
@@ -142,4 +247,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 }
 
-export default connect(mapToState, {register})(withStyles(styles)(Register));
+export default connect(mapToState, { register, CheckAvailable })(withStyles(styles)(Register));
