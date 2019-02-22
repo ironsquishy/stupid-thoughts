@@ -12,7 +12,7 @@ const LandingStyles = theme => ({
       },
 
     heroContainer : {
-        background: 'linear-gradient(to right bottom, #ffffff, #f0f0f0)'
+        // background: 'linear-gradient(to right bottom, #ffffff, #f0f0f0)'
     },
 
     heroContent : {

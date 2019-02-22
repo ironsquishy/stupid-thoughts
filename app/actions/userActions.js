@@ -79,7 +79,7 @@ export function GetAllowedPost(){
     return dispatch => {
         dispatch({ type : Utils.USERACTION.USER_NAME_AVAILABLE_FETCH });
         return UserServices.getAllowedToPost()
-        .then(_allowedPost => dispatch({ type : Utils.USERACTION.USER_ALLOWED_POST_SUCCESS, allowedPosts : _allowedPost }))
+        .then(_allowedPost => dispatch({ type : Utils.USERACTION.USER_ALLOWED_POST_SUCCESS, allowedPost : _allowedPost }))
         .catch(error => dispactch({ type : Utils.USERACTION.USER_NAME_AVAILABLE_FAILURE, isError : true }))
     }
 }

@@ -10,11 +10,15 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { green } from '@material-ui/core/colors';
+import Ballot from '@material-ui/icons/Ballot';
+import HowToVote from '@material-ui/icons/HowToVote';
 
 const StupidPost = (_props) => {
     const { classes, message, owner, responses, createDate, stpdHash, isVoting = true } = _props;
 
-    const statusDot = isVoting ? classes.greenDot : classes.redDot;
+    //const statusDot = isVoting ? classes.greenDot : classes.redDot;
+    
+    const votingStatus =  isVoting ? classes.votingEnable : classes.votingDisable
 
     return (
         <Grid item xs={12} md={6}>
@@ -29,8 +33,9 @@ const StupidPost = (_props) => {
                             <Typography variant="subtitle1" color="textSecondary" align="right">
                                 {new Date(createDate).toLocaleDateString('en-US')}
                             </Typography>
-                            <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
-                            </Typography>
+                            {/* <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
+                            </Typography> */}
+                            <HowToVote className={votingStatus} />
                         </span>
 
                         {/* Main Body Message */}

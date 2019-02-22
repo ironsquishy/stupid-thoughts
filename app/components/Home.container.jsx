@@ -19,7 +19,7 @@ import StupidList from './stupidpost-list/stupidpostlist';
 import Styles from './homeStyles';
 
 /* Services */
-import { GetCurrentUser, GetAllowedPost } from '../actions/userActions';
+import { GetCurrentUser } from '../actions/userActions';
 import { GetCommunityLatestPosts } from '../actions/stpdPostActions';
 
 
@@ -31,7 +31,6 @@ class Home extends React.Component{
     componentDidMount(){
         this.props.GetCurrentUser();
         this.props.GetCommunityLatestPosts();
-        this.props.GetAllowedPost();
     }
 
     render(){
@@ -53,13 +52,13 @@ class Home extends React.Component{
                         Communities stupid thoughts :(
                     </Typography>
                     <StupidList list={StpdPost.communityPosts} />
-                    <Divider variant="middle" />
+                    <Grid item xs={12} md={12}>
+                        <Divider variant="middle" light={true} />
+                    </Grid>
                     <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
                         Your Stupid thoughts 
                     </Typography>
-                    <StupidList list={StpdPost.ownedPosts}/>
-                    
-                    
+                    <StupidList list={StpdPost.ownedPosts}/>   
                 </Grid>
             </React.Fragment>
         );
@@ -70,4 +69,4 @@ const mapToState = function( _state = {}){
     return {..._state};
 };
 
-export default connect(mapToState, { GetCurrentUser, GetCommunityLatestPosts, GetAllowedPost })(withStyles(Styles, { withTheme : true })(Home));
+export default connect(mapToState, { GetCurrentUser, GetCommunityLatestPosts })(withStyles(Styles, { withTheme : true })(Home));

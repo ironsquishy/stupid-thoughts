@@ -14,20 +14,43 @@ import Logout from './components/authenticate/logout';
 import Home from './components/Home.container';
 import Landing from './components/landing/landing';
 
+/*Material UI */
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+/*Styles*/
+import AppTheme from './AppTheme';
+
 const Index = (props) => {
     return (
+        // <Provider store={Store}>
+        //     <Router>
+        //         <div>
+        //             <Route component={App}/>
+        //             <Switch>
+        //                 <Route exact path="/" component={Landing} />
+        //                 <Route path="/register" component={SignUp} />
+        //                 <Route path="/home" component={Home}/>
+        //                 <Route path="/logout" component={Logout} />
+        //                 <Route path="/login" component={Login} />
+        //             </Switch>
+        //         </div>
+        //     </Router>
+        // </Provider>
+
         <Provider store={Store}>
             <Router>
-                <div>
+                <MuiThemeProvider theme={AppTheme}>
+                    <CssBaseline/>
                     <Route component={App}/>
-                    <Switch>
+                     <Switch>
                         <Route exact path="/" component={Landing} />
                         <Route path="/register" component={SignUp} />
-                        <Route path="/home" component={Home}/>
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/login" component={Login} />
-                    </Switch>
-                </div>
+                         <Route path="/home" component={Home}/>
+                         <Route path="/logout" component={Logout} />
+                         <Route path="/login" component={Login} />
+                     </Switch>
+                </MuiThemeProvider>
             </Router>
         </Provider>
     )

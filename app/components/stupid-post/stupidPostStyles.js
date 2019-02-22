@@ -38,6 +38,18 @@ const stupidPostStyles = theme => ({
         backgroundColor : 'orangered',
         marginTop : theme.spacing.unit / 4,
         marginLeft : theme.spacing.unit
+    },
+
+    votingEnable : {
+        color : 'limegreen'
+    },
+
+    votingDisable : {
+        color : 'red'
+    },
+
+    votingCaution: {
+        color : 'yellow'
     }
 
 });

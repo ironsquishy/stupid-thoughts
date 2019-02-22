@@ -66,10 +66,10 @@ class Landing extends React.Component{
             <React.Fragment>
                 <div className={classes.heroContainer}>
                     <div className={classes.heroContent}>
-                        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                        <Typography component="h2" variant="h2" align="left" color="textPrimary" gutterBottom>
                             Welcome!
                         </Typography>
-                        <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                        <Typography variant="h6" align="left" color="textSecondary" paragraph>
                             The place where you can express any question or (stupid) thought. While others
                             can respond and vote which is best suited for the greater good of society. Community Driven Intelliegence is what we call it.
                         </Typography>

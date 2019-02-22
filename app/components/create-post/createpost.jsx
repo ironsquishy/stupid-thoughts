@@ -12,9 +12,11 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 /*Components*/
+import CountdownTimer from '../countdown-timer/countdowntimer';
 
 /*Actions*/
 import { CreateNewPost } from '../../actions/stpdPostActions';
+import { GetAllowedPost } from '../../actions/userActions';
 
 /*Style*/
 import Styles from './createpoststyles';
@@ -41,6 +43,7 @@ function initCountdown(endDate, component){
         if( timeRemaining < 0 ){
             console.log('Countdown Time has run out...');
             clearInterval(coundIntervalId);
+            console.log('Countdown Trigger allowed to post');
             return;
         }
 
@@ -87,6 +90,7 @@ class CreatePost extends React.Component{
 
         this.handlePostSubmit = this.handlePostSubmit.bind(this);
         this.handleMessageChange = this.handleMessageChange.bind(this);
+        this.timerDone = this.timerDone.bind(this);
     }
 
     handlePostSubmit(e){
@@ -109,21 +113,23 @@ class CreatePost extends React.Component{
 
     componentDidMount(){
         /*Check if can make a post*/
-        
+
     }
 
     componentWillUnmount(){
-        if(this.countDown){
-            this.countDown.clear();
-        }
+        // if(this.countDown){
+        //     this.countDown.clear();
+        // }
+    }
+
+    timerDone(){
+        
+        this.props.GetAllowedPost();
     }
 
     render(){
         const { classes, User} = this.props;
-        if(!User.allowedPost){
-            if (!this.countDown){
-                this.countDown = initCountdown(User.nextPostDate, this);
-            }
+        if(User.allowedPost === false){
             return(
                 <Grid item xs={12} md={12}>
                     <Card className={classes.card}>
@@ -143,9 +149,10 @@ class CreatePost extends React.Component{
                                     <Typography variant="h6" component="h6" color="textPrimary" align="left" className={classes.grow}>
                                         Next available time to create a new post 
                                     </Typography>
-                                    <Typography variant="h6" component="h6" color="textPrimary" align="center">
+                                    {/* <Typography variant="h6" component="h6" color="textPrimary" align="center">
                                         Time left: {this.state.hours}h {this.state.minutes}m {this.state.seconds}s
-                                    </Typography>
+                                    </Typography> */}
+                                    <CountdownTimer endDate={new Date(User.nextPostDate).getTime()} timerFinished={this.timerDone}/>
                                 </span>
                             </CardContent>
                         </div>
@@ -204,4 +211,4 @@ const mapToState = function ( _state = {}){
     return { ..._state };
 }
 
-export default connect(mapToState, { CreateNewPost })(withStyles(Styles, { withTheme : true })(CreatePost));
+export default connect(mapToState, { CreateNewPost, GetAllowedPost })(withStyles(Styles, { withTheme : true })(CreatePost));

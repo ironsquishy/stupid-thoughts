@@ -1,4 +1,3 @@
-import React from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
@@ -18,7 +17,7 @@ const theme = createMuiTheme({
   },
   typography: {
     useNextVariants: true,
-    fontFamily : ['"Merriweather"', '"Alice"', '"Arial"'].join(',')
+    // fontFamily : ['"Merriweather"', '"Alice"', '"Arial"'].join(',')
   },
 });
 export default theme;

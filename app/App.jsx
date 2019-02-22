@@ -30,14 +30,9 @@ import Logout from './components/authenticate/logout';
 /*Actions*/
 import {clear} from './actions/alertActions';
 
-/*App Theme CSS*/
-//import './global.css';
 import AppTheme from './AppTheme';
-const AppStyles = theme => ({
-    appFont : {
-        fontFamily : 'Merriweather'
-    }
-});
+
+const AppStyles = theme => ({});
 
 
 
@@ -67,20 +62,18 @@ class App extends React.Component{
         const { wsData,  Alerts, User, history } = this.props;
     
         return (
-                // <Router>
-                    <MuiThemeProvider theme={AppTheme}>
-                        <React.Fragment>
-                            <CssBaseline/>
-                            <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message} />
-                            <HeaderBar history={history}/>
-                            {/* <Route exact path="/" component={Home}/>
-                            <Route path="/login" component={Login} />
-                            <Route path="/register" component={SignUp} />
-                            <Route path="/home" component={Home}/>
-                            <Route path="/logout" component={Logout} /> */}
-                        </React.Fragment>
-                    </MuiThemeProvider>
-                // </Router>
+                    // <MuiThemeProvider theme={AppTheme}>
+                    //     <React.Fragment>
+                    //         <CssBaseline/>
+                    //         <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message} />
+                    //         <HeaderBar history={history}/>
+                            
+                    //     </React.Fragment>
+                    // </MuiThemeProvider>
+            <React.Fragment>
+                <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message} />
+                <HeaderBar history={history}/>
+            </React.Fragment>
         );
     }
 }

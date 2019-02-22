@@ -16,6 +16,10 @@ import IconButton  from '@material-ui/core/IconButton';
 
 
 const Styles = (theme) => ({
+    titleLink : {
+        textDecoration: 'none',
+        color : 'black'
+    },
     grow: {
         flexGrow: 1,
       }
@@ -99,9 +103,8 @@ class HeaderBar extends React.Component{
         return (
             <AppBar position="static">
                 <Toolbar>
-                    
                     <Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
-                            <Link to="/"> Stupid Thoughts </Link>
+                            <Link to="/" className={classes.titleLink}> Stupid Thoughts </Link>
                     </Typography>
                     {this.renderMenu()}
                     {/* { Session.loggedIn && <Button color="inherit" onClick={this.handleLogoutBtn}>Logout</Button>}

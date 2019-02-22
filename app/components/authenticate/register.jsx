@@ -48,37 +48,11 @@ const styles = theme => ({
         color : 'limegreen'
     },
     errorRed : {
-        color : 'red'
+        color : '#f44336'
     }
 })
 
-/*
-    @keyframes spinner {
-  to {transform: rotate(360deg);}
-}
- 
-.spinner:before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: #07d;
-  border-bottom-color: #07d;
-  animation: spinner .8s ease infinite;
-}
-*/ 
 
-function MockAvailableResponse(cb, self){
-    cb.bind(self)
-    return setTimeout(cb, 1000);
-}
 
 class Register extends React.Component{
     constructor(_props){
@@ -105,7 +79,7 @@ class Register extends React.Component{
         this.renderUsernameAdorment = this.renderUsernameAdorment.bind(this);
     }
 
-    checkAvailability(username, abortSignal){
+    checkAvailability(username){
         
         
         this.props.CheckAvailable(username)
@@ -172,7 +146,7 @@ class Register extends React.Component{
             return <ErrorOutline className={classes.errorRed} />
         }
 
-        return <AccountCircle />
+        return <AccountCircle/>
     }
 
     render(){
@@ -188,7 +162,7 @@ class Register extends React.Component{
             <Paper className={classes.root} elevation={1}>
                 
                     <form className={classes.container} autoComplete="off" onSubmit={this.handleSubmit}>
-                        <Typography align="center" variant="headline" component="h1">
+                        <Typography align="center" variant="h5" component="h5">
                             Create Stupid Account
                         </Typography>
 
