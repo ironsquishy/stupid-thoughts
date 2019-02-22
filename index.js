@@ -2,6 +2,7 @@ require('dotenv').config;
 
 const Express = require('express');
 const BodyParser = require('body-parser');
+const path = require('path');
 
 const App = Express();
 
@@ -16,8 +17,8 @@ App.use(BodyParser.json());
 
 App.use(Express.static('public'));
 
-App.get('/', (req, res) => {
-    res.send(path.resolve(__dirname, 'public/index.html'));
+App.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
 Http.listen(PORT, () => {
