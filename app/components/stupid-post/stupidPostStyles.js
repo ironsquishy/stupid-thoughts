@@ -1,13 +1,12 @@
 const stupidPostStyles = theme => ({
     card : {
         display : 'flex',
-        background: 'grey'
+        // background: 'grey'
     },
     cardContentLayout : {
         width : '100%'
     },
     cardDetails : {
-        display : 'flex',
         width :  '100%'
     },
 
@@ -50,7 +49,24 @@ const stupidPostStyles = theme => ({
 
     votingCaution: {
         color : 'yellow'
-    }
+    },
+
+    ownerTitle : {
+        fontStyle : 'italic',
+        flexGrow : 1
+    },
+
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+          duration: theme.transitions.duration.shortest,
+        }),
+      },
+
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
 
 });
 

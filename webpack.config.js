@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
 
 const BuildENV = process.env.NODE_ENV || 'development';
@@ -21,6 +21,10 @@ let config = {
     output : {
         path : path.resolve(__dirname, 'public'),
         filename : 'bundle.js'
+    },
+
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
     },
 
     resolve : {
@@ -89,17 +93,17 @@ let config = {
         ]
     },
 
-    plugins : [htmlWebpackPlugin],
+    plugins : [htmlWebpackPlugin, new UglifyJsPlugin()],
     devServer : {
         contentBase : path.resolve(__dirname, 'public'),
         historyApiFallback : true,
         inline : true,
         compress : true,
         proxy : {
-            // '/user' : 'http://stpdthghtapi.ironsquishy.com',
-            // '/stpdpost' : 'http://stpdthghtapi.ironsquishy.com'
-            '/user' : 'http://localhost:3000',
-            '/stpdpost' : 'http://localhost:3000'
+            // '/user' : 'http://localhost:3000',
+            // '/stpdpost' : 'http://localhost:3000'
+            // '/user' : 'http://192.168.1.120:3000',
+            // '/stpdpost' : 'http://192.168.1.120:3000'
         }
     },
     devtool : 'eval-source-map'

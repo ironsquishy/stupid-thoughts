@@ -47,17 +47,20 @@ class Home extends React.Component{
                     <Grid item xs={12} md={12}>
                         <Divider variant="middle" light={true} />
                     </Grid>
-                    
-                    <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
-                        Communities stupid thoughts :(
-                    </Typography>
+                    <Grid item xs={12} md={12}>
+                        <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
+                            Communities stupid thoughts :(
+                        </Typography>
+                    </Grid>
                     <StupidList list={StpdPost.communityPosts} />
                     <Grid item xs={12} md={12}>
                         <Divider variant="middle" light={true} />
                     </Grid>
-                    <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
-                        Your Stupid thoughts 
-                    </Typography>
+                    <Grid item xs={12} md={12}>
+                        <Typography component="h6" variant="h6" className={classes.textPrimary} gutterBottom>
+                            Your Stupid thoughts 
+                        </Typography>
+                    </Grid>
                     <StupidList list={StpdPost.ownedPosts}/>   
                 </Grid>
             </React.Fragment>

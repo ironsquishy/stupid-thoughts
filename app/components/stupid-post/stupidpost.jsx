@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from './stupidPostStyles';
+
 
 /*Material UI*/
 import { withStyles } from '@material-ui/core/styles';
@@ -12,9 +12,38 @@ import CardHeader from '@material-ui/core/CardHeader';
 import { green } from '@material-ui/core/colors';
 import Ballot from '@material-ui/icons/Ballot';
 import HowToVote from '@material-ui/icons/HowToVote';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
 
-const StupidPost = (_props) => {
-    const { classes, message, owner, responses, createDate, stpdHash, isVoting = true } = _props;
+/*Style */
+import Styles from './stupidPostStyles';
+import classnames from 'classnames';
+
+/*Components*/
+import StupidResponses from '../stupid-responses/response.container';
+
+
+
+class StupidPost extends React.Component{
+    constructor(_props){
+        super(_props);
+
+        this.state = {
+            expanded : false
+        
+        }
+
+        this.handleExpandClick = this.handleExpandClick.bind(this);
+    }
+
+    handleExpandClick(){
+        
+        this.setState({ expanded : !this.state.expanded });
+    }
+
+    render(){
+    const { classes, message, owner, responses, createDate, stpdHash, isVoting = true } = this.props;
 
     //const statusDot = isVoting ? classes.greenDot : classes.redDot;
     
@@ -27,7 +56,7 @@ const StupidPost = (_props) => {
                     <CardContent className={classes.cardContentLayout}>
                         {/* Card header */}
                         <span className={classes.cardHead}>
-                            <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
+                            <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.ownerTitle}>
                                 {owner}
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary" align="right">
@@ -39,16 +68,33 @@ const StupidPost = (_props) => {
                         </span>
 
                         {/* Main Body Message */}
-                        <Typography component="h6" variant="h6">
+                        <Typography component="h6" variant="h6" style={{ fontSize : '1.15em', fontStyle : 'italic'}}>
                             {message}
                         </Typography>
 
                         {/* Card Footer */}
                     </CardContent>
+                    <span style={{ display : 'flex'}}>
+                        <Typography component="h6" variant="h6" align="right" style={{flexGrow : 1, paddingTop : '8px', fontSize : '1em'}}>
+                                Responses
+                        </Typography>
+                        <IconButton 
+                            onClick={this.handleExpandClick}
+                            className={classnames(classes.expand, { [classes.expandOpen]: this.state.expanded, })}>
+                            <ExpandMoreIcon/>
+                        </IconButton>
+                    </span>        
+                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                        <CardContent>
+                            <StupidResponses />
+                        </CardContent> 
+                    </Collapse>
                 </div>
             </Card>
         </Grid>
     );
-};
+    }
+}
+
 
 export default withStyles(Styles, { withTheme : true })(StupidPost);

@@ -87,14 +87,20 @@ class CreatePost extends React.Component{
         this.state.hours = 0;
         this.state.minutes = 0;
         this.state.seconds = 0;
+        this.state.messageLength = 0;
 
         this.handlePostSubmit = this.handlePostSubmit.bind(this);
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.timerDone = this.timerDone.bind(this);
+        this.handleKeyPressChanges = this.handleKeyPressChanges.bind(this);
     }
 
     handlePostSubmit(e){
         e.preventDefault();
+        if(!e.target.value){
+            this.setState({ postMessage : ''});
+            return false;
+        }
         
         var sendPost = {
             owner : this.props.User.username,
@@ -108,7 +114,17 @@ class CreatePost extends React.Component{
     }
 
     handleMessageChange(e){
-        this.setState({ postMessage : e.target.value});
+        
+        if (e.target.value.length < 65){
+            this.setState({ postMessage : e.target.value, messageLength :  e.target.value.length});
+        }
+    }
+
+    handleKeyPressChanges(e){
+        
+        if( e.charCode == 10 || e.charCode == 13){
+            this.handlePostSubmit(e);
+        }
     }
 
     componentDidMount(){
@@ -188,7 +204,15 @@ class CreatePost extends React.Component{
                                     variant="outlined"
                                     onChange={this.handleMessageChange}
                                     value={this.state.postMessage}
+                                    onKeyPress={this.handleKeyPressChanges}
                                 />
+                                <span style={{ display : 'flex'}}>
+                                <Typography color="textPrimary" style={{ flexGrow : 1}}>
+                                    length : {this.state.messageLength}/64 
+                                </Typography>
+                                <Typography color="textPrimary">
+                                    ctr + enter : submit
+                                </Typography>
                                 <Button 
                                     type="submit" 
                                     name="submit" 
@@ -198,6 +222,7 @@ class CreatePost extends React.Component{
                                 >
                                     Submit stupid thought!
                                 </Button>
+                                </span>
                             </form>
                         </CardContent>
                     </div>
