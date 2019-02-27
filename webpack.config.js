@@ -93,17 +93,15 @@ let config = {
         ]
     },
 
-    plugins : [htmlWebpackPlugin, new UglifyJsPlugin()],
+    plugins : [htmlWebpackPlugin],
     devServer : {
         contentBase : path.resolve(__dirname, 'public'),
         historyApiFallback : true,
         inline : true,
         compress : true,
         proxy : {
-            // '/user' : 'http://localhost:3000',
-            // '/stpdpost' : 'http://localhost:3000'
-            // '/user' : 'http://192.168.1.120:3000',
-            // '/stpdpost' : 'http://192.168.1.120:3000'
+            '/user' : 'http://localhost:3000',
+            '/stpdpost' : 'http://localhost:3000'
         }
     },
     devtool : 'eval-source-map'
@@ -111,6 +109,6 @@ let config = {
 
 module.exports = config;
 
-// if(process.env.NODE_ENV == 'production'){
-//     module.exports.plugins.push();
-// }
+if(process.env.NODE_ENV == 'production'){
+    module.exports.plugins.push(new UglifyJsPlugin());
+}

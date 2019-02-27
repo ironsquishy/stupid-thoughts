@@ -3,6 +3,9 @@ import React from 'react';
 /*Material UI*/
 import Typography from '@material-ui/core/Typography';
 
+/*Component*/
+import StupidResponseInput from './response.input';
+
 class StpdResponseContainer extends React.Component{
 
     constructor(_props){
@@ -13,11 +16,13 @@ class StpdResponseContainer extends React.Component{
         console.log('Responses did mount...');
     }
 
+    handleResponseSubmit(_message){
+        console.log('Response conatiner level submit:', _message);
+    }
+
     render(){
         return(
-            <Typography>
-                Hello World
-            </Typography>
+            <StupidResponseInput handleSubmit={this.handleResponseSubmit}  />
         );
     }
 }

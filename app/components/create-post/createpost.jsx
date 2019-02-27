@@ -93,6 +93,7 @@ class CreatePost extends React.Component{
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.timerDone = this.timerDone.bind(this);
         this.handleKeyPressChanges = this.handleKeyPressChanges.bind(this);
+        this.inputInformationFooter = this.inputInformationFooter.bind(this);
     }
 
     handlePostSubmit(e){
@@ -141,6 +142,21 @@ class CreatePost extends React.Component{
     timerDone(){
         
         this.props.GetAllowedPost();
+    }
+
+    inputInformationFooter(){
+        return (
+            <React.Fragment>
+                <span style={{ display : 'flex'}}>
+                    <Typography  style={{ flexGrow : 1}}>
+                        length : {this.state.messageLength}/64 
+                    </Typography>
+                    <Typography>
+                        ctrl/cmd + enter to submit 
+                    </Typography>
+                </span>
+            </React.Fragment>
+        )
     }
 
     render(){
@@ -205,14 +221,8 @@ class CreatePost extends React.Component{
                                     onChange={this.handleMessageChange}
                                     value={this.state.postMessage}
                                     onKeyPress={this.handleKeyPressChanges}
+                                    helperText={'length : ' + this.state.messageLength + '/64'}
                                 />
-                                <span style={{ display : 'flex'}}>
-                                <Typography color="textPrimary" style={{ flexGrow : 1}}>
-                                    length : {this.state.messageLength}/64 
-                                </Typography>
-                                <Typography color="textPrimary">
-                                    ctr + enter : submit
-                                </Typography>
                                 <Button 
                                     type="submit" 
                                     name="submit" 
@@ -222,8 +232,9 @@ class CreatePost extends React.Component{
                                 >
                                     Submit stupid thought!
                                 </Button>
-                                </span>
+                                
                             </form>
+                            
                         </CardContent>
                     </div>
                 </Card>

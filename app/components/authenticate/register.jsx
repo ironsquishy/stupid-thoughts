@@ -103,17 +103,23 @@ class Register extends React.Component{
         
         if(e.target.name == 'username'){
             e.target.value = e.target.value.trim();
-
+            
             if(e.target.value.length > 16){
                 return;
             }
+
             this.setState({ username : e.target.value });
             
             clearTimeout(this.checkAvailableId);
+
+            if(e.target.value.length < 5){
+                this.setState({ isAvailable : null, isFetchingName : false });
+                return;
+            }
             
             if(e.target.value){
                 this.setState({ isFetchingName : true });
-                this.checkAvailableId = setTimeout(this.checkAvailability, 1000, e.target.value);
+                this.checkAvailableId = setTimeout(this.checkAvailability, 1500, e.target.value);
             }  
             
             if(!e.target.value){
