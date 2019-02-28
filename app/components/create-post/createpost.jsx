@@ -98,7 +98,8 @@ class CreatePost extends React.Component{
 
     handlePostSubmit(e){
         e.preventDefault();
-        if(!e.target.value){
+    
+        if(!this.state.postMessage){
             this.setState({ postMessage : ''});
             return false;
         }
@@ -122,25 +123,16 @@ class CreatePost extends React.Component{
     }
 
     handleKeyPressChanges(e){
-        // console.log('keypress', e.charCode);
-        // if( e.charCode == 10 || e.charCode == 13){
-        //     this.handlePostSubmit(e);
-        // }
     }
 
     componentDidMount(){
         /*Check if can make a post*/
-
     }
 
     componentWillUnmount(){
-        // if(this.countDown){
-        //     this.countDown.clear();
-        // }
     }
 
     timerDone(){
-        
         this.props.GetAllowedPost();
     }
 
