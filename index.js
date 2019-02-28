@@ -3,12 +3,15 @@ require('dotenv').config;
 const Express = require('express');
 const BodyParser = require('body-parser');
 const path = require('path');
+const compression = require('compression');
 
 const App = Express();
 
 const Http = require('http').Server(App);
 
 const PORT = 8080;
+
+App.use(compression());
 
 App.use(BodyParser.urlencoded({
     extended: false

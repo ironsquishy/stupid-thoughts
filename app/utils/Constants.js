@@ -1,5 +1,5 @@
 export const WEBSOCK_URL = 'http://localhost:3010/websock/btc';
-export const API_URL = (process.env.NODE_ENV == 'production') ? 'http://api.thoughtfullystupid.com' : '';
+export const API_URL = (process.env.NODE_ENV == 'production') ? 'https://api.thoughtfullystupid.com' : '';
 
 
 export const ALERTACTIONS = {

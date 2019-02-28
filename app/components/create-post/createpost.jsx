@@ -122,10 +122,10 @@ class CreatePost extends React.Component{
     }
 
     handleKeyPressChanges(e){
-        
-        if( e.charCode == 10 || e.charCode == 13){
-            this.handlePostSubmit(e);
-        }
+        // console.log('keypress', e.charCode);
+        // if( e.charCode == 10 || e.charCode == 13){
+        //     this.handlePostSubmit(e);
+        // }
     }
 
     componentDidMount(){
