@@ -21,7 +21,6 @@ class CountdownTimer extends React.Component{
 
     componentDidMount(){
         const { endDate } = this.props;
-        console.log('Countdown mounting');
         if(isNaN(endDate)){
             console.log('Prop: end date is not date');
             return;
@@ -52,7 +51,7 @@ class CountdownTimer extends React.Component{
         timeRemaining = ( timeRemaining % 60);
 
         this.seconds = parseInt( timeRemaining );
-    
+        
         this.setState({ days: this.days, hours: this.hours, minutes: this.minutes, seconds: this.seconds});
     }
 

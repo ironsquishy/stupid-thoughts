@@ -14,7 +14,8 @@
     "reduxdev-server": "pm2 start remotedev --name redux-devtool -- --hostname=localhost --port=5678",
     "attach-prod-server": "node index.js",
     "start": "webpack-dev-server --open",
-    "production-build": "webpack --mode production --env.NODE_ENV=production"
+    "production-build": "webpack --mode production --env.NODE_ENV=production",
+    "production" : "pm2 start index.js --name client-server"
   },
   "author": "Allen Space",
   "license": "ISC",
