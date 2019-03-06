@@ -10,17 +10,23 @@ class StpdResponseContainer extends React.Component{
 
     constructor(_props){
         super(_props);
+
+        this.handleResponseSubmit = this.handleResponseSubmit.bind(this);
     }
 
     componentDidMount(){
-        console.log('Responses did mount...');
+        
     }
 
     handleResponseSubmit(_message){
-        console.log('Response conatiner level submit:', _message);
+        const { postId, ownerId, owner } = this.props;
+
+       console.log(` ${owner}-${ownerId} Response : ${_message} #${postId}`);
     }
 
     render(){
+        const { postId, ownerId, owner } = this.props;
+        
         return(
             <StupidResponseInput handleSubmit={this.handleResponseSubmit}  />
         );

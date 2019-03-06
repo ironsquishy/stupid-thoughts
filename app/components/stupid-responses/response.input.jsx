@@ -38,6 +38,7 @@ class StupidResponseInput extends React.Component{
 
         if( this.props.handleSubmit){
             this.props.handleSubmit(this.state.responseMessage);
+            this.setState({ responseMessage : ''});
         }
     }
 

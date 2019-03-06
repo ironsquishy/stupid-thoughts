@@ -43,8 +43,8 @@ class StupidPost extends React.Component{
     }
 
     render(){
-    const { classes, message, owner, responses, createDate, stpdHash, isVoting = true } = this.props;
-
+    const { classes, _id, strangerId, strangerName, message, owner, createDate, isVoting = true } = this.props;
+    
     //const statusDot = isVoting ? classes.greenDot : classes.redDot;
     
     const votingStatus =  isVoting ? classes.votingEnable : classes.votingDisable
@@ -86,7 +86,7 @@ class StupidPost extends React.Component{
                     </span>        
                     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <StupidResponses />
+                            <StupidResponses postId={_id} ownerId={strangerId} owner={strangerName}/>
                         </CardContent> 
                     </Collapse>
                 </div>

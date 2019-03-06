@@ -35,7 +35,7 @@ class StupidPostList extends React.Component{
     }
 
     renderLatestPosts(){
-        const { list } = this.props;
+        const { User, list } = this.props;
         const { display } = this.state;
 
         if(list){
@@ -44,7 +44,8 @@ class StupidPostList extends React.Component{
                     // <Grow key={index} in={false} timeout="auto">
                     //     <StupidPost  {...post}/>  
                     // </Grow>
-                    <StupidPost key={index} {...post}/>
+                    //const { classes, _id, ownerId, message, owner, createDate, isVoting = true } = this.props;
+                    <StupidPost key={index} strangerId={User._id} strangerName={User.username} {...post} />
                 )
             })
         }
