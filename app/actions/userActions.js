@@ -35,9 +35,8 @@ export function register(user, password){
 
         UserServices.register(user, password)
         .then( user => {
-            dispatch( { type : Utils.USERACTION.REGISTER_SUCCESS, user });
-
             
+            dispatch( { type : Utils.USERACTION.REGISTER_SUCCESS, user });            
             dispatch( {type: Utils.ALERTACTIONS.SUCCESS, message: user.message } );
         })
         .catch( err => {

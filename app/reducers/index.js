@@ -6,16 +6,17 @@ import UserActionReducer from './user_reducer';
 import RegisterReducer from './registration_reducer';
 import AlertReducer from './alert_reducer';
 import StpdPostReducer from './stpdpost_reducer';
+import StpdResponseReducer from './stpdresponse_reducer';
 
 
 const rootReducer = combineReducers({
-    rootData : {},
-    wsData : WebSocketReducer,
+    // wsData : WebSocketReducer,
+    // Register : RegisterReducer,
     Session : AuthenticationReducer,
     User : UserActionReducer,
-    Register : RegisterReducer,
     Alerts : AlertReducer,
-    StpdPost : StpdPostReducer
+    StpdPost : StpdPostReducer,
+    StpdResponse : StpdResponseReducer,
 });
 
 export default rootReducer;
