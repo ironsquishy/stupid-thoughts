@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 
 /*Material UI*/
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 /*Component*/
 import StupidResponseInput from './response.input';
+import UserResponse from './response.user';
 
 /*Services*/
 import { CreateResponse } from '../../actions/stpdResponseActions';
@@ -63,6 +66,10 @@ class StpdResponseContainer extends React.Component{
        .catch(err => console.log('Response Failure:', err));
     }
 
+    handleUserVote(e){
+        console.log(`Response component on vote at the container level...`);
+    }
+
     immidiateAdd(newResponses){
         return;
     }
@@ -70,7 +77,7 @@ class StpdResponseContainer extends React.Component{
     renderResponses(responseList){
         return responseList.map( (res, index) => {
             return (
-                <span key={index}>{res.message}</span>
+                <UserResponse key={index} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
             );
         })
     }
@@ -79,11 +86,16 @@ class StpdResponseContainer extends React.Component{
         const { postId, ownerId, owner } = this.props;
         
         return(
-            <div>
-                <StupidResponseInput handleSubmit={this.handleResponseSubmit}  />
+            <Grid container spacing={40}>
+                <Grid item xs={12} md={12}>
+                    <StupidResponseInput handleSubmit={this.handleResponseSubmit}  />
+                </Grid>
                 {/* Display Responses */}
+                <Grid item xs={12} md={12}>
+                        <Divider variant="middle" light={true} />
+                </Grid>
                 {this.renderResponses(MockStpdresponses)}
-            </div>
+            </Grid>
         );
     }
 }

@@ -12,3 +12,9 @@ export const ResponseInputStyles = theme => ({
     }
 });
 
+export const UserResponseStyles = theme => ({
+  card : {
+    minWidth : 75,
+  }
+});
+
