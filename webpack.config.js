@@ -10,7 +10,8 @@ const BuildENV = process.env.NODE_ENV || 'development';
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
     template : './app/index.html',
-    filename : './index.html'
+    filename : './index.html',
+    favicon : './app/assets/favicon.ico'
 });
 
 
@@ -101,7 +102,8 @@ let config = {
         compress : true,
         proxy : {
             '/user' : 'http://localhost:3000',
-            '/stpdpost' : 'http://localhost:3000'
+            '/stpdpost' : 'http://localhost:3000',
+            '/stpdresponse' : 'http://localhost:3000',
         }
     },
     devtool : 'eval-source-map'

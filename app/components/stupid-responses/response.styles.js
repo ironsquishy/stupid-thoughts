@@ -12,3 +12,21 @@ export const ResponseInputStyles = theme => ({
     }
 });
 
+export const UserResponseStyles = theme => ({
+  card : {
+    minWidth : 75,
+    display : 'flex'
+  },
+
+  grow : {
+    flexGrow : 1
+  },
+
+  cardAction : {
+    backgroundColor : theme.palette.primary.main
+  },
+  button : {
+    color : 'grey'
+  }
+});
+
