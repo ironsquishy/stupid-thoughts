@@ -1,6 +1,24 @@
 import Utils from '../utils';
 import { StpdResponseServices } from '../services'; 
 
+export function GetResponsesByPostId(_postId){
+    return dispatch => {
+
+        dispatch( { type : Utils.STPDRESPONSEACTION.GET_RESPONSES_FETCH });
+
+        return StpdResponseServices.GetResponsesByPostId(_postId)
+        .then( _responses => {
+            
+            return dispatch({ type : Utils.STPDRESPONSEACTION.GET_RESPONSES_SUCCESS, responses : _responses });
+            
+        })
+        .catch(error => {
+            return dispatch( { type : Utils.STPDRESPONSEACTION.GET_RESPONSES_FAILURE, message : error.message });
+        })
+
+    }
+}
+
 export function CreateResponse(newResponse){
 
     return dispatch => {

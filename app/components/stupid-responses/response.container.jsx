@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Utils from '../../utils';
 
 /*Material UI*/
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +12,7 @@ import StupidResponseInput from './response.input';
 import UserResponse from './response.user';
 
 /*Services*/
-import { CreateResponse } from '../../actions/stpdResponseActions';
+import { CreateResponse, GetResponsesByPostId } from '../../actions/stpdResponseActions';
 
 const MockStpdresponses = [
     {
@@ -41,14 +42,56 @@ const MockStpdresponses = [
 class StpdResponseContainer extends React.Component{
 
     constructor(_props){
-        super(_props);
+        super(_props);  
+
+        this.state = {};
+        this.state.postResponses = null;
+
 
         this.handleResponseSubmit = this.handleResponseSubmit.bind(this);
         this.renderResponses = this.renderResponses.bind(this);
     }
 
     componentDidMount(){
+        const { postId, User, StpdPost : { communityPosts, ownedPosts }, GetResponsesByPostId } = this.props;
+       
+        const existResponses = Utils.getResponsesFrom({'_id' : postId }, Utils.mergeArrays('_id', communityPosts, ownedPosts));
+
+        console.log('Existing response:', existResponses);
         
+        GetResponsesByPostId(postId)
+        .then( ({ responses })=> {
+            this.setState({ postResponses : responses });
+        })
+        .catch( error => console.log('Error at component level:', error))
+        .finally(() => console.log('Finished get responses by post ID...'));
+    }
+
+    componentWillUnmount(){
+        const { postId, dispatch, StpdPost : { communityPosts, ownedPosts } } = this.props;
+
+        
+
+        setTimeout(()=>{
+            for( let i = 0; i < communityPosts.length; i++){
+                let post = communityPosts[i];
+                if(post._id === postId){
+                    post.stpdResponses = this.state.postResponses;
+                    return;
+                }
+            }
+        }, 0);
+
+        setTimeout(()=>{
+            for( let i = 0; i < ownedPosts.length; i++){
+                let post = ownedPosts[i];
+                if(post._id === postId){
+                    post.stpdResponses = this.state.postResponses;
+                    return;
+                }
+            }
+        }, 0);
+
     }
 
     handleResponseSubmit(_message){
@@ -75,6 +118,13 @@ class StpdResponseContainer extends React.Component{
     }
 
     renderResponses(responseList){
+        if(!responseList){
+            return (
+                <React.Fragment>
+                    <p>No responses here!</p>
+                </React.Fragment>
+            )
+        }
         return responseList.map( (res, index) => {
             return (
                 <UserResponse key={index} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
@@ -94,7 +144,7 @@ class StpdResponseContainer extends React.Component{
                 <Grid item xs={12} md={12}>
                         <Divider variant="middle" light={true} />
                 </Grid>
-                {this.renderResponses(MockStpdresponses)}
+                {this.renderResponses(this.state.postResponses)}
             </Grid>
         );
     }
@@ -104,4 +154,4 @@ const mapToState = ( _state = {} ) => {
     return _state
 } 
 
-export default connect(mapToState, { CreateResponse })(StpdResponseContainer);
+export default connect(mapToState, { CreateResponse, GetResponsesByPostId })(StpdResponseContainer);

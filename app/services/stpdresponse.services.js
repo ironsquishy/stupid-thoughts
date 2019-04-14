@@ -1,5 +1,17 @@
 import Utils from '../utils';
 
+
+export function GetResponsesByPostId(_postId){
+    const request = {
+        method : 'GET',
+        headers : Utils.AuthHeader()
+    }
+
+    return fetch(`${Utils.API_URL}/stpdresponse/${_postId}`, request)
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function CreateResponse(newResponse){
 
     const request = {

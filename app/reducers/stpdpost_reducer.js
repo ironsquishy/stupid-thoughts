@@ -59,6 +59,10 @@ export default function stpdPostActions(_state = InitialState, _action){
                 ..._state
             }
         
+        case Utils.STPDPOSTACTION.MODIFY_POST_SUCCESS :
+            return {
+                ..._state
+            }
         default :
             return _state
     }

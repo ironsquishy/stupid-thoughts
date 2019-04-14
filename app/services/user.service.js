@@ -92,16 +92,20 @@ export function getAllowedToPost(){
 
 function handleResponse(res){
     if(!res.ok){
-        var errorObj = {};
-        errorObj.status = res.status;
-        errorObj.message = res.statusText;
-        return Promise.reject(errorObj);
+        // var errorObj = {};
+        // errorObj.status = res.status;
+        // errorObj.message = res.message ? res.message : res.statusText;
+
+        return new Promise((resolve, reject)=>{
+            res.json().then(_res => reject(_res));
+        })
     }
 
     return res.json();
 }
 
 function handleError(err){
+    console.log('Error:', err);
 
     if( err.status == 401){
         return Promise.reject({ message : 'Unauthorized to access'});
