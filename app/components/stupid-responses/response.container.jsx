@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 /*Component*/
 import StupidResponseInput from './response.input';
 import UserResponse from './response.user';
+import CircleProgress from '../circle-progress/circleprogress';
 
 /*Services*/
 import { CreateResponse, GetResponsesByPostId } from '../../actions/stpdResponseActions';
@@ -50,6 +51,7 @@ class StpdResponseContainer extends React.Component{
 
         this.handleResponseSubmit = this.handleResponseSubmit.bind(this);
         this.renderResponses = this.renderResponses.bind(this);
+        this.handleRefreshResponses = this.handleRefreshResponses.bind(this);
     }
 
     componentDidMount(){
@@ -58,13 +60,15 @@ class StpdResponseContainer extends React.Component{
         const existResponses = Utils.getResponsesFrom({'_id' : postId }, Utils.mergeArrays('_id', communityPosts, ownedPosts));
 
         console.log('Existing response:', existResponses);
+        setTimeout( () => {
+            GetResponsesByPostId(postId)
+            .then( ({ responses })=> {
+                this.setState({ postResponses : responses });
+            })
+            .catch( error => console.log('Error at component level:', error))
+            .finally(() => console.log('Finished get responses by post ID...'));
+        }, 2000);
         
-        GetResponsesByPostId(postId)
-        .then( ({ responses })=> {
-            this.setState({ postResponses : responses });
-        })
-        .catch( error => console.log('Error at component level:', error))
-        .finally(() => console.log('Finished get responses by post ID...'));
     }
 
     componentWillUnmount(){
@@ -97,7 +101,6 @@ class StpdResponseContainer extends React.Component{
     handleResponseSubmit(_message){
         const { postId, ownerId, owner, CreateResponse } = this.props;
 
-       
        let newResponse = {
            owner : owner,
            ownerId : ownerId,
@@ -109,25 +112,41 @@ class StpdResponseContainer extends React.Component{
        .catch(err => console.log('Response Failure:', err));
     }
 
-    handleUserVote(e){
-        console.log(`Response component on vote at the container level...`);
+    handleUserVote(e, postId, owner){
+        console.log(`Vote on response : ${owner} < ${postId} >`);
     }
 
     immidiateAdd(newResponses){
         return;
     }
 
+    handleRefreshResponses(e){
+        const { postId } = this.props;
+
+        this.setState({ postResponses : null });
+
+
+        GetResponsesByPostId(postId)
+        .then( ({ responses })=> {
+            this.setState({ postResponses : responses });
+        })
+        .catch( error => console.log('Error at component level:', error))
+        .finally(() => console.log('Finished get responses by post ID...'));
+
+    }
+
     renderResponses(responseList){
         if(!responseList){
             return (
                 <React.Fragment>
-                    <p>No responses here!</p>
+                    <CircleProgress />
                 </React.Fragment>
             )
         }
+       
         return responseList.map( (res, index) => {
             return (
-                <UserResponse key={index} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
+                <UserResponse key={index} responseId={res.responseId} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
             );
         })
     }

@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+/*Webpack Dev Server console*/
+console.log(`Server URL <${getServerENVConfigs()}>`);
 
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
@@ -101,9 +103,12 @@ let config = {
         inline : true,
         compress : true,
         proxy : {
-            '/user' : 'http://localhost:3000',
-            '/stpdpost' : 'http://localhost:3000',
-            '/stpdresponse' : 'http://localhost:3000',
+            // '/user' : 'http://192.168.1.120:3000',
+            // '/stpdpost' : 'http://192.168.1.120:3000',
+            // '/stpdresponse' : 'http://localhost:3000',
+            '/user' : getServerENVConfigs(),
+            '/stpdpost' : getServerENVConfigs(),
+            '/stpdresponse' : getServerENVConfigs(),
         }
     },
     devtool : 'eval-source-map'
@@ -113,4 +118,10 @@ module.exports = config;
 
 if(process.env.NODE_ENV == 'production'){
     module.exports.plugins.push(new UglifyJsPlugin());
+}
+
+function getServerENVConfigs(){
+    var serverDOmain = process.env.SERVER_LOCAL_IP || 'localhost';
+    var serverPort = process.env.SERVER_PORT || '3000';
+    return `http://${serverDOmain}:${serverPort}`;
 }
