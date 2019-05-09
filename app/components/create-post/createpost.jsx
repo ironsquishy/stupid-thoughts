@@ -103,13 +103,16 @@ class CreatePost extends React.Component{
             this.setState({ postMessage : ''});
             return false;
         }
+
+        const { User : { _id, username }, CreateNewPost } = this.props;
         
         var sendPost = {
-            owner : this.props.User.username,
+            ownerId : _id,
+            owner : username,
             message : this.state.postMessage
         };
         
-        this.props.CreateNewPost(sendPost);
+        CreateNewPost(sendPost);
         
         this.setState({ postMessage : ''});
         

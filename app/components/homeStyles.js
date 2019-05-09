@@ -14,6 +14,13 @@ const homeStyles = theme => ({
       },
       textPrimary: {
         color : '#ffcc80'
+      },
+      flex : {
+        display : 'flex'
+      },
+      categoryText : {
+        color : '#ffcc80',
+        flexGrow : 1
       }
 });
 

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import AppReducer from './app_reducer';
-import WebSocketReducer from './websocket_reducer';
+//import WebSocketReducer from './websocket_reducer';
 import AuthenticationReducer from './authentication_reducer';
 import UserActionReducer from './user_reducer';
 import RegisterReducer from './registration_reducer';

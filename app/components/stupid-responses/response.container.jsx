@@ -15,31 +15,6 @@ import CircleProgress from '../circle-progress/circleprogress';
 /*Services*/
 import { CreateResponse, GetResponsesByPostId } from '../../actions/stpdResponseActions';
 
-const MockStpdresponses = [
-    {
-        owner : 'ironsquishy',
-        message : 'You are stupid',
-        postId : 1234,
-        ownerId : 4356,
-        votes : 0
-    },
-    {
-        owner : 'test1',
-        message : 'I am are stupid',
-        postId : 1234,
-        ownerId : 4356,
-        votes : 0
-    },
-    {
-        owner : 'test2',
-        message : 'We are stupid',
-        postId : 1234,
-        ownerId : 4356,
-        votes : 0
-    }
-
-]
-
 class StpdResponseContainer extends React.Component{
 
     constructor(_props){
@@ -55,93 +30,54 @@ class StpdResponseContainer extends React.Component{
     }
 
     componentDidMount(){
-        const { postId, User, StpdPost : { communityPosts, ownedPosts }, GetResponsesByPostId } = this.props;
-       
-        const existResponses = Utils.getResponsesFrom({'_id' : postId }, Utils.mergeArrays('_id', communityPosts, ownedPosts));
-
-        console.log('Existing response:', existResponses);
-        setTimeout( () => {
-            GetResponsesByPostId(postId)
-            .then( ({ responses })=> {
-                this.setState({ postResponses : responses });
-            })
-            .catch( error => console.log('Error at component level:', error))
-            .finally(() => console.log('Finished get responses by post ID...'));
-        }, 2000);
-        
+        const { postId, GetResponsesByPostId } = this.props;        
+        GetResponsesByPostId(postId);
     }
 
     componentWillUnmount(){
-        const { postId, dispatch, StpdPost : { communityPosts, ownedPosts } } = this.props;
-
         
-
-        setTimeout(()=>{
-            for( let i = 0; i < communityPosts.length; i++){
-                let post = communityPosts[i];
-                if(post._id === postId){
-                    post.stpdResponses = this.state.postResponses;
-                    return;
-                }
-            }
-        }, 0);
-
-        setTimeout(()=>{
-            for( let i = 0; i < ownedPosts.length; i++){
-                let post = ownedPosts[i];
-                if(post._id === postId){
-                    post.stpdResponses = this.state.postResponses;
-                    return;
-                }
-            }
-        }, 0);
-
     }
 
     handleResponseSubmit(_message){
-        const { postId, ownerId, owner, CreateResponse } = this.props;
+        const { postId, User, CreateResponse } = this.props;
 
-       let newResponse = {
-           owner : owner,
-           ownerId : ownerId,
-           postId : postId,
-           message : _message
-       }
-       CreateResponse(newResponse)
-       .then(res => console.log(` ${res.owner}-${res.ownerId} Response : ${res.message} #${res.postId}`))
-       .catch(err => console.log('Response Failure:', err));
+        let newResponse = {
+            owner : User.username,
+            ownerId : User._id,
+            postId : postId,
+            message : _message
+        }
+       CreateResponse(newResponse);  
     }
 
     handleUserVote(e, postId, owner){
         console.log(`Vote on response : ${owner} < ${postId} >`);
     }
 
-    immidiateAdd(newResponses){
-        return;
-    }
-
     handleRefreshResponses(e){
         const { postId } = this.props;
 
-        this.setState({ postResponses : null });
-
-
-        GetResponsesByPostId(postId)
-        .then( ({ responses })=> {
-            this.setState({ postResponses : responses });
-        })
-        .catch( error => console.log('Error at component level:', error))
-        .finally(() => console.log('Finished get responses by post ID...'));
-
+        GetResponsesByPostId(postId);
     }
 
-    renderResponses(responseList){
-        if(!responseList){
+    renderResponses(responseList = [], isFetching){
+         
+        if(isFetching){
             return (
                 <React.Fragment>
-                    <CircleProgress />
+                    <CircleProgress size={50}/>
                 </React.Fragment>
             )
+        }
+
+        if (!responseList.length){
+            return (
+                <Grid item xs={12} md={12}>
+                    <Typography component="h6" variant="h6" color="primary" align="center" gutterBottom>
+                        No Responses :(
+                    </Typography>    
+                </Grid>
+            );
         }
        
         return responseList.map( (res, index) => {
@@ -152,8 +88,8 @@ class StpdResponseContainer extends React.Component{
     }
 
     render(){
-        const { postId, ownerId, owner } = this.props;
-        
+        const { postId, ownerId, owner, StpdResponse : { hashPosts, isFetching }} = this.props;
+
         return(
             <Grid container spacing={40}>
                 <Grid item xs={12} md={12}>
@@ -163,7 +99,7 @@ class StpdResponseContainer extends React.Component{
                 <Grid item xs={12} md={12}>
                         <Divider variant="middle" light={true} />
                 </Grid>
-                {this.renderResponses(this.state.postResponses)}
+                {this.renderResponses(hashPosts[postId], isFetching)}
             </Grid>
         );
     }

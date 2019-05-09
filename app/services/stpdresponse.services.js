@@ -20,7 +20,7 @@ export function CreateResponse(newResponse){
         body : JSON.stringify(newResponse)
     };
 
-    return fecth(`${Utils.API_URL}/stpdresponse/create`, request)
+    return fetch(`${Utils.API_URL}/stpdresponse/create`, request)
     .then(handleResponse)
     .catch(handleError);
 

@@ -19,10 +19,11 @@ let CircleProgress = (_props)=>{
         justify : 'center',
         alignItems : 'center'
     }
+    let size = _props.size || 100;
     return (
         <React.Fragment>
             <Grid container {...gridProps}>
-                <CircularProgress className={classes.progress} thickness={5} size={100}/>
+                <CircularProgress className={classes.progress} thickness={5} size={size}/>
             </Grid>
         </React.Fragment>
     );

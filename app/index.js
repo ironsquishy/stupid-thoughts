@@ -21,6 +21,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 /*Styles*/
 import AppTheme from './AppTheme';
 
+/*Other Assets*/
+//import MyImage from  './assets/images/opengraph_image.png';
+
+
 const Index = (props) => {
     return (
         // <Provider store={Store}>

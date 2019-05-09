@@ -7,9 +7,9 @@ export function GetResponsesByPostId(_postId){
         dispatch( { type : Utils.STPDRESPONSEACTION.GET_RESPONSES_FETCH });
 
         return StpdResponseServices.GetResponsesByPostId(_postId)
-        .then( _responses => {
+        .then( currentPost => {
             
-            return dispatch({ type : Utils.STPDRESPONSEACTION.GET_RESPONSES_SUCCESS, responses : _responses });
+            return dispatch({ type : Utils.STPDRESPONSEACTION.GET_RESPONSES_SUCCESS, postResponses : currentPost.stpdResponses, postId : currentPost._id });
             
         })
         .catch(error => {
@@ -22,14 +22,10 @@ export function GetResponsesByPostId(_postId){
 export function CreateResponse(newResponse){
 
     return dispatch => {
-        dispatch ( { type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE });
-        return new Promise((resolve, reject) => {
-            dispatch( { type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE_SUCCESS, response : newResponse })
-            resolve(newResponse);
-        });
-        // return StpdResponseServices.CreateResponse(newResponse)
-        // .then( res => dispatch( {type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE_SUCCESS}, res ))
-        // .catch( err => dispatch({ type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE_FAIL, err}));
+        dispatch ( { type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE, from : newResponse });
+        return StpdResponseServices.CreateResponse(newResponse)
+        .then( res => dispatch( {type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE_SUCCESS}, res ))
+        .catch( err => dispatch({ type : Utils.STPDRESPONSEACTION.CREATE_RESPONSE_FAIL, err}));
     };
 
 }

@@ -16,7 +16,7 @@ import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 //Components
 import Home from './components/Home.container';
 import CircleProgress from './components/circle-progress/circleprogress';
-import TickerTableContainer from './components/tickertable-container/tickertable.container';
+//import TickerTableContainer from './components/tickertable-container/tickertable.container';
 import ChartContainer from './components/chart-container/chart.container';
 import Login from './components/authenticate/login';
 import AlertBanner from './components/alert-banner/alertbanner';

@@ -1,7 +1,8 @@
 import Utils from '../utils';
 
 const initialState = {
-    ownedResponses : []
+    postResponses : [],
+    hashPosts : [],
 }
 
 export default function stpdResponseReducer( _state = initialState, _action ){
@@ -24,7 +25,15 @@ export default function stpdResponseReducer( _state = initialState, _action ){
 
         case Utils.STPDRESPONSEACTION.GET_RESPONSES_FETCH :
             return {
-                ..._state
+                ..._state,
+                isFetching : true,
+            }
+        case Utils.STPDRESPONSEACTION.GET_RESPONSES_SUCCESS :
+            _state.hashPosts[_action.postId] = _action.postResponses;
+            return {
+                ..._state,
+                postResponses : _action.postResponses,
+                isFetching : false
             }
         
         case Utils.STPDRESPONSEACTION.CREATE_RESPONSE_SUCCESS :
@@ -35,7 +44,8 @@ export default function stpdResponseReducer( _state = initialState, _action ){
             
         case Utils.STPDRESPONSEACTION.GET_RESPONSES_FAILURE :
             return {
-                ..._state
+                ..._state, 
+                isFetching : false 
             }
         
         default :
