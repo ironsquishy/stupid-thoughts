@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import Modal from '@material-ui/core/Modal';
 
 /*Components*/
 //import TickerTableContainer from './tickertable-container/tickertable.container';
@@ -31,8 +32,14 @@ class Home extends React.Component{
     constructor(_props){
         super(_props);
 
+        this.state = {
+            openModal : false
+        }
+
         this.handleRefreshComunityResponse = this.handleRefreshComunityResponse.bind(this);
         this.handleRefreshUserResponse = this.handleRefreshUserResponse.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.handleOpenModal = this.handleOpenModal.bind(this);
     }
 
     componentDidMount(){
@@ -46,6 +53,14 @@ class Home extends React.Component{
 
     handleRefreshUserResponse(event){
         this.props.GetCurrentUser();
+    }
+
+    handleOpenModal(event){
+        this.setState({ openModal : true });
+    }
+
+    handleCloseModal(event){
+        this.setState({ openModal : false });
     }
 
     render(){
@@ -90,9 +105,21 @@ class Home extends React.Component{
                         </Typography>
                         <RefreshButton variant="outlined" color="primary" onClick={this.handleRefreshUserResponse}/>
                     </Grid>
-                    <StupidList list={StpdPost.ownedPosts}/>   
-                    
+                    <StupidList list={StpdPost.ownedPosts}/>  
+                    {/* Modal Feature */}
+                        <Grid item xs={12} md={12}>
+                            <Button onClick={this.handleOpenModal}>Open Modal</Button>
+                            <Modal open={this.state.openModal} onClose={this.handleCloseModal}>
+                                <div>
+                                    <Typography component="h4" variant="h4">
+                                        Hello I am a cool modal!!!!
+                                    </Typography>
+                                </div>
+                            </Modal>
+                        </Grid>  
                 </Grid>
+                
+                 
             </React.Fragment>
         );
     }

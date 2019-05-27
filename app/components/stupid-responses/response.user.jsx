@@ -25,8 +25,8 @@ class UserResponse extends React.Component{
     }
 
     handleUserVote(e){
-        const { responseId, owner} = this.props; 
-        this.props.onVote(e, responseId, owner);
+        const { responseId } = this.props; 
+        this.props.onVote(e, responseId);
     }
 
     render(){

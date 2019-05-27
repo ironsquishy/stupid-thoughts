@@ -8,12 +8,26 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
 
+
+const metaTags = {
+    'og:title' : 'Stupid Thoughts',
+    'og:description' : 'Community driven intelligience..',
+    'og:url' : 'https://thoughtfullystupid.com',
+    'og:type' : 'website',
+    'og:image' : 'https://thoughtfullystupid.com/images/opengraph_image.png',
+    'og:image:type' : 'image/png',
+    'og:image:width' : '200',
+    'og:image:height' : '200'
+} 
+
 const BuildENV = process.env.NODE_ENV || 'development';
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
+    title : 'Thoughtfully Stupid',
     template : './app/index.html',
     filename : './index.html',
-    favicon : './app/assets/favicon.ico'
+    favicon : './app/assets/favicon.ico',
+    'meta' : { ...metaTags }
 });
 
 

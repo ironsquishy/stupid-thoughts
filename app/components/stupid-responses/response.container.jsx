@@ -14,6 +14,7 @@ import CircleProgress from '../circle-progress/circleprogress';
 
 /*Services*/
 import { CreateResponse, GetResponsesByPostId } from '../../actions/stpdResponseActions';
+import { Vote } from '../../actions/vote_actions';
 
 class StpdResponseContainer extends React.Component{
 
@@ -27,6 +28,7 @@ class StpdResponseContainer extends React.Component{
         this.handleResponseSubmit = this.handleResponseSubmit.bind(this);
         this.renderResponses = this.renderResponses.bind(this);
         this.handleRefreshResponses = this.handleRefreshResponses.bind(this);
+        this.handleUserVote = this.handleUserVote.bind(this);
     }
 
     componentDidMount(){
@@ -50,8 +52,12 @@ class StpdResponseContainer extends React.Component{
        CreateResponse(newResponse);  
     }
 
-    handleUserVote(e, postId, owner){
-        console.log(`Vote on response : ${owner} < ${postId} >`);
+    handleUserVote(e, responseId ){
+        const { postId, User, Vote } = this.props;
+
+        
+        let request = { owner : User.username, ownerId : User._id , postId, responseId };
+        Vote(request);
     }
 
     handleRefreshResponses(e){
@@ -109,4 +115,4 @@ const mapToState = ( _state = {} ) => {
     return _state
 } 
 
-export default connect(mapToState, { CreateResponse, GetResponsesByPostId })(StpdResponseContainer);
+export default connect(mapToState, { CreateResponse, GetResponsesByPostId, Vote })(StpdResponseContainer);
