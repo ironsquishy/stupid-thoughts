@@ -88,7 +88,7 @@ class StpdResponseContainer extends React.Component{
        
         return responseList.map( (res, index) => {
             return (
-                <UserResponse key={index} responseId={res.responseId} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
+                <UserResponse key={index} responseId={res._id} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
             );
         })
     }
