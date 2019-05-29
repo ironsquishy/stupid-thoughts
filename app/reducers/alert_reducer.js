@@ -1,6 +1,7 @@
 import Utils from '../utils';
 
 const initialState = { isError : false, message : '' };
+
 export default function (_state = initialState, _action){
     switch (_action.type){
         case  Utils.ALERTACTIONS.ERROR:

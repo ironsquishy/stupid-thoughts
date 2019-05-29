@@ -10,9 +10,6 @@ export function GetCurrentUser(){
     
     return fetch(`${Utils.API_URL}/user/current`, request)
     .then(handleResponse)
-    // .then(user => {
-    //         return user
-    // })
     .catch(handleError);
     
 }

@@ -21,27 +21,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 /*Styles*/
 import AppTheme from './AppTheme';
 
-/*Other Assets*/
-//import MyImage from  './assets/images/opengraph_image.png';
-
 
 const Index = (props) => {
     return (
-        // <Provider store={Store}>
-        //     <Router>
-        //         <div>
-        //             <Route component={App}/>
-        //             <Switch>
-        //                 <Route exact path="/" component={Landing} />
-        //                 <Route path="/register" component={SignUp} />
-        //                 <Route path="/home" component={Home}/>
-        //                 <Route path="/logout" component={Logout} />
-        //                 <Route path="/login" component={Login} />
-        //             </Switch>
-        //         </div>
-        //     </Router>
-        // </Provider>
-
         <Provider store={Store}>
             <Router>
                 <MuiThemeProvider theme={AppTheme}>

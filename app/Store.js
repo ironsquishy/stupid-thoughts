@@ -12,8 +12,6 @@ let Store = null;
 
 if (process.env.NODE_ENV == 'production'){
     /*Production*/
-
-    console.log('Production Application...');
     Store = createStore(RootReducers, applyMiddleware(thunk, promise));
 } else {
     /* Development */
