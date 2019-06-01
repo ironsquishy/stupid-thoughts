@@ -32,9 +32,9 @@ const Index = (props) => {
                      <Switch>
                         <Route exact path="/" component={Landing} />
                         <Route path="/register" component={SignUp} />
-                         <Route path="/home" component={Home}/>
-                         <Route path="/logout" component={Logout} />
-                         <Route path="/login" component={Login} />
+                        <Route path="/home" component={Home}/>
+                        <Route path="/logout" component={Logout} />
+                        <Route path="/login" component={Login} />
                      </Switch>
                 </MuiThemeProvider>
             </Router>

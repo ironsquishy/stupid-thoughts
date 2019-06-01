@@ -6,7 +6,7 @@ console.log(`Server URL <${getServerENVConfigs()}>`);
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
+
 
 
 const metaTags = {
@@ -117,9 +117,6 @@ let config = {
         inline : true,
         compress : true,
         proxy : {
-            // '/user' : 'http://192.168.1.120:3000',
-            // '/stpdpost' : 'http://192.168.1.120:3000',
-            // '/stpdresponse' : 'http://localhost:3000',
             '/user' : getServerENVConfigs(),
             '/stpdpost' : getServerENVConfigs(),
             '/stpdresponse' : getServerENVConfigs(),

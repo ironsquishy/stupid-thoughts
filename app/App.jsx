@@ -1,22 +1,16 @@
 import React from 'react';
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 //Material UI
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
-// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// import AppBar from '@material-ui/core/AppBar';
-// import Grid from '@material-ui/core/Grid';
+
 
 //Components
 import Home from './components/Home.container';
 import CircleProgress from './components/circle-progress/circleprogress';
-//import TickerTableContainer from './components/tickertable-container/tickertable.container';
 import ChartContainer from './components/chart-container/chart.container';
 import Login from './components/authenticate/login';
 import AlertBanner from './components/alert-banner/alertbanner';
@@ -34,9 +28,8 @@ import AppTheme from './AppTheme';
 
 const AppStyles = theme => ({});
 
-
-
 class App extends React.Component{
+
     constructor(props){
         super(props);
         this.gridOptions = {
@@ -51,7 +44,6 @@ class App extends React.Component{
     componentDidMount(){
         /*Check for local User*/
         const { User } =  this.props;
-        
     }
 
     closeAlert(e){
@@ -59,20 +51,15 @@ class App extends React.Component{
     }
 
     render(){
-        const { wsData,  Alerts, User, history } = this.props;
+        const { Alerts, history } = this.props;
     
         return (
-                    // <MuiThemeProvider theme={AppTheme}>
-                    //     <React.Fragment>
-                    //         <CssBaseline/>
-                    //         <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message} />
-                    //         <HeaderBar history={history}/>
-                            
-                    //     </React.Fragment>
-                    // </MuiThemeProvider>
             <React.Fragment>
                 <AlertBanner open={Alerts.isError} onDismissAlert={this.closeAlert} message={Alerts.message} />
                 <HeaderBar history={history}/>
+
+                {/* TODO : Move components in Index to App */}
+
             </React.Fragment>
         );
     }

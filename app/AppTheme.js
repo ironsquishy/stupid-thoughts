@@ -16,8 +16,7 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    useNextVariants: true,
-    // fontFamily : ['"Merriweather"', '"Alice"', '"Arial"'].join(',')
+    useNextVariants: true
   },
 });
 export default theme;
