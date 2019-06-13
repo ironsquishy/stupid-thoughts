@@ -1,18 +1,18 @@
 import Utils from '../utils';
 
 
-export function postVote({ ownerId, postId, responseId }){
+export function postVote({ voter, voterId, postId, responseId }){
     let request = {
         method : 'POST',
         headers : Utils.AuthHeader(),
-        body : JSON.stringify({ownerId, postId, responseId })
+        body : JSON.stringify({voter, voterId, postId, responseId })
     }
 
     return new Promise ((resolve, reject) => {
         if (!request.body) {
             reject('Body was not populated...');
         }
-        resolve(request.body);
+        resolve(JSON.parse(request.body));
     });
 }
 

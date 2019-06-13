@@ -56,7 +56,7 @@ class StpdResponseContainer extends React.Component{
         const { postId, User, Vote } = this.props;
 
         
-        let request = { owner : User.username, ownerId : User._id , postId, responseId };
+        let request = { voter : User.username, voterId : User._id , postId, responseId };
         Vote(request);
     }
 

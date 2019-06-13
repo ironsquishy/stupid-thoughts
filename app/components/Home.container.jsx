@@ -107,7 +107,7 @@ class Home extends React.Component{
                     </Grid>
                     <StupidList list={StpdPost.ownedPosts}/>  
                     {/* Modal Feature */}
-                        <Grid item xs={12} md={12}>
+                        {/* <Grid item xs={12} md={12}>
                             <Button onClick={this.handleOpenModal}>Open Modal</Button>
                             <Modal open={this.state.openModal} onClose={this.handleCloseModal}>
                                 <div>
@@ -116,7 +116,7 @@ class Home extends React.Component{
                                     </Typography>
                                 </div>
                             </Modal>
-                        </Grid>  
+                        </Grid>   */}
                 </Grid>
                 
                  

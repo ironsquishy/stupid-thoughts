@@ -4,4 +4,4 @@ import AuthHeader from './AuthHeader';
 import History from './history';
 import * as DataMani from './datamanipulation';
 
-export default { ...ActionTypes, ...Constants, ...DataMani, Statistics, AuthHeader, History };
+export default { ...Constants, ...DataMani, Statistics, AuthHeader, History };
