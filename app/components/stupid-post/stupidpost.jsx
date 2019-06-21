@@ -22,6 +22,7 @@ import classnames from 'classnames';
 
 /*Components*/
 import StupidResponses from '../stupid-responses/response.container';
+import { typography } from 'material-ui/styles';
 
 
 
@@ -43,7 +44,7 @@ class StupidPost extends React.Component{
     }
 
     render(){
-    const { classes, _id, strangerId, strangerName, message, owner, createDate, isVoting = true } = this.props;
+    const { classes, _id, strangerId, strangerName, message, owner, createDate, isVoting = true, userVoted  = false } = this.props;
     
     //const statusDot = isVoting ? classes.greenDot : classes.redDot;
     
@@ -86,7 +87,7 @@ class StupidPost extends React.Component{
                     </span>        
                     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <StupidResponses postId={_id} ownerId={strangerId} owner={strangerName}/>
+                            <StupidResponses postId={_id} ownerId={strangerId} owner={strangerName} userVoted={userVoted}/>
                         </CardContent> 
                     </Collapse>
                 </div>

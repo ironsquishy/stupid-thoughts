@@ -120,6 +120,7 @@ let config = {
             '/user' : getServerENVConfigs(),
             '/stpdpost' : getServerENVConfigs(),
             '/stpdresponse' : getServerENVConfigs(),
+            '/voting' : getServerENVConfigs()
         }
     },
     devtool : 'eval-source-map'

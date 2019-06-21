@@ -73,7 +73,7 @@ export default function stpdPostActions(_state = InitialState, _action){
         case Utils.STPDVOTEACTION.REQUEST_VOTE_SUCCESS :
             return {
                 ..._state, 
-                isFetching : _action.isFetching
+                isFetching : _action.isFetching, updatePost : _action.response
             }
         case Utils.STPDVOTEACTION.REQUEST_VOTE_FAIL :
             return {

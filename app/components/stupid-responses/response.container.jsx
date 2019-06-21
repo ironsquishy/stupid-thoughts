@@ -88,13 +88,13 @@ class StpdResponseContainer extends React.Component{
        
         return responseList.map( (res, index) => {
             return (
-                <UserResponse key={index} responseId={res._id} owner={res.owner} message={res.message} onVote={this.handleUserVote} />
+                <UserResponse key={index} responseId={res._id} owner={res.owner} message={res.message} onVote={this.handleUserVote} disable={this.props.userVoted}/>
             );
         })
     }
 
     render(){
-        const { postId, ownerId, owner, StpdResponse : { hashPosts, isFetching }} = this.props;
+        const { postId, ownerId, owner, StpdResponse : { hashPosts, isFetching }, userVoted} = this.props;
 
         return(
             <Grid container spacing={40}>

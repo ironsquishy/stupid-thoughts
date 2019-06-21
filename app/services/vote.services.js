@@ -8,19 +8,13 @@ export function postVote({ voter, voterId, postId, responseId }){
         body : JSON.stringify({voter, voterId, postId, responseId })
     }
 
-    return new Promise ((resolve, reject) => {
-        if (!request.body) {
-            reject('Body was not populated...');
-        }
-        resolve(JSON.parse(request.body));
-    });
+    return fetch(`${Utils.API_URL}/voting/vote`, request).then(handleResponse).catch(handleError)
 }
 
 function handleResponse(response){
     if(!response.ok){
         throw 'Error on voting post.';
     }
-    
     return response.json();
 }
 

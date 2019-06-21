@@ -30,7 +30,7 @@ class UserResponse extends React.Component{
     }
 
     render(){
-        const {classes, owner, message }  = this.props;
+        const {classes, owner, message, disable }  = this.props;
 
         return (
             <Grid item xs={12} md={12}>
@@ -43,8 +43,10 @@ class UserResponse extends React.Component{
                                 {message}
                             </Typography>
                         </CardContent>
-                        <CardActions className={classes.cardAction}>
-                            <Button onClick={this.handleUserVote} className={classes.button}>Vote</Button>
+                        <CardActions className={(!disable) ? classes.cardAction : classes.cardActionDisable}>
+                            <Button onClick={this.handleUserVote} className={classes.button} disabled={false}>
+                                { (!disable) ? 'Vote' : 'You already voted' }
+                            </Button>
                         </CardActions>
                     </Card>
             </Grid>

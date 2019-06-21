@@ -1,3 +1,5 @@
+import { inherits } from "util";
+
 export const ResponseContainerStyles = theme => ({});
 
 export const ResponseInputStyles = theme => ({
@@ -25,8 +27,15 @@ export const UserResponseStyles = theme => ({
   cardAction : {
     backgroundColor : theme.palette.primary.main
   },
+  
+  cardActionDisable : {
+    backgroundColor : 'inherit'
+  },
   button : {
     color : 'grey'
+  },
+  disableButton : {
+    color : 'red'
   }
 });
 
