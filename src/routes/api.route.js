@@ -6,8 +6,8 @@ const myRoute = Express.Router();
 myRoute.use(BodParser.json());
 
 myRoute.get('/', (req, res) => {
-    res.status(200);
-    res.send({test : 'success'});
+	res.status(200);
+	res.send({test : 'success'});
 });
 
 module.exports = exports = myRoute;

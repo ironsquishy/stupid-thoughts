@@ -11,17 +11,17 @@ import logger from 'redux-logger';
 let Store = null;
 
 if (process.env.NODE_ENV == 'production'){
-    /*Production*/
-    Store = createStore(RootReducers, applyMiddleware(thunk, promise));
+	/*Production*/
+	Store = createStore(RootReducers, applyMiddleware(thunk, promise));
 } else {
-    /* Development */
+	/* Development */
 
-    //Browser Debugger
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+	//Browser Debugger
+	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-    const middleware = applyMiddleware(thunk, promise, logger);
+	const middleware = applyMiddleware(thunk, promise, logger);
 
-    Store = createStore(RootReducers, /* preloadedState, */ composeEnhancers(middleware));
+	Store = createStore(RootReducers, /* preloadedState, */ composeEnhancers(middleware));
 }
 
 export default Store;

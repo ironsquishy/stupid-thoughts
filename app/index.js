@@ -23,23 +23,24 @@ import AppTheme from './AppTheme';
 
 
 const Index = (props) => {
-    return (
-        <Provider store={Store}>
-            <Router>
-                <MuiThemeProvider theme={AppTheme}>
-                    <CssBaseline/>
-                    <Route component={App}/>
-                     <Switch>
-                        <Route exact path="/" component={Landing} />
-                        <Route path="/register" component={SignUp} />
-                        <Route path="/home" component={Home}/>
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/login" component={Login} />
-                     </Switch>
-                </MuiThemeProvider>
-            </Router>
-        </Provider>
-    )
-}
+	return (
+		<Provider store={Store}>
+			<Router>
+				<MuiThemeProvider theme={AppTheme}>
+					<CssBaseline/>
+					<Route component={App}/>
+					<Switch>
+						<Route exact path="/" component={Landing} />
+						<Route path="/register" component={SignUp} />
+						<Route path="/home" component={Home}/>
+						<Route path="/logout" component={Logout} />
+						<Route path="/login" component={Login} />
+					</Switch>
+				</MuiThemeProvider>
+			</Router>
+		</Provider>
+	);
+};
+
 ReactDOM.render( <Index />, document.getElementById('root') );
 

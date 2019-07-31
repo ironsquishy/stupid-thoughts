@@ -14,16 +14,16 @@ const PORT = 8080;
 App.use(compression());
 
 App.use(BodyParser.urlencoded({
-    extended: false
+	extended: false
 }));
 App.use(BodyParser.json());
 
 App.use(Express.static('public'));
 
 App.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+	res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
 Http.listen(PORT, () => {
-    console.log('Listening on ', PORT);
-})
+	console.log('Listening on ', PORT);
+});
