@@ -18,101 +18,101 @@ import { Vote } from '../../actions/vote_actions';
 
 class StpdResponseContainer extends React.Component{
 
-    constructor(_props){
-        super(_props);  
+	constructor(_props){
+		super(_props);  
 
-        this.state = {};
-        this.state.postResponses = null;
+		this.state = {};
+		this.state.postResponses = null;
 
 
-        this.handleResponseSubmit = this.handleResponseSubmit.bind(this);
-        this.renderResponses = this.renderResponses.bind(this);
-        this.handleRefreshResponses = this.handleRefreshResponses.bind(this);
-        this.handleUserVote = this.handleUserVote.bind(this);
-    }
+		this.handleResponseSubmit = this.handleResponseSubmit.bind(this);
+		this.renderResponses = this.renderResponses.bind(this);
+		this.handleRefreshResponses = this.handleRefreshResponses.bind(this);
+		this.handleUserVote = this.handleUserVote.bind(this);
+	}
 
-    componentDidMount(){
-        const { postId, GetResponsesByPostId } = this.props;        
-        GetResponsesByPostId(postId);
-    }
+	componentDidMount(){
+		const { postId, GetResponsesByPostId } = this.props;        
+		GetResponsesByPostId(postId);
+	}
 
-    componentWillUnmount(){
+	componentWillUnmount(){
         
-    }
+	}
 
-    handleResponseSubmit(_message){
-        const { postId, User, CreateResponse } = this.props;
+	handleResponseSubmit(_message){
+		const { postId, User, CreateResponse } = this.props;
 
-        let newResponse = {
-            owner : User.username,
-            ownerId : User._id,
-            postId : postId,
-            message : _message
-        }
-       CreateResponse(newResponse);  
-    }
+		let newResponse = {
+			owner : User.username,
+			ownerId : User._id,
+			postId : postId,
+			message : _message
+		};
+		CreateResponse(newResponse);  
+	}
 
-    handleUserVote(e, responseId ){
-        const { postId, User, Vote } = this.props;
+	handleUserVote(e, responseId ){
+		const { postId, User, Vote } = this.props;
 
         
-        let request = { voter : User.username, voterId : User._id , postId, responseId };
-        Vote(request);
-    }
+		let request = { voter : User.username, voterId : User._id , postId, responseId };
+		Vote(request);
+	}
 
-    handleRefreshResponses(e){
-        const { postId } = this.props;
+	handleRefreshResponses(e){
+		const { postId } = this.props;
 
-        GetResponsesByPostId(postId);
-    }
+		GetResponsesByPostId(postId);
+	}
 
-    renderResponses(responseList = [], isFetching){
+	renderResponses(responseList = [], isFetching){
          
-        if(isFetching){
-            return (
-                <React.Fragment>
-                    <CircleProgress size={50}/>
-                </React.Fragment>
-            )
-        }
+		if(isFetching){
+			return (
+				<React.Fragment>
+					<CircleProgress size={50}/>
+				</React.Fragment>
+			);
+		}
 
-        if (!responseList.length){
-            return (
-                <Grid item xs={12} md={12}>
-                    <Typography component="h6" variant="h6" color="primary" align="center" gutterBottom>
+		if (!responseList.length){
+			return (
+				<Grid item xs={12} md={12}>
+					<Typography component="h6" variant="h6" color="primary" align="center" gutterBottom>
                         No Responses :(
-                    </Typography>    
-                </Grid>
-            );
-        }
+					</Typography>    
+				</Grid>
+			);
+		}
        
-        return responseList.map( (res, index) => {
-            return (
-                <UserResponse key={index} responseId={res._id} owner={res.owner} message={res.message} onVote={this.handleUserVote} disable={this.props.userVoted}/>
-            );
-        })
-    }
+		return responseList.map( (res, index) => {
+			return (
+				<UserResponse key={index} responseId={res._id} owner={res.owner} message={res.message} onVote={this.handleUserVote} disable={this.props.userVoted}/>
+			);
+		});
+	}
 
-    render(){
-        const { postId, ownerId, owner, StpdResponse : { hashPosts, isFetching }, userVoted} = this.props;
+	render(){
+		const { postId, ownerId, owner, StpdResponse : { hashPosts, isFetching }, userVoted} = this.props;
 
-        return(
-            <Grid container spacing={40}>
-                <Grid item xs={12} md={12}>
-                    <StupidResponseInput handleSubmit={this.handleResponseSubmit}  />
-                </Grid>
-                {/* Display Responses */}
-                <Grid item xs={12} md={12}>
-                        <Divider variant="middle" light={true} />
-                </Grid>
-                {this.renderResponses(hashPosts[postId], isFetching)}
-            </Grid>
-        );
-    }
+		return(
+			<Grid container spacing={40}>
+				<Grid item xs={12} md={12}>
+					<StupidResponseInput handleSubmit={this.handleResponseSubmit}  />
+				</Grid>
+				{/* Display Responses */}
+				<Grid item xs={12} md={12}>
+					<Divider variant="middle" light={true} />
+				</Grid>
+				{this.renderResponses(hashPosts[postId], isFetching)}
+			</Grid>
+		);
+	}
 }
 
 const mapToState = ( _state = {} ) => {
-    return _state
-} 
+	return _state;
+}; 
 
 export default connect(mapToState, { CreateResponse, GetResponsesByPostId, Vote })(StpdResponseContainer);

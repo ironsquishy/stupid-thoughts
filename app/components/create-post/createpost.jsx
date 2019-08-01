@@ -22,224 +22,224 @@ import { GetAllowedPost } from '../../actions/userActions';
 import Styles from './createpoststyles';
 
 function initCountdown(endDate, component){
-    let days = 0, hours = 0,  minutes = 0, seconds = 0;
-    endDate = new Date(endDate).getTime();
+	let days = 0, hours = 0,  minutes = 0, seconds = 0;
+	endDate = new Date(endDate).getTime();
     
-    if (isNaN(endDate)){
-        console.warn('Countdown deprecated... parameters undefined');
-        return { 
-            clear : function(){},
-            update : function(){},
-            restart : function(){}
-        }
-    }
+	if (isNaN(endDate)){
+		console.warn('Countdown deprecated... parameters undefined');
+		return { 
+			clear : function(){},
+			update : function(){},
+			restart : function(){}
+		};
+	}
 
-    const coundIntervalId = setInterval(calculateCountdown, 1000);
-    function calculateCountdown(){
-        let startDate = new Date().getTime();
+	const coundIntervalId = setInterval(calculateCountdown, 1000);
+	function calculateCountdown(){
+		let startDate = new Date().getTime();
         
-        let timeRemaining = parseInt( (endDate - startDate) / 1000);
+		let timeRemaining = parseInt( (endDate - startDate) / 1000);
        
-        if( timeRemaining < 0 ){
-            console.log('Countdown Time has run out...');
-            clearInterval(coundIntervalId);
-            console.log('Countdown Trigger allowed to post');
-            return;
-        }
+		if( timeRemaining < 0 ){
+			console.log('Countdown Time has run out...');
+			clearInterval(coundIntervalId);
+			console.log('Countdown Trigger allowed to post');
+			return;
+		}
 
-        days = parseInt( timeRemaining / 86400);
-        timeRemaining = ( timeRemaining % 86400);
+		days = parseInt( timeRemaining / 86400);
+		timeRemaining = ( timeRemaining % 86400);
 
-        hours = parseInt( timeRemaining / 3600);
-        timeRemaining = ( timeRemaining % 3600);
+		hours = parseInt( timeRemaining / 3600);
+		timeRemaining = ( timeRemaining % 3600);
 
-        minutes = parseInt( timeRemaining / 60);
-        timeRemaining = ( timeRemaining % 60);
+		minutes = parseInt( timeRemaining / 60);
+		timeRemaining = ( timeRemaining % 60);
 
-        seconds = parseInt( timeRemaining );
+		seconds = parseInt( timeRemaining );
         
-        component.setState({ days: days, hours: hours, minutes: minutes, seconds: seconds});
-    }
+		component.setState({ days: days, hours: hours, minutes: minutes, seconds: seconds});
+	}
 
-    return {
-        days, 
-        hours,
-        minutes,
-        seconds,
-        clear : function(){
-            clearInterval(coundIntervalId);
-        },
-        update : function(){},
-        restart : function(){}
-    }
+	return {
+		days, 
+		hours,
+		minutes,
+		seconds,
+		clear : function(){
+			clearInterval(coundIntervalId);
+		},
+		update : function(){},
+		restart : function(){}
+	};
 
 
 }
 
 class CreatePost extends React.Component{
-    constructor(_props){
-        super(_props);
+	constructor(_props){
+		super(_props);
 
-        this.state = {};
-        this.state.postMessage = '';
-        this.countDown = null;
-        this.state.days = 0;
-        this.state.hours = 0;
-        this.state.minutes = 0;
-        this.state.seconds = 0;
-        this.state.messageLength = 0;
+		this.state = {};
+		this.state.postMessage = '';
+		this.countDown = null;
+		this.state.days = 0;
+		this.state.hours = 0;
+		this.state.minutes = 0;
+		this.state.seconds = 0;
+		this.state.messageLength = 0;
 
-        this.handlePostSubmit = this.handlePostSubmit.bind(this);
-        this.handleMessageChange = this.handleMessageChange.bind(this);
-        this.timerDone = this.timerDone.bind(this);
-        this.handleKeyPressChanges = this.handleKeyPressChanges.bind(this);
-        this.inputInformationFooter = this.inputInformationFooter.bind(this);
-    }
+		this.handlePostSubmit = this.handlePostSubmit.bind(this);
+		this.handleMessageChange = this.handleMessageChange.bind(this);
+		this.timerDone = this.timerDone.bind(this);
+		this.handleKeyPressChanges = this.handleKeyPressChanges.bind(this);
+		this.inputInformationFooter = this.inputInformationFooter.bind(this);
+	}
 
-    handlePostSubmit(e){
-        e.preventDefault();
+	handlePostSubmit(e){
+		e.preventDefault();
     
-        if(!this.state.postMessage){
-            this.setState({ postMessage : ''});
-            return false;
-        }
+		if(!this.state.postMessage){
+			this.setState({ postMessage : ''});
+			return false;
+		}
 
-        const { User : { _id, username }, CreateNewPost } = this.props;
+		const { User : { _id, username }, CreateNewPost } = this.props;
         
-        var sendPost = {
-            ownerId : _id,
-            owner : username,
-            message : this.state.postMessage
-        };
+		var sendPost = {
+			ownerId : _id,
+			owner : username,
+			message : this.state.postMessage
+		};
         
-        CreateNewPost(sendPost);
+		CreateNewPost(sendPost);
         
-        this.setState({ postMessage : ''});
+		this.setState({ postMessage : ''});
         
-    }
+	}
 
-    handleMessageChange(e){
+	handleMessageChange(e){
         
-        if (e.target.value.length < 65){
-            this.setState({ postMessage : e.target.value, messageLength :  e.target.value.length});
-        }
-    }
+		if (e.target.value.length < 65){
+			this.setState({ postMessage : e.target.value, messageLength :  e.target.value.length});
+		}
+	}
 
-    handleKeyPressChanges(e){
-    }
+	handleKeyPressChanges(e){
+	}
 
-    componentDidMount(){
-        /*Check if can make a post*/
-    }
+	componentDidMount(){
+		/*Check if can make a post*/
+	}
 
-    componentWillUnmount(){
-    }
+	componentWillUnmount(){
+	}
 
-    timerDone(){
-        this.props.GetAllowedPost();
-    }
+	timerDone(){
+		this.props.GetAllowedPost();
+	}
 
-    inputInformationFooter(){
-        return (
-            <React.Fragment>
-                <span style={{ display : 'flex'}}>
-                    <Typography  style={{ flexGrow : 1}}>
+	inputInformationFooter(){
+		return (
+			<React.Fragment>
+				<span style={{ display : 'flex'}}>
+					<Typography  style={{ flexGrow : 1}}>
                         length : {this.state.messageLength}/64 
-                    </Typography>
-                    <Typography>
+					</Typography>
+					<Typography>
                         ctrl/cmd + enter to submit 
-                    </Typography>
-                </span>
-            </React.Fragment>
-        )
-    }
+					</Typography>
+				</span>
+			</React.Fragment>
+		);
+	}
 
-    render(){
-        const { classes, User} = this.props;
-        if(User.allowedPost === false){
-            return(
-                <Grid item xs={12} md={12}>
-                    <Card className={classes.card}>
-                        <div className={classes.cardDetails}>
-                            <CardContent className={classes.cardContentLayout}>
-                                {/* Card header */}
-                                <span className={classes.cardHead}>
-                                    <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
-                                        {User.username}
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary" align="right">
-                                        {new Date().toLocaleDateString('en-US')}
-                                    </Typography>
-                                </span>
-                                {/* Card Body */}
-                                <span className={classes.countDownContent}>
-                                    <Typography variant="h6" component="h6" color="textPrimary" align="left" className={classes.grow}>
+	render(){
+		const { classes, User} = this.props;
+		if(User.allowedPost === false){
+			return(
+				<Grid item xs={12} md={12}>
+					<Card className={classes.card}>
+						<div className={classes.cardDetails}>
+							<CardContent className={classes.cardContentLayout}>
+								{/* Card header */}
+								<span className={classes.cardHead}>
+									<Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
+										{User.username}
+									</Typography>
+									<Typography variant="subtitle1" color="textSecondary" align="right">
+										{new Date().toLocaleDateString('en-US')}
+									</Typography>
+								</span>
+								{/* Card Body */}
+								<span className={classes.countDownContent}>
+									<Typography variant="h6" component="h6" color="textPrimary" align="left" className={classes.grow}>
                                         Next available time to create a new post 
-                                    </Typography>
-                                    {/* <Typography variant="h6" component="h6" color="textPrimary" align="center">
+									</Typography>
+									{/* <Typography variant="h6" component="h6" color="textPrimary" align="center">
                                         Time left: {this.state.hours}h {this.state.minutes}m {this.state.seconds}s
                                     </Typography> */}
-                                    <CountdownTimer endDate={new Date(User.nextPostDate).getTime()} timerFinished={this.timerDone}/>
-                                </span>
-                            </CardContent>
-                        </div>
-                    </Card>
-                </Grid>
-            );
-        }
+									<CountdownTimer endDate={new Date(User.nextPostDate).getTime()} timerFinished={this.timerDone}/>
+								</span>
+							</CardContent>
+						</div>
+					</Card>
+				</Grid>
+			);
+		}
 
-        return (
-            <Grid item xs={12} md={12}>
-                <Card className={classes.card}>
-                    <div className={classes.cardDetails}>
-                        <CardContent className={classes.cardContentLayout}>
-                            {/* Card header */}
-                            <span className={classes.cardHead}>
-                                <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
-                                    {User.username}
-                                </Typography>
-                                <Typography variant="subtitle1" color="textSecondary" align="right">
-                                    {new Date().toLocaleDateString('en-US')}
-                                </Typography>
-                                {/* <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
+		return (
+			<Grid item xs={12} md={12}>
+				<Card className={classes.card}>
+					<div className={classes.cardDetails}>
+						<CardContent className={classes.cardContentLayout}>
+							{/* Card header */}
+							<span className={classes.cardHead}>
+								<Typography variant="subtitle1" color="textSecondary" align="left" className={classes.grow}>
+									{User.username}
+								</Typography>
+								<Typography variant="subtitle1" color="textSecondary" align="right">
+									{new Date().toLocaleDateString('en-US')}
+								</Typography>
+								{/* <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
                                 </Typography> */}
-                            </span>
-                            <form autoComplete="on" noValidate onSubmit={this.handlePostSubmit}>
-                                <TextField
-                                    id="outlined-multiline-static"
-                                    label="Put Stupid thought here..."
-                                    multiline
-                                    rows="2"
-                                    className={classes.textField}
-                                    margin="normal"
-                                    variant="outlined"
-                                    onChange={this.handleMessageChange}
-                                    value={this.state.postMessage}
-                                    onKeyPress={this.handleKeyPressChanges}
-                                    helperText={'length : ' + this.state.messageLength + '/64'}
-                                />
-                                <Button 
-                                    type="submit" 
-                                    name="submit" 
-                                    variant="outlined"
-                                    color="primary"
-                                    className={classes.button}
-                                >
+							</span>
+							<form autoComplete="on" noValidate onSubmit={this.handlePostSubmit}>
+								<TextField
+									id="outlined-multiline-static"
+									label="Put Stupid thought here..."
+									multiline
+									rows="2"
+									className={classes.textField}
+									margin="normal"
+									variant="outlined"
+									onChange={this.handleMessageChange}
+									value={this.state.postMessage}
+									onKeyPress={this.handleKeyPressChanges}
+									helperText={'length : ' + this.state.messageLength + '/64'}
+								/>
+								<Button 
+									type="submit" 
+									name="submit" 
+									variant="outlined"
+									color="primary"
+									className={classes.button}
+								>
                                     Submit stupid thought!
-                                </Button>
+								</Button>
                                 
-                            </form>
+							</form>
                             
-                        </CardContent>
-                    </div>
-                </Card>
-            </Grid>
-        );
-    }
+						</CardContent>
+					</div>
+				</Card>
+			</Grid>
+		);
+	}
 }
 
 const mapToState = function ( _state = {}){
-    return { ..._state };
-}
+	return { ..._state };
+};
 
 export default connect(mapToState, { CreateNewPost, GetAllowedPost })(withStyles(Styles, { withTheme : true })(CreatePost));

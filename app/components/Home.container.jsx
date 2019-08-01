@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 /*Material UI*/
@@ -29,85 +29,85 @@ import { GetCommunityLatestPosts } from '../actions/stpdPostActions';
 
 
 class Home extends React.Component{
-    constructor(_props){
-        super(_props);
+	constructor(_props){
+		super(_props);
 
-        this.state = {
-            openModal : false
-        }
+		this.state = {
+			openModal : false
+		};
 
-        this.handleRefreshComunityResponse = this.handleRefreshComunityResponse.bind(this);
-        this.handleRefreshUserResponse = this.handleRefreshUserResponse.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-    }
+		this.handleRefreshComunityResponse = this.handleRefreshComunityResponse.bind(this);
+		this.handleRefreshUserResponse = this.handleRefreshUserResponse.bind(this);
+		this.handleCloseModal = this.handleCloseModal.bind(this);
+		this.handleOpenModal = this.handleOpenModal.bind(this);
+	}
 
-    componentDidMount(){
-        this.props.GetCurrentUser();
-        this.props.GetCommunityLatestPosts();
-    }
+	componentDidMount(){
+		this.props.GetCurrentUser();
+		this.props.GetCommunityLatestPosts();
+	}
 
-    handleRefreshComunityResponse(event){
-        this.props.GetCommunityLatestPosts();
-    }
+	handleRefreshComunityResponse(event){
+		this.props.GetCommunityLatestPosts();
+	}
 
-    handleRefreshUserResponse(event){
-        this.props.GetCurrentUser();
-    }
+	handleRefreshUserResponse(event){
+		this.props.GetCurrentUser();
+	}
 
-    handleOpenModal(event){
-        this.setState({ openModal : true });
-    }
+	handleOpenModal(event){
+		this.setState({ openModal : true });
+	}
 
-    handleCloseModal(event){
-        this.setState({ openModal : false });
-    }
+	handleCloseModal(event){
+		this.setState({ openModal : false });
+	}
 
-    render(){
-        var { classes, Session, User, StpdPost } = this.props;
-        if(!Session.loggedIn){
-            return (<Redirect to={{ pathname: '/login'}} />);
-        }
+	render(){
+		var { classes, Session, User, StpdPost } = this.props;
+		if(!Session.loggedIn){
+			return (<Redirect to={{ pathname: '/login'}} />);
+		}
 
-        return (
-            <React.Fragment>
+		return (
+			<React.Fragment>
                 
-                <Grid container spacing={40} className={classes.layout}>
-                    <CreatePost/>
-                    {/* Community posts */}
-                    <Grid item xs={12} md={12}>
-                        <Divider variant="middle" light={true} />
-                    </Grid>
-                    <Grid item xs={12} md={12} className={classes.flex}>
-                        <Typography 
-                            component="h6" 
-                            variant="h6" 
-                            className={classes.categoryText} 
-                            gutterBottom>
+				<Grid container spacing={40} className={classes.layout}>
+					<CreatePost/>
+					{/* Community posts */}
+					<Grid item xs={12} md={12}>
+						<Divider variant="middle" light={true} />
+					</Grid>
+					<Grid item xs={12} md={12} className={classes.flex}>
+						<Typography 
+							component="h6" 
+							variant="h6" 
+							className={classes.categoryText} 
+							gutterBottom>
                             Communities stupid thoughts :(
-                        </Typography>
-                        <RefreshButton variant="outlined" color="primary" onClick={this.handleRefreshComunityResponse}/>
-                    </Grid>
+						</Typography>
+						<RefreshButton variant="outlined" color="primary" onClick={this.handleRefreshComunityResponse}/>
+					</Grid>
 
-                    <StupidList list={StpdPost.communityPosts} />
+					<StupidList list={StpdPost.communityPosts} />
 
-                    {/* User's posts */}
-                    <Grid item xs={12} md={12}>
-                        <Divider variant="middle" light={true} />
-                    </Grid>
-                    <Grid item xs={12} md={12} className={classes.flex}>
-                        <Typography 
-                            component="h6" 
-                            variant="h6" 
-                            className={classes.categoryText} 
-                            gutterBottom>
+					{/* User's posts */}
+					<Grid item xs={12} md={12}>
+						<Divider variant="middle" light={true} />
+					</Grid>
+					<Grid item xs={12} md={12} className={classes.flex}>
+						<Typography 
+							component="h6" 
+							variant="h6" 
+							className={classes.categoryText} 
+							gutterBottom>
                             Your Stupid thoughts 
-                        </Typography>
-                        <RefreshButton variant="outlined" color="primary" onClick={this.handleRefreshUserResponse}/>
-                    </Grid>
-                    <StupidList list={StpdPost.ownedPosts}/>  
-                    {/* Modal Feature */}
-                        {/* <Grid item xs={12} md={12}>
+						</Typography>
+						<RefreshButton variant="outlined" color="primary" onClick={this.handleRefreshUserResponse}/>
+					</Grid>
+					<StupidList list={StpdPost.ownedPosts}/>  
+					{/* Modal Feature */}
+					{/* <Grid item xs={12} md={12}>
                             <Button onClick={this.handleOpenModal}>Open Modal</Button>
                             <Modal open={this.state.openModal} onClose={this.handleCloseModal}>
                                 <div>
@@ -117,16 +117,16 @@ class Home extends React.Component{
                                 </div>
                             </Modal>
                         </Grid>   */}
-                </Grid>
+				</Grid>
                 
                  
-            </React.Fragment>
-        );
-    }
+			</React.Fragment>
+		);
+	}
 }
 
 const mapToState = function( _state = {}){
-    return {..._state};
+	return {..._state};
 };
 
 export default connect(mapToState, { GetCurrentUser, GetCommunityLatestPosts })(withStyles(Styles, { withTheme : true })(Home));

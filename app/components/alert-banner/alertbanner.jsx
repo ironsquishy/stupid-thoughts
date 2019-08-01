@@ -27,112 +27,112 @@ import { styles } from 'ansi-colors';
 
 /*Material UI variant icons*/
 const variantIcon = {
-    success: CheckCircleIcon,
-    warning: WarningIcon,
-    error: ErrorIcon,
-    info: InfoIcon,
-  };
+	success: CheckCircleIcon,
+	warning: WarningIcon,
+	error: ErrorIcon,
+	info: InfoIcon,
+};
 
 const Styles = theme => ({
-    success: {
-        backgroundColor: green[600],
-      },
-      error: {
-        backgroundColor: theme.palette.error.dark,
-      },
-      info: {
-        backgroundColor: theme.palette.primary.dark,
-      },
-      warning: {
-        backgroundColor: amber[700],
-      },
-      icon: {
-        fontSize: 20,
-      },
-      iconVariant: {
-        opacity: 0.9,
-        marginRight: theme.spacing.unit,
-      },
-      message: {
-        display: 'flex',
-        alignItems: 'center',
-      },
+	success: {
+		backgroundColor: green[600],
+	},
+	error: {
+		backgroundColor: theme.palette.error.dark,
+	},
+	info: {
+		backgroundColor: theme.palette.primary.dark,
+	},
+	warning: {
+		backgroundColor: amber[700],
+	},
+	icon: {
+		fontSize: 20,
+	},
+	iconVariant: {
+		opacity: 0.9,
+		marginRight: theme.spacing.unit,
+	},
+	message: {
+		display: 'flex',
+		alignItems: 'center',
+	},
 });
 
 
 
 function AlertContent(props) {
-    const { classes, className, message, onClose, variant, ...other } = props;
-    const Icon = variantIcon[variant];
+	const { classes, className, message, onClose, variant, ...other } = props;
+	const Icon = variantIcon[variant];
   
-    return (
-      <SnackbarContent
-        className={classNames(classes[variant], className)}
-        aria-describedby="client-snackbar"
-        message={
-          <span id="client-snackbar" className={classes.message}>
-            <Icon className={classNames(classes.icon, classes.iconVariant)} />
-            {message}
-          </span>
-        }
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.close}
-            onClick={onClose}
-          >
-            <CloseIcon className={classes.icon} />
-          </IconButton>,
-        ]}
-        {...other}
-      />
-    );
-  }
+	return (
+		<SnackbarContent
+			className={classNames(classes[variant], className)}
+			aria-describedby="client-snackbar"
+			message={
+				<span id="client-snackbar" className={classes.message}>
+					<Icon className={classNames(classes.icon, classes.iconVariant)} />
+					{message}
+				</span>
+			}
+			action={[
+				<IconButton
+					key="close"
+					aria-label="Close"
+					color="inherit"
+					className={classes.close}
+					onClick={onClose}
+				>
+					<CloseIcon className={classes.icon} />
+				</IconButton>,
+			]}
+			{...other}
+		/>
+	);
+}
 
-  AlertContent.propTypes = {
-    classes: PropTypes.object.isRequired,
-    className: PropTypes.string,
-    message: PropTypes.node,
-    onClose: PropTypes.func,
-    variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-  };
+AlertContent.propTypes = {
+	classes: PropTypes.object.isRequired,
+	className: PropTypes.string,
+	message: PropTypes.node,
+	onClose: PropTypes.func,
+	variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+};
   
 const AlertContentWrapper = withStyles(Styles)(AlertContent);
 
 class AlertBanner extends React.Component{
-    constructor(_props){
-        super(_props);
+	constructor(_props){
+		super(_props);
 
-        this.handleClose = this.handleClose.bind(this);
-    }
+		this.handleClose = this.handleClose.bind(this);
+	}
 
-    handleClose(e){
-        this.props.onDismissAlert();
-    }
+	handleClose(e){
+		this.props.onDismissAlert();
+	}
 
-    render(){
-        const {classes, open, message } = this.props;
-        return (
-            <Snackbar
-                anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-                }}
-                open={open}
-                autoHideDuration={8000}
-                onClose={this.handleClose}
-            >
-                <AlertContentWrapper
-                    onClose={this.handleClose}
-                    variant="error"
-                    message={message}
-                />
-            </Snackbar>
+	render(){
+		const {classes, open, message } = this.props;
+		return (
+			<Snackbar
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+				open={open}
+				autoHideDuration={8000}
+				onClose={this.handleClose}
+			>
+				<AlertContentWrapper
+					onClose={this.handleClose}
+					variant="error"
+					message={message}
+				/>
+			</Snackbar>
           
-          );
-    }
+		);
+	}
 }
 
 

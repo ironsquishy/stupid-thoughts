@@ -18,55 +18,55 @@ import { GetCommunityLatestPosts } from '../../actions/stpdPostActions';
 import Styles from './stupidpostlistStyles';
 
 class StupidPostList extends React.Component{
-    constructor(_props){
-        super(_props);
+	constructor(_props){
+		super(_props);
 
-        this.state = {};
-        this.state.display = false;
-        this.renderLatestPosts = this.renderLatestPosts.bind(this);
-    }
+		this.state = {};
+		this.state.display = false;
+		this.renderLatestPosts = this.renderLatestPosts.bind(this);
+	}
 
-    componentDidMount(){
+	componentDidMount(){
         
-    }
+	}
 
-    componentWillUnmount(){
+	componentWillUnmount(){
         
-    }
+	}
 
-    renderLatestPosts(){
-        const { User, list } = this.props;
-        const { display } = this.state;
+	renderLatestPosts(){
+		const { User, list } = this.props;
+		const { display } = this.state;
 
-        if(list){
-            return list.map((post, index) => {
-                return (
-                    // <Grow key={index} in={false} timeout="auto">
-                    //     <StupidPost  {...post}/>  
-                    // </Grow>
-                    //const { classes, _id, ownerId, message, owner, createDate, isVoting = true } = this.props;
-                    <StupidPost key={index} strangerId={User._id} strangerName={User.username} {...post} />
-                )
-            })
-        }
+		if(list){
+			return list.map((post, index) => {
+				return (
+				// <Grow key={index} in={false} timeout="auto">
+				//     <StupidPost  {...post}/>  
+				// </Grow>
+				//const { classes, _id, ownerId, message, owner, createDate, isVoting = true } = this.props;
+					<StupidPost key={index} strangerId={User._id} strangerName={User.username} {...post} />
+				);
+			});
+		}
 
-        return ( <p>Please wait</p>);
-    }
+		return ( <p>Please wait</p>);
+	}
 
-    render(){
-        const { classes, User, StupidPost} = this.props;
-        return(
-            <React.Fragment>
-                <Grid container spacing={40} justify="flex-start" >
-                    {this.renderLatestPosts()}
-                </Grid>
-            </React.Fragment>
-        );
-    }
+	render(){
+		const { classes, User, StupidPost} = this.props;
+		return(
+			<React.Fragment>
+				<Grid container spacing={40} justify="flex-start" >
+					{this.renderLatestPosts()}
+				</Grid>
+			</React.Fragment>
+		);
+	}
 }
 
 const mapToState = (state = {}) => {
-    return { ...state }
-}
+	return { ...state };
+};
 
-export default withStyles(Styles, { withTheme : true })(connect(mapToState, { GetCommunityLatestPosts })(StupidPostList))
+export default withStyles(Styles, { withTheme : true })(connect(mapToState, { GetCommunityLatestPosts })(StupidPostList));

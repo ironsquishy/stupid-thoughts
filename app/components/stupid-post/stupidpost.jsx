@@ -27,74 +27,74 @@ import { typography } from 'material-ui/styles';
 
 
 class StupidPost extends React.Component{
-    constructor(_props){
-        super(_props);
+	constructor(_props){
+		super(_props);
 
-        this.state = {
-            expanded : false
+		this.state = {
+			expanded : false
         
-        }
+		};
 
-        this.handleExpandClick = this.handleExpandClick.bind(this);
-    }
+		this.handleExpandClick = this.handleExpandClick.bind(this);
+	}
 
-    handleExpandClick(){
+	handleExpandClick(){
         
-        this.setState({ expanded : !this.state.expanded });
-    }
+		this.setState({ expanded : !this.state.expanded });
+	}
 
-    render(){
-    const { classes, _id, strangerId, strangerName, message, owner, createDate, isVoting = true, userVoted  = false } = this.props;
+	render(){
+		const { classes, _id, strangerId, strangerName, message, owner, createDate, isVoting = true, userVoted  = false } = this.props;
     
-    //const statusDot = isVoting ? classes.greenDot : classes.redDot;
+		//const statusDot = isVoting ? classes.greenDot : classes.redDot;
     
-    const votingStatus =  isVoting ? classes.votingEnable : classes.votingDisable
+		const votingStatus =  isVoting ? classes.votingEnable : classes.votingDisable;
 
-    return (
-        <Grid item xs={12} md={6}>
-            <Card className={classes.card}>
-                <div className={classes.cardDetails}>
-                    <CardContent className={classes.cardContentLayout}>
-                        {/* Card header */}
-                        <span className={classes.cardHead}>
-                            <Typography variant="subtitle1" color="textSecondary" align="left" className={classes.ownerTitle}>
-                                {owner}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary" align="right">
-                                {new Date(createDate).toLocaleDateString('en-US')}
-                            </Typography>
-                            {/* <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
+		return (
+			<Grid item xs={12} md={6}>
+				<Card className={classes.card}>
+					<div className={classes.cardDetails}>
+						<CardContent className={classes.cardContentLayout}>
+							{/* Card header */}
+							<span className={classes.cardHead}>
+								<Typography variant="subtitle1" color="textSecondary" align="left" className={classes.ownerTitle}>
+									{owner}
+								</Typography>
+								<Typography variant="subtitle1" color="textSecondary" align="right">
+									{new Date(createDate).toLocaleDateString('en-US')}
+								</Typography>
+								{/* <Typography variant="subtitle1" color="textPrimary" align="right" className={statusDot}>
                             </Typography> */}
-                            <HowToVote className={votingStatus} />
-                        </span>
+								<HowToVote className={votingStatus} />
+							</span>
 
-                        {/* Main Body Message */}
-                        <Typography component="h6" variant="h6" style={{ fontSize : '1.15em', fontStyle : 'italic'}}>
-                            {message}
-                        </Typography>
+							{/* Main Body Message */}
+							<Typography component="h6" variant="h6" style={{ fontSize : '1.15em', fontStyle : 'italic'}}>
+								{message}
+							</Typography>
 
-                        {/* Card Footer */}
-                    </CardContent>
-                    <span style={{ display : 'flex'}}>
-                        <Typography component="h6" variant="h6" align="right" style={{flexGrow : 1, paddingTop : '8px', fontSize : '1em'}}>
+							{/* Card Footer */}
+						</CardContent>
+						<span style={{ display : 'flex'}}>
+							<Typography component="h6" variant="h6" align="right" style={{flexGrow : 1, paddingTop : '8px', fontSize : '1em'}}>
                                 Responses
-                        </Typography>
-                        <IconButton 
-                            onClick={this.handleExpandClick}
-                            className={classnames(classes.expand, { [classes.expandOpen]: this.state.expanded, })}>
-                            <ExpandMoreIcon/>
-                        </IconButton>
-                    </span>        
-                    <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                        <CardContent>
-                            <StupidResponses postId={_id} ownerId={strangerId} owner={strangerName} userVoted={userVoted}/>
-                        </CardContent> 
-                    </Collapse>
-                </div>
-            </Card>
-        </Grid>
-    );
-    }
+							</Typography>
+							<IconButton 
+								onClick={this.handleExpandClick}
+								className={classnames(classes.expand, { [classes.expandOpen]: this.state.expanded, })}>
+								<ExpandMoreIcon/>
+							</IconButton>
+						</span>        
+						<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+							<CardContent>
+								<StupidResponses postId={_id} ownerId={strangerId} owner={strangerName} userVoted={userVoted}/>
+							</CardContent> 
+						</Collapse>
+					</div>
+				</Card>
+			</Grid>
+		);
+	}
 }
 
 

@@ -5,11 +5,11 @@ import { logout } from '../../actions/userActions';
 
 
 const Logout = (props) =>{
-    props.logout();
-    return (<Redirect to="/login" />);
+	props.logout();
+	return (<Redirect to="/login" />);
 };
 
 function mapToState(state){
-    return {...state};
+	return {...state};
 }
 export default connect(mapToState, { logout })(Logout);

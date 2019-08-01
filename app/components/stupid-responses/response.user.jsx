@@ -14,44 +14,44 @@ import { UserResponseStyles } from './response.styles';
 
 
 class UserResponse extends React.Component{
-    constructor(_props){
-        super(_props);
+	constructor(_props){
+		super(_props);
 
-        this.state = {};
+		this.state = {};
 
 
-        this.handleUserVote = this.handleUserVote.bind(this);
+		this.handleUserVote = this.handleUserVote.bind(this);
 
-    }
+	}
 
-    handleUserVote(e){
-        const { responseId } = this.props; 
-        this.props.onVote(e, responseId);
-    }
+	handleUserVote(e){
+		const { responseId } = this.props; 
+		this.props.onVote(e, responseId);
+	}
 
-    render(){
-        const {classes, owner, message, disable }  = this.props;
+	render(){
+		const {classes, owner, message, disable }  = this.props;
 
-        return (
-            <Grid item xs={12} md={12}>
-                    <Card className={classes.card}>
-                        <CardContent className={classes.grow}>
-                            <Typography>
-                                {owner}
-                            </Typography>
-                            <Typography>
-                                {message}
-                            </Typography>
-                        </CardContent>
-                        <CardActions className={(!disable) ? classes.cardAction : classes.cardActionDisable}>
-                            <Button onClick={this.handleUserVote} className={classes.button} disabled={false}>
-                                { (!disable) ? 'Vote' : 'You already voted' }
-                            </Button>
-                        </CardActions>
-                    </Card>
-            </Grid>
-        );
-    }
+		return (
+			<Grid item xs={12} md={12}>
+				<Card className={classes.card}>
+					<CardContent className={classes.grow}>
+						<Typography>
+							{owner}
+						</Typography>
+						<Typography>
+							{message}
+						</Typography>
+					</CardContent>
+					<CardActions className={(!disable) ? classes.cardAction : classes.cardActionDisable}>
+						<Button onClick={this.handleUserVote} className={classes.button} disabled={false}>
+							{ (!disable) ? 'Vote' : 'You already voted' }
+						</Button>
+					</CardActions>
+				</Card>
+			</Grid>
+		);
+	}
 }
 
 export default withStyles(UserResponseStyles)(UserResponse);
