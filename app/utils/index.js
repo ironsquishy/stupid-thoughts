@@ -2,6 +2,6 @@ import * as Constants from './Constants';
 import Statistics from './Statistics';
 import AuthHeader from './AuthHeader';
 import History from './history';
-import * as DataMani from './datamanipulation';
+import * as Misc from './misc';
 
-export default { ...Constants, ...DataMani, Statistics, AuthHeader, History };
+export default { ...Constants, ...Misc, Statistics, AuthHeader, History };

@@ -33,6 +33,23 @@ export function createNewPost(newPost){
 		.catch(handleError);
 }
 
+export function modifyPosts(sCurrent, updatePosts){
+	const { ownedPosts, communityPosts } = sCurrent;
+	const findPost = post => post._id == updatePosts._id;
+
+	let index = ownedPosts.findIndex(findPost);
+	let index2 = communityPosts.findIndex(findPost);
+
+	if(index > -1 ){
+		ownedPosts[index] = updatePosts;
+	}
+
+	if(index2 > -1) {
+		communityPosts[index2] = updatePosts;
+	}
+	return sCurrent;
+}
+
 function handleResponse(res){
 	if(!res.ok){
 		var errorObj = {};

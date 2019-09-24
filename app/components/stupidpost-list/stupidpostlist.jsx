@@ -34,18 +34,12 @@ class StupidPostList extends React.Component{
         
 	}
 
-	renderLatestPosts(){
-		const { User, list } = this.props;
-		const { display } = this.state;
+	renderLatestPosts(posts, user, responses){
 
-		if(list){
-			return list.map((post, index) => {
+		if(posts){
+			return posts.map((post, index) => {
 				return (
-				// <Grow key={index} in={false} timeout="auto">
-				//     <StupidPost  {...post}/>  
-				// </Grow>
-				//const { classes, _id, ownerId, message, owner, createDate, isVoting = true } = this.props;
-					<StupidPost key={index} strangerId={User._id} strangerName={User.username} {...post} />
+					<StupidPost key={index} strangerId={user._id} strangerName={user.username} responses={responses[post._id]} {...post} />
 				);
 			});
 		}
@@ -54,11 +48,11 @@ class StupidPostList extends React.Component{
 	}
 
 	render(){
-		const { classes, User, StupidPost} = this.props;
+		const { User, list, StpdResponse : {hashPosts}} = this.props;
 		return(
 			<React.Fragment>
 				<Grid container spacing={40} justify="flex-start" >
-					{this.renderLatestPosts()}
+					{this.renderLatestPosts(list, User, hashPosts)}
 				</Grid>
 			</React.Fragment>
 		);

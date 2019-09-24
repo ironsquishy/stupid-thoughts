@@ -11,3 +11,10 @@ export function getResponsesFrom(identifier, arrayOfPosts){
 
 	return tempPost ? tempPost.stpdResponses : [];
 }
+
+export function userHasVoted(voters, currentUserId){
+	if(voters.findIndex(voter => voter.voterId == currentUserId) > -1){
+		return true;
+	}
+	return false;
+}

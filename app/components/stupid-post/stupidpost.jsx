@@ -3,12 +3,10 @@ import React from 'react';
 
 /*Material UI*/
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import { green } from '@material-ui/core/colors';
 import Ballot from '@material-ui/icons/Ballot';
 import HowToVote from '@material-ui/icons/HowToVote';
@@ -24,6 +22,9 @@ import classnames from 'classnames';
 import StupidResponses from '../stupid-responses/response.container';
 import { typography } from 'material-ui/styles';
 
+/*Utils*/
+import Utils from '../../utils';
+
 
 
 class StupidPost extends React.Component{
@@ -36,6 +37,7 @@ class StupidPost extends React.Component{
 		};
 
 		this.handleExpandClick = this.handleExpandClick.bind(this);
+		this.hasVoted = this.hasVoted.bind(this);
 	}
 
 	handleExpandClick(){
@@ -43,12 +45,35 @@ class StupidPost extends React.Component{
 		this.setState({ expanded : !this.state.expanded });
 	}
 
+	hasVoted (){
+		const { strangerId, voters } = this.props;
+		
+
+		if(voters.findIndex(voter => voter.voterId == strangerId) > -1){
+			return true;
+		}
+
+		return false;
+	}
+
 	render(){
-		const { classes, _id, strangerId, strangerName, message, owner, createDate, isVoting = true, userVoted  = false } = this.props;
+		const { 
+			classes, 
+			_id, 
+			strangerId, 
+			strangerName, 
+			message, 
+			owner, 
+			createDate, 
+			userVoted  = false,
+			responses = [],
+			voters 
+		} = this.props;
     
-		//const statusDot = isVoting ? classes.greenDot : classes.redDot;
-    
-		const votingStatus =  isVoting ? classes.votingEnable : classes.votingDisable;
+		
+
+		const votingStatus =  !Utils.userHasVoted(voters, strangerId) ? classes.votingEnable : classes.votingDisable;
+		
 
 		return (
 			<Grid item xs={12} md={6}>
@@ -77,7 +102,7 @@ class StupidPost extends React.Component{
 						</CardContent>
 						<span style={{ display : 'flex'}}>
 							<Typography component="h6" variant="h6" align="right" style={{flexGrow : 1, paddingTop : '8px', fontSize : '1em'}}>
-                                Responses
+                                Responses {`(${responses.length})`}
 							</Typography>
 							<IconButton 
 								onClick={this.handleExpandClick}

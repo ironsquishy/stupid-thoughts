@@ -1,11 +1,16 @@
 import Utils from '../utils';
+import {StpdPostServices} from '../services';
 
 const InitialState = {
-	ownedPosts : []
+	ownedPosts : [],
+	communityPosts : [],
+	isFetching : false
 };
 
 export default function stpdPostActions(_state = InitialState, _action){
-	switch(_action.type){
+	const { type, ...action } = _action;
+
+	switch(type){
         
 	case Utils.STPDPOSTACTION.COMMUNITYFETCH:
 		return {
@@ -14,7 +19,7 @@ export default function stpdPostActions(_state = InitialState, _action){
         
 	case Utils.STPDPOSTACTION.COMMUNITYLATEST:
 		return {
-			..._state, ..._action
+			..._state, ...action
 		};
         
 	case Utils.STPDPOSTACTION.COMMUNITYBYHASH:
@@ -34,12 +39,12 @@ export default function stpdPostActions(_state = InitialState, _action){
         
 	case Utils.STPDPOSTACTION.CREATEPOST_SUCCESS : 
 		return {
-			..._state, ..._action
+			..._state, ...action
 		};
         
 	case Utils.STPDPOSTACTION.CREATEPOST_FAILURE :
 		return {
-			..._state, ..._action
+			..._state, ...action
 		};
 
 	case Utils.STPDPOSTACTION.USER_OWNED_FETCH : 
@@ -50,7 +55,7 @@ export default function stpdPostActions(_state = InitialState, _action){
 	case Utils.STPDPOSTACTION.USER_OWNED_SUCCESS : 
 		return {
 			..._state,
-			ownedPosts : _action.ownedPosts 
+			ownedPosts : action.ownedPosts 
 		};
 
 	case Utils.STPDPOSTACTION.USER_OWNED_FAILURE :
@@ -68,17 +73,18 @@ export default function stpdPostActions(_state = InitialState, _action){
             
 		return {
 			..._state,
-			isFetching : _action.isFetching
+			isFetching : action.isFetching
 		};
 	case Utils.STPDVOTEACTION.REQUEST_VOTE_SUCCESS :
+		_state  = StpdPostServices.modifyPosts(_state, action.response);
 		return {
 			..._state, 
-			isFetching : _action.isFetching, updatePost : _action.response
+			isFetching : action.isFetching, updatePost : action.response
 		};
 	case Utils.STPDVOTEACTION.REQUEST_VOTE_FAIL :
 		return {
 			..._state,
-			isFecthing : _action.isFecthing
+			isFecthing : action.isFecthing
 		};
 	default :
 		return _state;
