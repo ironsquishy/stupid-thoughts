@@ -41,7 +41,6 @@ class StupidPost extends React.Component{
 	}
 
 	handleExpandClick(){
-        
 		this.setState({ expanded : !this.state.expanded });
 	}
 
@@ -66,13 +65,11 @@ class StupidPost extends React.Component{
 			owner, 
 			createDate, 
 			userVoted  = false,
-			responses = [],
-			voters 
+			responses = []
 		} = this.props;
     
-		
-
-		const votingStatus =  !Utils.userHasVoted(voters, strangerId) ? classes.votingEnable : classes.votingDisable;
+	
+		const votingStatus = !userVoted ? classes.votingEnable : classes.votingDisable;
 		
 
 		return (

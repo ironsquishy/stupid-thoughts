@@ -66,7 +66,7 @@ class StpdResponseContainer extends React.Component{
 		GetResponsesByPostId(postId);
 	}
 
-	renderResponses(responseList = [], isFetching){
+	renderResponses(responseList = [], isFetching, userVoted){
          
 		if(isFetching){
 			return (
@@ -88,13 +88,19 @@ class StpdResponseContainer extends React.Component{
        
 		return responseList.map( (res, index) => {
 			return (
-				<UserResponse key={index} responseId={res._id} owner={res.owner} message={res.message} onVote={this.handleUserVote} disable={this.props.userVoted}/>
+				<UserResponse 
+					key={index} 
+					responseId={res._id} 
+					owner={res.owner} 
+					message={res.message} 
+					onVote={this.handleUserVote} 
+					disable={userVoted}/>
 			);
 		});
 	}
 
 	render(){
-		const { postId, ownerId, owner, StpdResponse : { hashPosts, isFetching }, userVoted} = this.props;
+		const { postId, StpdResponse : { hashPosts, isFetching }, userVoted} = this.props;
 
 		return(
 			<Grid container spacing={40}>
@@ -105,7 +111,7 @@ class StpdResponseContainer extends React.Component{
 				<Grid item xs={12} md={12}>
 					<Divider variant="middle" light={true} />
 				</Grid>
-				{this.renderResponses(hashPosts[postId], isFetching)}
+				{this.renderResponses(hashPosts[postId], isFetching, userVoted)}
 			</Grid>
 		);
 	}

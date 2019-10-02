@@ -9,7 +9,7 @@ const InitialState = {
 
 export default function stpdPostActions(_state = InitialState, _action){
 	const { type, ...action } = _action;
-
+	const userId = JSON.parse(sessionStorage.getItem('userId'));
 	switch(type){
         
 	case Utils.STPDPOSTACTION.COMMUNITYFETCH:
@@ -18,6 +18,7 @@ export default function stpdPostActions(_state = InitialState, _action){
 		};
         
 	case Utils.STPDPOSTACTION.COMMUNITYLATEST:
+		action.communityPosts = StpdPostServices.hasUserVoted(action.communityPosts, userId);
 		return {
 			..._state, ...action
 		};
@@ -53,6 +54,7 @@ export default function stpdPostActions(_state = InitialState, _action){
 		};
 
 	case Utils.STPDPOSTACTION.USER_OWNED_SUCCESS : 
+		action.ownedPosts = StpdPostServices.hasUserVoted(action.ownedPosts, userId);
 		return {
 			..._state,
 			ownedPosts : action.ownedPosts 

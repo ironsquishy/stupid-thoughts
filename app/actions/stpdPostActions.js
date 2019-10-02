@@ -10,6 +10,7 @@ export function GetCommunityLatestPosts(){
 				dispatch({ type : Utils.STPDPOSTACTION.COMMUNITYLATEST, communityPosts : resPost });
 			})
 			.catch(err => {
+				dispatch({ type : Utils.ALERTACTIONS.ERROR, message : err });
 				dispatch({ type : Utils.STPDPOSTACTION.COMMUNITY_FETCH_ERROR, error : err });
 			});
 	};

@@ -22,6 +22,9 @@ const Styles = (theme) => ({
 	},
 	grow: {
 		flexGrow: 1,
+	},
+	headerText : {
+		color : 'black'
 	}
 });
 
@@ -99,16 +102,15 @@ class HeaderBar extends React.Component{
 	}
 
 	render(){
-		const {classes, User, Session, Alerts } = this.props;
+		const {classes, User : { username }, Session, Alerts } = this.props;
 		return (
 			<AppBar position="static">
 				<Toolbar>
 					<Typography variant="h5" component="h1" color="inherit" className={classes.grow}>
 						<Link to="/" className={classes.titleLink}> Stupid Thoughts </Link>
 					</Typography>
+					<Typography variant="body1" component="body1" className={classes.headerText}>{username}</Typography>
 					{this.renderMenu()}
-					{/* { Session.loggedIn && <Button color="inherit" onClick={this.handleLogoutBtn}>Logout</Button>}
-                    { Session.loggedIn  && <Typography varient="h6" color="inherit">Hello {User.username}</Typography>} */}
 				</Toolbar>
 			</AppBar>
 		);

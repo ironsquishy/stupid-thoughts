@@ -30,14 +30,15 @@ export function login (username, password){
             
 			if(user.token){
 				sessionStorage.setItem('stupidToken', JSON.stringify(user.token));
+				sessionStorage.setItem('userId', JSON.stringify(user._id));
 			}
 			return user;
 		}).catch(handleError);
 }
 
 export function logout(){
-	console.log('User successfully logged out');
 	sessionStorage.removeItem('stupidToken');
+	sessionStorage.removeItem('userId');
 }
 
 export function register(user, password){
@@ -54,6 +55,7 @@ export function register(user, password){
 		.then(user => {
 			if(user.token){
 				sessionStorage.setItem('stupidToken', JSON.stringify(user.token));
+				sessionStorage.setItem('userId', JSON.stringify(user._id));
 			}
 			return user;
 		})
@@ -92,18 +94,13 @@ function handleResponse(res){
 		// var errorObj = {};
 		// errorObj.status = res.status;
 		// errorObj.message = res.message ? res.message : res.statusText;
-
-		return new Promise((resolve, reject)=>{
-			res.json().then(_res => reject(_res));
-		});
+		return Promise.reject({ status : res.status, message : res.statusText });
 	}
 
 	return res.json();
 }
 
 function handleError(err){
-	console.log('Error:', err);
-
 	if( err.status == 401){
 		return Promise.reject({ message : 'Unauthorized to access'});
 	}

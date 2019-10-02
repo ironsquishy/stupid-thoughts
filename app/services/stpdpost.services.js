@@ -50,6 +50,13 @@ export function modifyPosts(sCurrent, updatePosts){
 	return sCurrent;
 }
 
+export function hasUserVoted(posts, userId){
+	for( let post of posts){
+		post.userVoted = Utils.userHasVoted(post.voters, userId);
+	}
+	return posts;
+}
+
 function handleResponse(res){
 	if(!res.ok){
 		var errorObj = {};
