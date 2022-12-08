@@ -30,7 +30,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.12.4",
     "eslint-utils": "^1.4.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "gdax": "^0.8.0",
     "hoek": "^6.1.2",
